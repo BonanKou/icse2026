@@ -1,0 +1,40 @@
+Class AdapterStateHelper
+java.lang.Object
+org.omg.PortableInterceptor.AdapterStateHelper
+
+public abstract class AdapterStateHelper
+extends Object
+Type of object adapter state. State changes are reported either to the object adapter or to the adapter manager.
+Constructor Summary
+Constructors
+Constructor and Description
+AdapterStateHelper() 
+Method Summary
+All MethodsStatic MethodsConcrete Methods
+Modifier and Type	Method and Description
+static short	extract(Any a) 
+static String	id() 
+static void	insert(Any a, short that) 
+static short	read(InputStream istream) 
+static TypeCode	type() 
+static void	write(OutputStream ostream, short value) 
+Methods inherited from class java.lang.Object
+clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait
+Constructor Detail
+AdapterStateHelper
+public AdapterStateHelper()
+Method Detail
+insert
+public static void insert(Any a,
+                          short that)
+extract
+public static short extract(Any a)
+type
+public static TypeCode type()
+id
+public static String id()
+read
+public static short read(InputStream istream)
+write
+public static void write(OutputStream ostream,
+                         short value)

@@ -1,0 +1,74 @@
+Generally, manual manipulation of strings will be more difficult than the provided APIs
+Realistically, usage of RegEx would be your best friend, but I wanted to keep this code related rather than solving it in that manner.
+Also, in Kotlin, there is a distinct difference between double quotes &quot; and single quotes '
+Double quotes are a string, and Single quotes are a Char.
+Each number is assigned to a character, which we can look up in a unicode table.
+To use Kotlin functions, including Scope functions, add dependency:
+implementation &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+
+
+So you can use the following method:
+boolean matched = Pattern.matches(&quot;\\d+mOhm&quot;, &quot;100mOhm&quot;);
+
+Or if you want to have the pattern for a longer time you can use the following method:
+Pattern pattern = Pattern.compile(&quot;\\d+mOhm&quot;);
+Matcher matcher = pattern.matcher(&quot;100mOhm&quot;);
+boolean matched = matcher.matches();
+
+If you want to use only Kotlin, you can use the following code:
+val regex = &quot;\\d+mOhm&quot;.toRegex()
+val matched = regex.matches(&quot;100mOhm&quot;)
+
+
+Key {
+            ...
+        }
+    }
+}
+
+// Kotlin
+import Key.keyOf
+keyOf(...)
+
+// Java
+Key.of(...)
+
+If you *really keyOf() to be a top-level function in Kotlin, you can define functions for Kotlin-only and Java-only use separately.
+interface Key {
+    companion object {
+        @JvmStatic
+        @Deprecated(&quot;not for Kotlin&quot;, level = DeprecationLevel.HIDDEN)
+I use the single quote in string iterator methods to keep it more simple and efficient, rather than having to create new strings each time
+val myUsername = &quot;super dude 25&quot;
+val expectedUsername = &quot;super_dude_25&quot;
+
+val lotsOfSpaces = &quot;  super    dude   58    &quot;
+val expectedSpaces = &quot;super_dude_58&quot;
+
+fun formatUsername(string: String): String {
+    //
+@JvmName(&quot;indexesOfNullable&quot;)
+fun String?.indexesOf(substr: String, ignoreCase: Boolean = true) = this?.indexesOf(substr, ignoreCase) ?:
+You can again use Char.code to get the decimal representation.
+fun main() {
+  println(('a'
+interface Key {
+    companion object {
+        @JvmStatic
+        @JvmName(&quot;of&quot;)
+        fun keyOf(vararg content: Any?):
+Throws an exception if this value is not in the range 0..9.
+
+
+If this value is in 0..9, the decimal digit Char with code '0'.code + this is returned.
+
+Example
+println(5.digitToChar())
++ foo() + &quot;!&quot;)
+
+
+The character is converted to a string using &quot;$it&quot; because Char.toInt() would return the ASCII code of the character instead of the value represented by the digit.
+Therefore, in decimal, 97 + 25 = 122.
+Looking up 122 in the Unicode table reveals that this is the decimal representation of z.
+In this we can see that the letter a has a decimal representation of 97.
+

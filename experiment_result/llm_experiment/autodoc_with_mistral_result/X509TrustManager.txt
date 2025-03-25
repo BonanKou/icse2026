@@ -1,0 +1,35 @@
+ API Document for X509TrustManager:
+
+**1. Functionality**
+- The X509TrustManager interface is used to control which certificates are accepted in secure communication.
+- X509TrustManager validates X.509 certificates during an HTTPs connection handshake.
+- To add trust anchors to X509TrustManager, you can add your CA root/your signing certificate to the CommonTrustedCertificateSource if you're only verifying signatures created by yourself.
+- When verifying third-party signatures, the solution can be more complex, such as extracting all certificates from a PDF and adding them to the trusted list before validation.
+
+**2. Concept**
+- X.509 certificate: A digital certificate implementing the X.509 standard that contains the public key of a public key certificate (PKC) pair used for secure communication.
+- X509TrustManager: An interface in Java responsible for managing X.509 certificate trust validation, ensuring secure communication and controlling which certificates are accepted within the application.
+- TrustED: A Java library providing several TrustManager implementations, including X509TrustManager.
+
+**3. Performance**
+- Performance considerations related to X509TrustManager usage are generally not about time or memory efficiency but rather affect the validation speed or process complexity, depending on the number and size of the certificates added to the CommonTrustedCertificateSource.
+- Chaining a large number of certificates in the trusted source may increase the time required to validate signatures. Extracting certificates from a large PDF for trust management purposes can incur time and memory costs.
+
+**4. Directive**
+- When using X509TrustManager, ensure that all trusted certificates are added to avoid untrusted certificate indications like 'INDETERMINATE' or 'NO_CERTIFICATE_CHAIN_FOUND' during validation.
+- To resolve 'INDETERMINATE' or 'NO_CERTIFICATE_CHAIN_FOUND' issues, add trust anchors to the X509TrustManager instance used within CertificateVerifier.
+- Avoid using self-signed certificates whenever possible. If necessary, add them as trust anchors to the X509TrustManager.
+
+**5. Pattern**
+- X509TrustManager is commonly used in secure communication scenarios, such as web servers and client applications, to establish trusted connections.
+- X509TrustManager is used in conjunction with SSLContext to secure communication channels.
+- SSLContext can be used to set up custom SSL parameters, including trust managers, like X509TrustManager.
+
+**6. Environment**
+- X509TrustManager usage depends on the Java development environment and is typically configured during the certificate verification process.
+- System requirements include a functional Java environment and Java certification library.
+- CommonTrustedCertificateSource is a key component in X509TrustManager, as it holds the trusted certificates.
+
+**7. Alternative**
+- Apache Commons SSL: A Java library providing implementations of SSLSocket and SSLEngine that can be used in place of default Java SSL implementations.
+- Bouncy Castle: A Java-based cryptography library offering secure communication solutions and including APIs for X.509 certificate handling and management similar to X509TrustManager.

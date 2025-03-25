@@ -1,0 +1,12 @@
+In your case you need to define your own data processing pipeline using the tf.data module.
+You will have to train in batches of data, loading them from the hard drive.
+If you use the tf.data.
+While it may take a relatively short time to accustom to it, it is the recommended way to load your data and use model.fit().
+In your code, firstly you need to create a model.
+I will outline the important code that you will have to use to create the dataset.
+The dataset api provides all the functionality you need to preprocess the dataset, it provides built-in multi-core processing, and quite a bit more.
+If there is a strong requirement to do it in TensorFlow only, then I will suggest you to make use of tf.data.
+Data division is best if it is done in raw format only or before you transform it into tensors.
+If you want to save intermediate results to speed up your data pipeline you can use tf.data.Dataset.cache() or tf.data.Dataset.prefetch() (more on it here)
+If you are interested in saving the sequence of operations in your data pipeline, I assume there is no such thing and you need to keep the code for data pipeline.
+If anyone is aware of that please add to the answer.

@@ -1,0 +1,36 @@
+Note that the call to model.fit(...) should not be inside the distribution strategy scope.
+Instead, you need to build your model and compile it inside of the distribution strategy scope.
+For example, this is a redacted version of your colab code which should solve your problem:
+
+Please see the Using tf.distribute.
+In TF 2.0, you do not pass the distribution strategy to the compile method.
+You don't need to use tf.distribute.
+Like:
+
+And for prediction the feed_dict will contain only x values, also you will specify the parameter y_out (the output of your model):
+But if you look carefully you will find inputs to sess.run() are different, when training the feed_dict contains both x and corresponding y's.
+In TensorFlow 1.x, you need to define a Session and both training and prediction happens inside it.
+Sounds like you need to use a Distributed Strategy per the docs.
+One question to ask is whether you want to compare the variables within TFF (as part of the federated computation) or post-hoc/outside TFF (analyzing within Python).
+In fact, I'd recommend forking the simplified implementation on GitHub at tensorflow_federated/python/research/simple_fedavg/simple_fedavg.py, rather than digging into tff.learning.
+DistributionLambda as it is, you have a few options, which can you experiment with:
+Option 1: Use two Dense layers with the Keras functional API:
+
+
+Note what the docs state regarding the distributions when using DistributionLambda:
+By default, a distribution is represented as a tensor via a random draw, e.g., tfp.distributions.Distribution.sample
+
+Option 2: Use one Dense layer and split the output into two:
+
+Option 3: Use slice :2
+
+Additionally: If you want to explicitly use independent distributions based on the parameters x1 and x2, try:
+There is no concept of such a thing when executing eagerly.
+This error:
+
+RuntimeError: tf.placeholder() is not compatible with eager execution.
+Here is an example of retrieving the gradients of the predictions with respect to the inputs using eager execution
+Basically, you need to use tape.watch(inputs)
+So you should use:
+
+before importing tensorflow.

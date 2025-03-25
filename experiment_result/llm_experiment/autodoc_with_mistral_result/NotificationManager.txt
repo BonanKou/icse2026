@@ -1,0 +1,63 @@
+ # NotificationManager API Knowledge Summary
+
+## Functionality
+
+1. Creates notifications and hands them to the OS via the NotificationManager. (Directly related)
+2. The OS applies system rules for how notifications should be handled based on user-defined settings. (Indirectly related)
+3. To handle the list of notification messages, combine local database (e.g., Sqlite using Room) with a server endpoint. (Pattern)
+4. For opening notification settings indirectly, use the `Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)`. (Pattern)
+5. In Android TV OS, display notifications within the app UI instead of using NotificationManager. (Pattern)
+6. To open the app when clicking on the foreground notification, use `PendingIntent`. (Directive)
+7. To show notifications, create a notification channel using the NotificationChannel API. (Directive)
+8. To display custom notifications, utilize Android notification APIs like NotificationCompat. (Pattern)
+9. To respond to notification click events, use `addNotificationReceivedListener`. (Directive)
+10. Update the notification PendingIntent if already visible with the last activity shown. (Directive)
+11. Display the exact message and timing within your own app code using data messages and Android notification API for better control. (Directive)
+12. For fine-grained control over the display and timing of notifications, use `Firebase Cloud Messaging (FCM)` instead of notification messages. (Directive)
+13. Check if a notification is already visible using the `isNotificationVisible()` method. (Directive)
+
+## Concept
+
+1. Notifications are timely, short messages about events in Android applications.
+2. NotificationCompat APIs allow compatibility with Android 4.0 (API level 14) and features available on newer versions, while offering better control over notifications.
+3. NotificationManager API can handle local notifications using `NotificationManagerCompat`.
+4. An important part of managing notifications in Android 8.0 and above is the association of notifications with a NotificationChannel.
+5. The Application Oversight Settings can be reached by using the `Intent(Settings.ACTION_APPLICATION_OVERVIEW)`.
+6. Connection is required for push notifications to function via third-party services like Firebase, OneSignal, Pushwoosh, or Amazon SNS.
+
+## Performance
+
+1. NotificationManager API in Android TV OS does not have specific time or memory efficiency considerations. However, the in-app UI approach for notifications might have implications for performance due to the need for in-app UI implementation.
+2. Memory usage may be optimized by using a combination of a local database and a server endpoint for managing a list of notification messages.
+
+## Directive
+
+1. Use NotificationChannel API in Android 8.0 and above for displaying notifications.
+2. Implement NotificationListenerService for better handling and managing notifications.
+3. Use the `addNotificationReceivedListener` for handling user interaction with notifications.
+4. Check if a notification is already visible using the `isNotificationVisible()` method.
+5. Store the last activity shown using Preferences when a notification is clicked.
+
+## Pattern
+
+1. Use data messages instead of notification messages for better control over notification display. (Directive)
+2. When creating a notification with the NotificationCompat APIs, use the following line of code: `<NotificationClassName>.createNotification(getApplicationContext())`.
+3. Utilize the NotificationCompat.Builder to build notifications. (Directive)
+4. Create BigPictureStyle, BigTextStyle, DecoratedCustomViewStyle, InboxStyle, MediaStyle, and MessagingStyle notifications. (Directive)
+
+## Environment
+
+1. To use NotificationManager API, the following conditions must be met:
+   - Minimum SDK version is set to Android 8.0 (API level 26) or higher.
+   - Required permissions granted in the manifest file: `<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />` and `<uses-permission android:name="android.permission.VIBRATE" />`
+
+2. Conditional checks:
+   - Check if a notification with a given notificationId and notificationIntent already exists using the `isNotificationVisible()` method.
+
+3. System requirements:
+   - No explicit system requirements mentioned, but the Android OS and necessary Android SDKs are necessary.
+
+## Alternative
+
+1. For displaying notifications on Android TV OS, consider using alternative approaches such as displaying notifications within the app UI or using third-party libraries like Timber or Android Things.
+2. Alternatives to handling notification click events in Expo include the use of different functions within the Expo SDK or other third-party services like Firebase Cloud Messaging, OneSignal, Pushwoosh, or Amazon SNS.

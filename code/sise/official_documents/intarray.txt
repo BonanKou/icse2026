@@ -1,0 +1,53 @@
+IntArray
+CommonJSJVMNativeWasm-JSWasm-WASI
+
+
+
+
+class IntArray(size: Int)(source)
+An array of ints. When targeting the JVM, instances of this class are represented as int[].
+
+See Kotlin language documentation for more information on arrays.
+
+Since Kotlin
+1.0
+
+
+
+
+
+
+MembersMembers & Extensions
+Constructors
+IntArray
+CommonJSJVMNativeWasm-JSWasm-WASI
+constructor(size: Int, init: (Int) -> Int)
+Creates a new array of the specified size, where each element is calculated by calling the specified init function.
+
+constructor(size: Int)
+Properties
+size
+CommonJSJVMNativeWasm-JSWasm-WASI
+val size: Int
+Returns the number of elements in the array.
+
+Since Kotlin 1.0
+Functions
+get
+CommonJSJVMNativeWasm-JSWasm-WASI
+operator fun get(index: Int): Int
+Returns the array element at the given index.
+
+Since Kotlin 1.0
+iterator
+CommonJSJVMNativeWasm-JSWasm-WASI
+operator fun iterator(): IntIterator
+Creates a specialized IntIterator for iterating over the elements of the array.
+
+Since Kotlin 1.0
+set
+CommonJSJVMNativeWasm-JSWasm-WASI
+operator fun set(index: Int, value: Int)
+Sets the array element at the given index to the given value.
+
+Since Kotlin 1.0

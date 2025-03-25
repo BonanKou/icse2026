@@ -1,0 +1,93 @@
+# NotificationManager API Knowledge Document
+
+## Functionality
+- NotificationManager is used to notify the user of events that happen in the background.
+- The `notify(int id, Notification notification)` method is used to post a notification to be shown in the status bar.
+- `cancel(int id)` removes a previously shown notification.
+- `cancelAll()` removes all the notifications previously shown by your application.
+- Notifications can be updated by posting a new Notification with the same id.
+- NotificationManager works in conjunction with the Notification.Builder class to create notifications.
+
+## Concept
+- The NotificationManager is a system service that manages status bar notifications, giving applications a way to alert users about events.
+- Notifications can contain various elements, such as titles, content text, icons, and actions.
+- Notifications can be persistent or dismissible by the user.
+- The NotificationManager works with Notification Channels on Android 8.0 (API level 26) and above, which group notifications by type.
+- Each notification channel can have different behaviors like sound, vibration, and LED light.
+- Notification importance levels control the interruption level of notifications on Android 8.0 (API level 26) and above.
+- Notification channels must be created before they can be used to send notifications.
+- The `getSystemService(Context.NOTIFICATION_SERVICE)` method is used to retrieve an instance of NotificationManager.
+- Notifications are dismissed when the user taps on them or when `cancel()` is called.
+
+## Performance
+- When posting a large number of notifications simultaneously, the NotificationManager may introduce performance overhead.
+- The efficiency of the NotificationManager can be affected by the complexity and size of notification content, such as images.
+- Creating and maintaining notification channels can add overhead, so channels should be reused whenever possible.
+
+## Directive
+- Always specify a unique id for each notification to manage them correctly.
+- Ensure that notification channels are set up before posting notifications to avoid runtime exceptions.
+- Use notification importance levels judiciously to enhance user experience by minimizing unnecessary interruptions.
+- Avoid creating an excessive number of notification channels as it can lead to clutter.
+- Handle notification actions effectively to ensure a seamless user experience upon interaction.
+- Clean up notifications when they are no longer needed to conserve system resources.
+- Use `setAutoCancel(true)` on notifications if they should automatically disappear when clicked.
+
+## Pattern
+- Use `NotificationCompat.Builder` for backward compatibility when creating notifications.
+- Organize notifications into channels to categorize and manage them effectively on devices running Android 8.0 and above.
+- Use a service to handle background operations that result in notifications being posted to ensure smooth user experience.
+- Combine notifications with pending intents to allow users to perform actions directly from the notification.
+- Schedule notifications with AlarmManager or WorkManager to trigger them at a specific time.
+- Use BigTextStyle or BigPictureStyle when you need to display more content or images in your notifications.
+- Use the `progress` method to show a progress bar within a notification for long-running tasks.
+
+## Environment
+- NotificationManager requires the `android.permission.POST_NOTIFICATIONS` permission starting from Android 13 (API level 33).
+- Notification channels are mandatory on devices running Android 8.0 (API level 26) and higher.
+- Notifications rely on the system's notification service, which can be accessed via `Context.NOTIFICATION_SERVICE`.
+
+## Alternative
+- For local notifications, consider using `Toast` or `Snackbar` for transient messages that do not require a persistent status.
+- In-app messaging solutions can be used as an alternative to notifications for user engagement within the app.
+- Dialogs can be used as an immediate alternative where user feedback is required without leaving the app context.
+
+### Code Examples
+
+#### Basic Notification
+```java
+NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+Notification notification = new NotificationCompat.Builder(context, "channel_id")
+        .setContentTitle("Title")
+        .setContentText("Content Text")
+        .setSmallIcon(R.drawable.ic_notification)
+        .build();
+notificationManager.notify(1, notification);
+```
+
+#### Notification with Action
+```java
+Intent intent = new Intent(context, MyActivity.class);
+PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
+Notification notification = new NotificationCompat.Builder(context, "channel_id")
+        .setContentTitle("Title")
+        .setContentText("Content Text")
+        .setSmallIcon(R.drawable.ic_notification)
+        .addAction(R.drawable.ic_action, "Action", pendingIntent)
+        .build();
+
+notificationManager.notify(1, notification);
+```
+
+#### Creating Notification Channel
+```java
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    CharSequence name = "Channel Name";
+    String description = "Channel Description";
+    int importance = NotificationManager.IMPORTANCE_DEFAULT;
+    NotificationChannel channel = new NotificationChannel("channel_id", name, importance);
+    channel.setDescription(description);
+    notificationManager.createNotificationChannel(channel);
+}
+```

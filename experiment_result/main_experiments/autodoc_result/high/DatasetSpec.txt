@@ -1,0 +1,32 @@
+# Functionality
+- `DatasetSpec` defines a type specification for a TensorFlow dataset.
+- It allows you to describe the structure of a dataset, including element types and shapes.
+- `DatasetSpec` can represent nested structures like dictionaries or tuples containing tensors.
+
+# Concept
+- The `DatasetSpec` is used in TensorFlow to define the expected data structure for datasets.
+- It includes the types and shapes of the dataset elements.
+- `DatasetSpec` acts as a contract that specifies what data types and shapes are expected.
+
+# Performance
+- No specific performance-related knowledge snippets were provided regarding `DatasetSpec`.
+- However, consistent use of `DatasetSpec` may help avoid costly runtime errors during model training or evaluation.
+
+# Directive
+- When utilizing `DatasetSpec`, ensure that the defined type and shape match the actual data.
+- Discrepancies between spec and data can lead to runtime errors or data pipeline failures.
+- Use `tf.data.experimental.get_structure(dataset)` to inspect and compare the actual structure.
+
+# Pattern
+- `DatasetSpec` is often used with `tf.data.Dataset` to validate and enforce the structure of data pipelines.
+- It can be paired with serialization frameworks for saving/loading input pipeline configurations.
+
+# Environment
+- `DatasetSpec` requires a TensorFlow environment.
+- The `tf.data` API must be available for `DatasetSpec` to work effectively with datasets.
+- It is commonly used in training loops, input functions, and exported `SavedModel` signatures.
+
+# Alternative
+- No direct alternatives to `DatasetSpec` are specified for entire datasets.
+- `TensorSpec` may be used to define the type and shape of individual tensors outside of a dataset context.
+- For simple use cases, manual assertions or shape checks may serve as lightweight alternatives.

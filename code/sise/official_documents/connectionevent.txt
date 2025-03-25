@@ -1,0 +1,65 @@
+Android Developers
+Develop
+API reference
+Was this helpful?
+
+Added in API level 1
+ConnectionEvent
+
+bookmark_border
+open class ConnectionEvent : EventObject
+kotlin.Any
+   ↳	java.util.EventObject
+   ↳	javax.sql.ConnectionEvent
+An Event object that provides information about the source of a connection-related event. ConnectionEvent objects are generated when an application closes a pooled connection and when an error occurs. The ConnectionEvent object contains two kinds of information:
+
+The pooled connection closed by the application
+In the case of an error event, the SQLException about to be thrown to the application
+Summary
+Public constructors
+ConnectionEvent(con: PooledConnection!)
+Constructs a ConnectionEvent object initialized with the given PooledConnection object.
+
+ConnectionEvent(con: PooledConnection!, ex: SQLException!)
+Constructs a ConnectionEvent object initialized with the given PooledConnection object and SQLException object.
+
+Public methods
+open SQLException!	
+getSQLException()
+Retrieves the SQLException for this ConnectionEvent object.
+
+Inherited functions
+From class EventObject
+Inherited properties
+From class EventObject
+Public constructors
+ConnectionEvent
+Added in API level 1
+ConnectionEvent(con: PooledConnection!)
+Constructs a ConnectionEvent object initialized with the given PooledConnection object. SQLException defaults to null.
+
+Parameters
+con	PooledConnection!: the pooled connection that is the source of the event
+Exceptions
+java.lang.IllegalArgumentException	if con is null.
+ConnectionEvent
+Added in API level 1
+ConnectionEvent(
+    con: PooledConnection!, 
+    ex: SQLException!)
+Constructs a ConnectionEvent object initialized with the given PooledConnection object and SQLException object.
+
+Parameters
+con	PooledConnection!: the pooled connection that is the source of the event
+ex	SQLException!: the SQLException about to be thrown to the application
+Exceptions
+java.lang.IllegalArgumentException	if con is null.
+Public methods
+getSQLException
+Added in API level 1
+
+open fun getSQLException(): SQLException!
+Retrieves the SQLException for this ConnectionEvent object. May be null.
+
+Return
+SQLException!	the SQLException about to be thrown or null

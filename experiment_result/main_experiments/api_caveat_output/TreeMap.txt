@@ -1,0 +1,40 @@
+Since you neither specify a Comparator nor implement Comparable, the TreeMap complains with the described error.
+If you really need a sorted map you have to define the ordering of your key objects.
+If you should not need a sorted map, you can replace TreeMap with an other class that implements Map (for example HashMap).
+Implement Comparable
+
+When you do not specify a Comparator the TreeMap expects that you've chosen variant B and tries to cast your key object to Comparable.
+If you want to sort entries based on both the key and the value, you can't do that built into the map; you must do it separately on the entrySet of a map.
+A TreeMap can only be sorted based on its keys, not on its entries.
+You need to pass in the Supplier mapFactory to specify the type of Map you wish to collect in (()->new TreeMap<>()).
+This should behave like a TreeMap although I don't know if it's implemented the same way.
+A TreeMap is different from a HashMap because it has a specific order when iterating through the elements.
+If you iterate over a HashMap the order of the elements will be essentially random.
+Note that if you update the map afterwards, the order might be disrupted.
+That would guard you from making typo, and it provides a possibility to gives useful behavior to Item
+
+That's how map of items can be updated using Java 8 method merge(), which expects a key, a value and a function responsible for merging the old value and the new one:
+
+If you don't feel very comfortable with Java 8 functions, instead of merge() you can use combination of methods put() & getOrDefault():
+Something like:
+
+Note: in order to access methods of the TreeMap like ceilingKey(), floorKey(), higherEntry(), lowerEntry(), etc. which are not defined in the Map interface you need to use NavigableMap as a type.
+And it might make sense to make the item to be a custom object, instead of being a String.
+but maybe this could help
+You need your mapper to read the tree
+Assuming you are using Jackson
+You can have
+
+Even though the order is not the same, it should give you true.
+n on the corresponding layer of the tree
+track the tree traversal by remembering the path from the root to the active leaf node
+
+starting with a - m - p (aka [0,0,0] - when using per-layer indices of the nodes on the path)
+
+
+update the path according to depth-first traversal rules
+
+until it reaches the last leaf node c - o - s (aka [2,2,3])
+The TreeSet API only allows you to do efficient lookups with a Person object, not just the property being compared.
+If you use a TreeMap where the entries are sorted by keys, you can return the first entry that has a value of 0.
+If all that is required is a single lookup, then simply iterating over a regular HashMap would be more efficient.

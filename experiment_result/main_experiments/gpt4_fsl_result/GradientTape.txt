@@ -1,0 +1,71 @@
+# GradientTape API Knowledge Document
+
+## Functionality
+- `tf.GradientTape` is used to record operations for automatic differentiation.
+- The `GradientTape.watch()` method explicitly marks a tensor for gradient tracking.
+- `GradientTape.gradient()` computes the gradient of a tensor with respect to some inputs.
+- `GradientTape` can record computations involving multiple variables, useful for complex models.
+- By default, all trainable variables are watched by `GradientTape`.
+
+## Concept
+- Automatic differentiation is a technique to compute the derivative of a function represented by a computational graph.
+- `tf.GradientTape` operates in a context, capturing all operations executed within its scope.
+- Gradients are computed using reverse mode differentiation, which is efficient for functions with a small number of outputs and large number of inputs.
+- Tensors must be instances of `tf.Variable` to be automatically watched unless explicitly marked by `watch()`.
+- `GradientTape` supports nested contexts, useful for higher-order gradients.
+
+## Performance
+- `GradientTape` incurs memory overhead by storing intermediate results necessary for backpropagation.
+- Disabling persistent mode (`persistent=False`) frees up resources after calling `gradient()`.
+- Using `watch_accessed_variables=False` can improve performance by not automatically watching all variables.
+
+## Directive
+- Always use `GradientTape` in a context (`with` statement) to ensure proper capture and release of resources.
+- Set `persistent=True` if multiple calls to `gradient()` are needed within the same context.
+- Use `watch()` for tensors not automatically watched, such as constants or non-trainable variables.
+- Release resources by exiting the `GradientTape` context when gradients are no longer needed.
+- Avoid using `GradientTape` for non-differentiable operations as they do not contribute to gradients.
+
+## Pattern
+- **Example 1: Basic Gradient Calculation**
+  ```python
+  import tensorflow as tf
+
+  x = tf.Variable(3.0)
+  with tf.GradientTape() as tape:
+      y = x ** 2
+  dy_dx = tape.gradient(y, x)
+  print(dy_dx)  # Output: 6.0
+  ```
+
+- **Example 2: Gradient Calculation with Manual Watch**
+  ```python
+  import tensorflow as tf
+
+  x = tf.constant(3.0)
+  with tf.GradientTape() as tape:
+      tape.watch(x)
+      y = x ** 2
+  dy_dx = tape.gradient(y, x)
+  print(dy_dx)  # Output: 6.0
+  ```
+
+- Use `GradientTape` for implementing custom training loops:
+  ```python
+  optimizer = tf.optimizers.SGD(learning_rate=0.01)
+  with tf.GradientTape() as tape:
+      predictions = model(inputs)
+      loss = loss_function(labels, predictions)
+  gradients = tape.gradient(loss, model.trainable_variables)
+  optimizer.apply_gradients(zip(gradients, model.trainable_variables))
+  ```
+
+## Environment
+- Requires TensorFlow installation and supports execution on CPU or GPU, depending on available hardware.
+- Ensure TensorFlow's eager execution is enabled as `GradientTape` does not operate in graph mode.
+
+## Alternative
+- For simple gradient calculations, `tf.gradients()` can be used in graph mode as an alternative to `GradientTape`.
+- PyTorch's `torch.autograd` offers similar functionality for automatic differentiation in PyTorch.
+
+In summary, `tf.GradientTape` is a powerful tool for automatic differentiation in TensorFlow, especially useful in custom training loops and when working with complex models. Proper use of its context management and understanding of its concepts and performance implications can greatly facilitate model training and optimization tasks.

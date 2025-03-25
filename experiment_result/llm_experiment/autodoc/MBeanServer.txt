@@ -1,0 +1,22 @@
+# MBeanServer API Documentation
+
+## Functionality
+- Get a reference to the MBeanServer to run queries with the ObjectName.
+
+## Concept
+- Obtain a reference to the MBeanServer, which allows interaction with MBeans and execution of queries using ObjectName.
+
+## Performance
+- No performance-related knowledge snippets provided.
+
+## Directive
+- No directive-related knowledge snippets provided.
+
+## Pattern
+- Common usage involves obtaining a reference to the MBeanServer and executing queries using the ObjectName.
+
+## Environment
+- To access WebLogic's MBeans, add the JVM property `-Djavax.management.builder.initial=weblogic.management.jmx.mbeanserver.WLSMBeanServerBuilder` to the server instance configuration.
+
+## Alternative
+- No alternative-related knowledge snippets provided.

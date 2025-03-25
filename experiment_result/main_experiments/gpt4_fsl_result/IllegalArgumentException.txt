@@ -1,0 +1,75 @@
+# IllegalArgumentException API Knowledge Document
+
+## Functionality
+- `IllegalArgumentException` in Kotlin is a type of `RuntimeException` that is thrown to indicate that a method has been passed an illegal or inappropriate argument.
+- The constructor of `IllegalArgumentException` can be invoked with a message to describe the specific illegal argument condition.
+- `IllegalArgumentException` can also be constructed with a message and a cause, allowing you to wrap another exception that caused this exception.
+
+## Concept
+- `IllegalArgumentException` is part of Java's standard exceptions and is seamlessly used in Kotlin due to Kotlin's interoperability with Java.
+- This exception is unchecked, meaning it does not need to be declared in a method or constructor's `throws` clause.
+- `IllegalArgumentException` is typically used for validating input parameters passed to methods and functions.
+- When you encounter an `IllegalArgumentException`, it indicates that a method has received an argument that is not valid as per the method's contract.
+
+## Performance
+- Using `IllegalArgumentException` for parameter validation incurs a minimal performance overhead since it is an unchecked exception.
+- Throwing `IllegalArgumentException` is efficient for early detection of errors, preventing the propagation of invalid data through the system.
+  
+## Directive
+- Use `IllegalArgumentException` to signal that a method has been passed an inappropriate argument, making it clear what sort of condition the input violates.
+- Always provide a meaningful and descriptive message when throwing an `IllegalArgumentException` to make debugging easier.
+- Avoid using `IllegalArgumentException` for control flow. It is designed for indicating programmer errors, not for regular application logic.
+- Validate all public API inputs that could violate method constraints and throw an `IllegalArgumentException` when those constraints are not met.
+  
+## Pattern
+- **Basic Usage**: Check method parameters and throw `IllegalArgumentException` if they do not meet the expected criteria.
+  ```kotlin
+  fun divide(a: Int, b: Int): Int {
+      if (b == 0) {
+          throw IllegalArgumentException("Divider cannot be zero.")
+      }
+      return a / b
+  }
+  ```
+- **Constructor with Cause**: Wrap an underlying exception when more context is needed.
+  ```kotlin
+  try {
+      // Some operation that might fail
+  } catch (e: NumberFormatException) {
+      throw IllegalArgumentException("Invalid number format.", e)
+  }
+  ```
+- **Input Validation**: Enforce non-null or specific range inputs.
+  ```kotlin
+  fun setAge(age: Int) {
+      if (age < 0) {
+          throw IllegalArgumentException("Age cannot be negative.")
+      }
+  }
+  ```
+- **In Collection Methods**: Use when indices are out of bounds or elements are invalid.
+  ```kotlin
+  fun getElement(list: List<String>, index: Int): String {
+      if (index < 0 || index >= list.size) {
+          throw IllegalArgumentException("Index out of bounds.")
+      }
+      return list[index]
+  }
+  ```
+
+## Environment
+- `IllegalArgumentException` is part of the Kotlin Standard Library and requires no additional dependencies or configurations to use.
+- It is available in all environments where Kotlin can interoperate with Java, including JVM-based applications.
+  
+## Alternative
+- **`IllegalStateException`**: Use this when the method invocation is illegal given the current state of the object, rather than the parameters.
+- **`IndexOutOfBoundsException`**: Specifically for index-based collections when the index is outside the permissible range.
+- **`NullPointerException`**: If a parameter expected to be non-null is null, and null handling is not explicitly part of the method contract.
+- In some cases, using Kotlin-specific features like `require` or `check` can be used for parameter validation, which under the hood throws `IllegalArgumentException` or `IllegalStateException`.
+  ```kotlin
+  fun process(value: Int) {
+      require(value >= 0) { "Value must be non-negative" }
+  }
+  ```
+
+This document provides a structured overview of the `IllegalArgumentException` in Kotlin, detailing its usage, best practices, and context within the language.

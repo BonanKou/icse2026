@@ -1,0 +1,19 @@
+All notifications from an app are created by the app and handed to the OS via `NotificationManager`.. Knowledge type: functionality
+All notifications from an app are created by the app and handed to the OS via `NotificationManager`. The OS then applies system rules for how they should be handled, such as those configured by the user via the system Settings app.. Knowledge type: concept
+- From Android 8.0, if you want to show a notification, you should associate it with a Notification Channel.
+- First, you should create a new notification channel, then show your notification.. Knowledge type: concept
+- On Android TV OS, the NotificationManager should not be used for displaying notifications to users, as general app notifications do not appear in the system-level notification area.
+- Notifications should instead be displayed within the app's UI on Android TV OS.
+- It is recommended to have a reserved space on the main screen of the app to show notifications so that users see them as soon as they open the app.
+- To determine if a user has interacted with a notification displayed in the app UI, use regular View methods such as adding code to the OnClickListener.
+- Synchronize notification states with a local database (like SQLite using Room) through a server endpoint to manage notifications within the app.. Knowledge type: directive
+- Check if the notification is already visible and show it only if it's not visible to avoid playing the notification sound on successive `startForegroundService()` calls.
+- Utilize a reference to the notification's `PendingIntent` and `notificationId` to determine if the notification is visible.
+- Use a `PendingIntent` to open the app from a notification. You can remember the last shown activity using Preferences in the `onResume()` method of each activity and use it to route the notification into the correct activity.
+- Update the notification `PendingIntent` with the last activity shown if it's already visible, to eliminate the need for storing values in Preferences or using a routing activity.. Knowledge type: directive
+From Android 8.0, if you want to show a notification, you should associate it with a Notification Channel. First, you should create a new Notification Channel, then show your notification.. Knowledge type: directive
+All notifications from an app are created by the app and handed to the OS via `NotificationManager`. The OS then applies system rules for how they should be handled, such as those configured by the user via the system Settings app.. Knowledge type: pattern
+Notifications must be assigned to channels in Android 8.0 (API level 26) and above.. Knowledge type: pattern
+You can check if a notification is already visible and show it only if it's not visible by using a reference to the notification's PendingIntent and notificationId.. Knowledge type: pattern
+Notifications on Android TV OS are limited to system-level notifications important for the user, and general app notifications do not show up using the regular NotificationManager. Instead, notifications must be displayed within the app UI itself.. Knowledge type: environment
+NotificationManager requires that notifications be assigned to channels in Android 8.0 (API level 26) and above.. Knowledge type: environment

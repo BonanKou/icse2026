@@ -1,0 +1,14 @@
+For example, if you want to know if the user clicked the message, you can add that code to the OnClickListener.
+
+Handling list of notification messages by Local Database or any other method.
+
+
+General app notifications do not show up, which means you need to display any kind of notification within your own app UI and not with the regular NotificationManager and related APIs.
+
+Can we use Notification Manager. /
+The OS then applies system rules for how they should be handled, such as those configured by the user via the system Settings app.
+If an app also has its own concept of &quot;internal notification settings&quot;, that would control when the app actually invokes NotificationManager.
+
+Is it like the OS will pass the received notification to the intended app and then it decides - based on its internal settings- which one to show?
+For sample code that uses notifications.
+If your implementation can be handled in local, you can use Notification Manager for this, not remote push notifications.

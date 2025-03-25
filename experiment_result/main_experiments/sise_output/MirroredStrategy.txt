@@ -1,0 +1,43 @@
+Strategy api in TensorFlow 2.x to distribute training across multiple GPUs, multiple machines, or TPUs.
+You can use MirroredStrategy of Distributed training strategies which support synchronous distributed training on multiple GPUs on one machine.
+For instance, if using MirroredStrategy with 2 GPUs, each batch of size 10 will get divided among the 2 GPUs, with each receiving 5 input examples in each step.
+
+
+Hence with a global batch size of 64, each GPU (assuming we're training with 4 GPUs) would receive 64/4=16 input examples per training step.
+
+
+
+
+You can make use of distributed strategies in tensorflow to make sure that your multi-GPU set up is being used appropriately:
+mirrored_strategy
+Currently, memory growth needs to be the same across GPUs
+    for gpu in gpus:
+      tf.config.experimental.set_memory_growth(gpu, True)
+    logical_gpus = tf.config.experimental.list_logical_devices('GPU')
+    print(len(gpus), &quot;Physical GPUs,&quot;, len(logical_gpus), &quot;Logical GPUs&quot;)
+  except RuntimeError as e:
+    # Memory growth must be set before GPUs have been initialized
+    print(e)
+
+In both cases (dataset or numpy), each batch of the given input is divided equally among the multiple replicas.
+The tensorflow docs on Distributed training with TensorFlow had this to say about the following methods of providing the training data and evaluation input
+ (emphasis my own):
+
+Loading Data from a tf.data.
+I'd like to point out that MirroredStrategy actually divides up the global batch size for each gpu. 
+
+
+[tf.config.experimental.VirtualDeviceConfiguration(memory_limit=1024)])
+    logical_gpus = tf.config.experimental.list_logical_devices('GPU')
+    print(len(gpus), &quot;Physical GPUs,&quot;, len(logical_gpus), &quot;Logical GPUs&quot;)
+  except RuntimeError as e:
+    # Virtual devices must be set before GPUs have been initialized
+    print(e)
+
+
+You can see in the docs here
+
+For instance, if using MirroredStrategy with 2 GPUs, each batch of size 10 will get divided among the 2 GPUs, with each receiving 5 input examples in each step.
+
+So in your case if you want each GPU to process 32 samples per step, you can set the batch size as 32 * strategy.num_replicas_in_sync.
+Each GPU will compute the forward and backward passes through the model on a different slice of the input data.

@@ -1,0 +1,38 @@
+## Functionality
+- `FragmentTransaction` is used to perform a set of operations on fragments such as adding, removing, and replacing them within an activity.
+- `FragmentTransaction.commit()` applies all the changes made in the transaction to the activity.
+- `FragmentTransaction.add()` adds a fragment to the activity state.
+- `FragmentTransaction.remove()` removes a fragment from the activity state.
+- `FragmentTransaction.replace()` replaces an existing fragment with another one in the activity state.
+
+## Concept
+- A `FragmentTransaction` is a set of operations that can be performed on fragments, which are modular sections of an activity's user interface.
+- Fragments represent a portion of the user interface in an activity and can be combined to create a multi-pane UI.
+- `FragmentTransaction` allows for adding, removing, replacing, and performing other operations on fragments in a dynamic way.
+- Using `FragmentTransaction`, fragments can be added or replaced in container views, providing flexibility in UI updates without recreating the activity.
+- When performing fragment operations, it's common to use `commit()` to apply the changes, and optionally `commitAllowingStateLoss()` if the state loss isn't critical.
+
+## Performance
+- Using `FragmentTransaction.commit()` can be more efficient than `commitAllowingStateLoss()` as it ensures the transaction is committed without loss of state.
+- Transactions should be batched together and committed in one go to improve performance rather than committing each operation separately.
+
+## Directive
+- Always call `FragmentTransaction.commit()` to apply the transaction; otherwise, changes will not take effect.
+- Avoid performing fragment transactions inside an `onCreate()` method as it can lead to state loss.
+- Use `commitNow()` if you need the transaction to be executed immediately, but be cautious of its impact on the activity lifecycle.
+- Use `addToBackStack()` if you want the transaction to be reversible with the back button, allowing users to navigate back through fragment changes.
+
+## Pattern
+- A common pattern is to use `FragmentTransaction` to add a fragment to a container view in an activity, allowing dynamic user interface changes.
+- Replacing fragments using `replace()` is a typical pattern for switching between different UI sections within the same activity.
+- `FragmentTransaction` can also be used to remove a fragment using the `remove()` method, which is useful for cleaning up fragments that are no longer needed.
+- You can add fragments to the back stack using `addToBackStack()`, which enables users to navigate back to previous fragments with the back button.
+- It's important to manage fragment lifecycles properly with `FragmentTransaction` to avoid issues like fragment re-creation and inconsistent UI states.
+
+## Environment
+- `FragmentTransaction` requires the Android framework and is part of the Android SDK, specifically the Fragment API.
+- Ensure the activity is running and not in a finishing state when performing fragment transactions to avoid illegal state exceptions.
+
+## Alternative
+- Alternatives to using `FragmentTransaction` for dynamic UI changes include using `ViewPager` with a `FragmentStatePagerAdapter` for swipeable interfaces.
+- Consider using `Navigation Component` for handling fragment transactions as it provides a more structured and navigational graph-based approach.

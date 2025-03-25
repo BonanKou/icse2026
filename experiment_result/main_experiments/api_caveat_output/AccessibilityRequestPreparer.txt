@@ -1,0 +1,73 @@
+You have to use the AccessibilityService in Android 10 and above.
+AccessibilityService code:
+
+Manifest Code:
+
+accessibility service config code:
+
+also must use BroadcastReceiver:
+
+documentation:
+https://developer.android.com/reference/android/accessibilityservice/AccessibilityService
+This answer shows how to automate it, but I have yet to test if it works.
+You will need to write an Android app that has an AccessibilityService and bulk install it on the devices (via adb or any other means).
+So, from your comment, you need to change this setting for quite a lot of devices (around 500).
+Cons
+
+Quite tedious when your flow is complex (kind of a personal opinion, so take this with a grain of salt).
+Edit: Culebra GUI seems to make your life a lot easier should you take this approach.
+This has to be done manually each time accessibility is toggled or through accessibility shortcuts - of which there can be only one.
+It's important to note that the Receiver is registered when the service is enabled:
+
+Then the receiver can respond to intents and invoke the service:
+
+example usage on the adb:
+
+EDIT
+Starting the service via adb:
+Thanks to this comment
+
+Accessibility shortcut
+** EDIT:
+As far as I am aware, a developer cannot perform an accessibility action via ADB, they would have to create an Accessibility service in order to act on behalf of an Accessibility user and create a Broadcast Receiver so that it can take input via the ADB.
+Instead I should be able to call the particular action I want to do NAVIGATE TO NEXT ELEMENT or NAVIGATE TO PREVIOUS ELEMENT as opposed to "SWIPE RIGHT" and "SWIPE LEFT" - having read the WCAG guidelines I do not believe that this is violating the principles.
+(note: i am not an Android Developer so i apologize in advance if i explain something wrong)
+When i click some button on overlay i would want that some action is executed on that third party app's (App1) current window.
+Example of resources xml file for properties:
+
+After all that is done now you can look for accessibility events in onAccessibilityEvent method as follows
+
+When some accessibility event (could be number of things like click,long click, announcement or even custom triggered event) happens,OnAccessibilityEvent method is called and we can use that to get current screen info through accessibility service using
+
+To send a custom event from your app or some other service.
+First you implement the accessibility service class for your app
+
+After that declare it in manifest like any other service.
+To execute some action accessibility service need to capture some event.
+My only purpose of writing this was if someone is in same boat as me, he may get some head start using this for which it took me many days.
+These services run even when the app that defines them is closed.
+So, you could perhaps use a hack to do things like these for changing your static variables:
+When you open the app, the onCreate of the MainActivity is called.
+The first parameter is the name of the metadata, and it should obey the rules in android.
+note that Google is filtering apps which have such big privileges and won't let your app to Play Store if it will be using AccessibilityService to such "trivial" operation (isn't very helpful, for sure isn't accessibility-kind-of)
+When the permission is granted the onServiceConnected method is automatically called, so we can call our service from it instance and get the views like:
+
+This will return an AccessibilityNodeInfo which contains the current views information.
+So a possible solution is to not use that method and obtain all views, even those who are "invisible", or another option is to make your own method to determine if some view is visible or not.
+If you need to get the view hierarchy as an XML, you can use the AccessibilityNodeInfoDumper class from the uiautomator source code, which can be found here:
+https://android.googlesource.com/platform/frameworks/uiautomator/+/5fe6e7f321f02b08224fad72374ed041f459b411/core/com/android/uiautomator/core/AccessibilityNodeInfoDumper.java
+Also you will have to add to your code the AccessibilityNodeInfoHelper found in here:
+https://android.googlesource.com/platform/frameworks/uiautomator/+/5fe6e7f321f02b08224fad72374ed041f459b411/core/com/android/uiautomator/core/AccessibilityNodeInfoHelper.java
+When i implemented the above code to parse the AccessibilityNodeInfo to XML, i got almost the same problem i had before when getting the views with uiautomator dump.
+Remember that for it to work the app must have the accessibility permission granted.
+See how to create your own Accessibility service https://developer.android.com/guide/topics/ui/accessibility/service
+You must register the required events like ypeViewClicked|typeViewFocused|typeViewTextChanged and you'll be notified whenever any of these events is triggered by the OS.By using accessibility service, you can write whatever you want to execute, you have full control over the present screen.
+Examples of changing context when a component receives focus include, but are not limited to:
+
+forms submitted automatically when a component receives focus;
+new windows launched when a component receives focus;
+focus is changed to another component when that component receives focus; <-- emphasis here
+
+
+Also a quote from the Android Accessibility Team:
+Any component that is able to trigger an event when it receives focus must not change the context.

@@ -1,0 +1,44 @@
+If you have an existing Media1 implementation using MediaSession (preferably using ExoPlayer with MediaSessionConnector), and have no need for the permission controls in Media2, you can either stick with Media1 or upgrade to Media3.
+If for whatever reason you cannot use androidx.media3, my recommendation is to stick with androidx.media instead of androidx.media2 due to the latter not being supported by other media integrations, such as Cast Connect.
+According to
+https://developer.android.com/guide/topics/media-apps/working-with-a-media-session
+We would need to use Media Session to tell the System that there is a media session happening in your app and each time you tell the system that your player is active or playing then your application would have priority over the media controllers on the remote and no other application can access it unless you state that your media session is no longer active.
+When you no longer use the playback engine of the android system, you should call the release() method of the media player to release system resources.
+When you use media player to play music, the media player does not directly play the music, but requests the playback engine of the android system to play the music.
+According to https://developer.android.com/guide/topics/media-apps/mediabuttons#restarting-inactive-mediasessions
+
+If Android can identify the last active media session, it tries to restart the session by sending an ACTION_MEDIA_BUTTON Intent to a manifest-registered component (such as a service or BroadcastReceiver).
+Try debugging your application by switching to other Media applications (then connect BT) and then check whether the System starts your service or not.
+I suggest you take it step by step and get yourself familiarzed with MediaLibraryService using one root item and have children below directly first:
+
+Please note that some functions are not defined in the reference above, that's because they're not directly relevant to our topic, for example the scanMusic call, it's just a function where I query MediaStore and return a lambda with a list of queried mediaitems...
+A song is defined by its MediaId, so I believe that's all you need to make a song playable, also, services provide you with an applicationContext
+The very top-level parent root item is invisible, but it's extremely capital to the functionality of the service, because the whole hierarchy propagates from it, you can include mediaitems right below it if you're having one huge playlist, but the more levels of hierarchy you have the more complicated it gets.
+This means that you store your playlists on the service-side, you do everything on the service-side, and if you're willing to make a music player app, the activity can grab information from the service using APIs that are available by Media3 such as getChildren...etc
+The powerful thing about the library is that you can sendCustomCommand which contain bundles of pretty much everything you need, this would prove helpful when you want to communicate between an activity and the service, but it's completely unnecessary when the app is being navigated via a controller like Android Auto and not the actual mobile app.
+However, since it is a very compute intensive set of tasks, we want to make sure it can run on a wide range of devices, rather than just flagship phones.
+If you are looking for this functionality today, I would go with the MediaPipe solution like you reference as well.
+In Android Developer, they don't say that clearly how to implement MediaBrowserServiceCompat and MediaBrowserCompat in the Audio app overview article(if you are following this article).
+So, you need to decode your source audio track into raw PCM before feeding it into the AudioTrack.
+Since you only support API versions 21 & above, the media session should be sufficient for handling media button events in your application.
+Since you mentioned that you only support Android API versions 21 & above, the MediaButtonReceiver may not have a purpose for your specific use case.
+So, in our MainActivity:
+
+Now for the most interesting part, we create a class called MusicPlayerService which extends MediaLibraryService (or MediaSessionService, depends on your app needs), it is like this:
+
+One last thing, if you want to load a media item in an activity, use this:
+
+Hope this gives you a better approach on Media3.
+For a simple implementation for audio playback, which also supports background playback, we need to have our player separated from our activity, and rather live in something isolated from it but can still be part of our application, the answer is a Service, and services can use application context freely, and can run in the background.
+Factory
+
+If all you want is to play a media item or create a playlist then you probably only need to use MediaItem - there are some good examples in the latest CodeLabs: https://developer.android.com/codelabs/exoplayer-intro#0
+I do not have it working yet, but I can report back with code when I do.
+Here is the solution: https://developer.android.com/guide/topics/media-apps/media-apps-overview
+Seems you have to implement the media player service as a specific kind of service that registers to the notification.
+I am in the process of refactoring the heart of my code, which perhaps should be terrifying, but feels more like the final algorithm on a Rubix's cube...
+I found this, finally, after trying every search terms imaginable, and wow there is a whole section on this.
+So when you set new Metadata for MediaSession, this Metadata will be received in onMetadataChanged (MediaMetadata metadata) callback of MediaController.
+You have to call MediaSession.setMetadata(MediaMetadataCompat metadata) every time track information changes.
+https://developer.android.com/guide/topics/media-apps/media-apps-overview#mediasession-and-mediacontroller
+To get the update for Metadata change you need to register for MediaController.

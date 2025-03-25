@@ -1,0 +1,16 @@
+I then downloaded the model file, pushed it to my Linux server, placed it in the above location, and exectued:
+# bash
+tar xzf bert_en_uncased_L-12_H-768_A-12_4.tar.gz
+
+That gave me the following files:
+# python
+import os
+os.listdir(&quot;/opt/tfhub/tf2/bert_en_uncased_L-12_H-768_A-12_4/&quot;)
+&gt;&gt;&gt; ['keras_metadata.pb', 'saved_model.pb', 'assets', 'variables']
+
+
+KerasLayer(tfhub.load(&quot;/opt/tfhub/tf2/bert_en_uncased_L-12_H-768_A-12_4&quot;))
+
+Your test set prints this: &lt;TensorSliceDataset element_spec=(TensorSpec(shape=(32, 32, 3), dtype=tf.uint8, name=None), TensorSpec(shape=(10,), dtype=tf.float32, name=None))&gt;
+This is the user guide on how to use TensorRT in TF: https://docs.nvidia.com/deeplearning/frameworks/tf-trt-user-guide/index.html
+

@@ -1,0 +1,41 @@
+Sadly, I know of no XML parser where you can say "start parsing XML here and stop when you get to the end of the document".
+If you implement your application as a SAX filter, then it can pass everything it's given to the JAXB process, suppressing the error that would otherwise arise because of the unwanted content that follows the XML.
+All parsers that I know of will report an error if there is anything beyond the end of the document, which means that if XML is nested inside some larger text, you have the difficult challenge of locating the end of the document before invoking the parser.
+However, if you use a SAX parser, then you can count nested start and end tags, and abort the parse when the final end tag is notified.
+Use a SAX parser instead of a DOM parser
+If the problem is not related to spliting a big xml to smaller xmls, but to split a single big file to smaller files you can split it as
+
+and
+
+But if the problem is the size of the file to send it over the internet or to save space when saving it, consider also to compress it.
+If the problem instead is to hold in memory the whole file simply don't do that.
+Anyway:
+If your XML document fits in RAM,
+you can also try using XPath (internally based on the DOM model), which is simpler to use.
+If your XML is huge and you find SAX a bit annoying to use,
+you can try using StAX, which combines the performance of streaming-based parsing and the usability of "pull parsing" (roughly, no callback anymore).
+But if you want to do this using no libraries maybe the method below can help:
+Ideally you should use a library like SAX parser to Deserialize an input stream like XML.
+I lost most time with the fact that SaxParser.parse() only accepts a DefaultHandler.
+I am aware that this proof of concept is not very robust, because it is parsing the validation error message to extract the maxLength schema information.
+If you want to pass a serialized query, you should first execute cts:uri-match("/directory/*/folder/*.xml") and then enclose the results into cts:document-query as shown below
+
+Best approach is to create a MarkLogic module server-side (in XQuery or JS) and invoke it from JAVA client API (by passing the uri-match string)
+Obviously, you need to parse the whole document, and the fastest way way to arrive at a solution is to not include the "filtered out" elements in the document building process.
+It's a bit awkward but it seems to do the first part of what I need to do which is get the reflection data
+
+The follow up question would be given that I have this info, how do I make the call building from JSON input that is to be parsed to a format used by the GRPC server?
+Well, the article Configure and Use Multiple DataSources in Spring Boot implies I need to make one of my existing EMF beans be the primary.
+A simple xpath involves only tags and attributes, no predicates.
+Then, check if the current path matches any of the xpaths in the map.
+Explanation
+A streaming XML parser, such as SAXParser, reads the XML input sequentially and triggers events when it encounters different parts of the document, such as start tags, end tags, text, etc.
+If we find a match, we need to extract the value of the node and store it in a map.
+In the characters method of the handler, check if the flag is set.
+We also need to handle the cases where the node value spans across multiple character events, or where the node has multiple occurrences in the document.
+Then, reset the flag to indicate that the value should not be extracted.
+After parsing the XML input, return the map with the xpaths and their values.
+To match a streaming XML parser against a set of simple xpaths, we need to keep track of the current path of the XML elements as we parse the input, and compare it with the xpaths in the set.
+If yes, set a flag to indicate that the value should be extracted.
+Initialize the values to null.
+If yes, append the character data to the value of the matching xpath in the map.

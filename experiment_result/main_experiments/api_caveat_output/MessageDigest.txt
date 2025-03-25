@@ -1,0 +1,81 @@
+So in your code key VehicleKey must overwrite hashCode/equals methods.
+Equals method:
+
+For sure that if's must can be simplify.
+Keys must have consistent implementations of hashCode() and equals() for this to work..
+If you don't need any security guarantees then md5 truncated to 32 bits will likely meet your needs, but you may find one of the 32-bit hash algorithms in Guava Hashing to be simpler to use and better optimised for your use case.
+You need to figure out what the consequences of those attacks would be, and if you can't tolerate them then you need a larger hash size or a different design.
+Now invokes equals 1 time since to check if person2 value equal to previous added value ie.
+here init_capacity=16 (HashMap) => 16 distinct bucketId's [0-15] , like an array of references, initially value= null.
+so JVM do NOT invokes equals() & directly attach data (node)(in simple language).
+How could it determine the right key if the equals is always false?
+Because If you apply hash function to the same string, you'll get the same result.
+If you want to store password in Room, you need to run hash function and then store hash value of your password.
+If, at least, 1 symbol is wrong - resulting hash will be completely different.
+But if you really really need to know MessageID of sent message - because of audit, correlation or something else - you can first send message, and the read MessageID field back.
+As MQ will completely ignore any value set by message producer, and it will always override your MessageId with arbitary value.
+And that is your error.
+[B. Once you fix this error, you will still not be able to successfully set MessageId.
+If I then make a table:
+
+
+
+
+Input
+Hash
+
+
+
+
+A
+0
+
+
+B
+1
+
+
+C
+2
+
+
+....
+....
+
+
+P
+15
+
+
+
+
+I have now hashed A through P to 0-15.
+Hence, there will always be different inputs that hash to the same value.
+If you get a lot of collisions, HashMap's performance becomes bad, but it continues to work precisely as its API says it works.
+There are only 2^256 unique values which is a lot, but it only takes 256 bits (a mere 32 bytes) to uniquely represent this.
+The rules for hashcode are simple: If 2 objects are equal they must hash to the same value.
+Imagine I have a hash algorithm whose output is 4 bits only (so, 0, 1, 2, ..., 15 - just 16 unique numbers).
+In other words, given some data that hashes to X, if I ask you to find me some different data that also hashes to X, your only real strategy is to just continually produce random inputs, hashing it, until you get real lucky.
+After all, if what you say is true, I can take 5GB movie file, hash it, and a unique value pops out.
+Yes, generally cryptographic hashes are at least 128-bit in size (generally 256 or even more), because that algorithm 'roll up random inputs and hash it until you get lucky' takes mere seconds if the hash values are sized less than 128 bits.
+It should be constant and unchanging.
+When you changed the value to 5, the hashcode is now 5 and calling s.contains(n1) will try to check for your node in bucket 5 which is empty (null).
+Thus, when your hashcode is set to the value 1, and you call add(), the node n1 is stored for example at bucket 1.
+This is generally not the case and should not be the case as you do not want the hashcode to be variable.
+Since HashMap does not allow duplicate keys, during several insertions of the same key, only the latest key is the one that survives.
+For another HashSet there would be a different value, but for the same HashSet it always use the same reference.
+At the same time as a value to the HashMap undisclosed to you is inserted always the same value for the specific HashMap instance from the line static final Object PRESENT = new Object() -> reference. .
+Therefore all values which are inserted behind the scenes to a HashMap backing up a specific HashSet are always a specific reference created from new Object().
+Therefore it fulfils the need that a HashSet contains only unique values.
+You want to save their only a hashcode produced from the password.
+Indeed, if all of the above are true AND you have complete information / knowledge about the HashMap implementation and so on, then you could2 actually a priori predict the key order with 100% accuracy.
+As a consequence the key order can be different if you run your tests on platforms with different versions of Java.
+Note that 2 and 3 are satisfied for Integer and String.
+But Why does a HashMap sometimes print in natural order may help you understand what you would need to do.
+In short ... when any of the preconditions 1, 2 or 3 (below!) are not true.
+If in addition:
+
+The map is created with the same initial capacity and load factor.
+In practice the order of the keys in a HashMap will be deterministic if all of the following are true:
+
+The HashMap implementation does not change1.

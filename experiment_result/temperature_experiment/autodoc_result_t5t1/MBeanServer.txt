@@ -1,0 +1,22 @@
+# MBeanServer API Knowledge Document
+
+## Functionality
+- Get a reference to the MBeanServer, then you can run a query with the ObjectName.
+
+## Concept
+- Get a reference to the MBeanServer, then you can run a query with the ObjectName.
+
+## Performance
+- No performance-related knowledge snippets were provided.
+
+## Directive
+- No directive-related knowledge snippets were provided.
+
+## Pattern
+- Get a reference to the MBeanServer, then you can run a query with the ObjectName.
+
+## Environment
+- No environment-related knowledge snippets were provided.
+
+## Alternative
+- No alternative-related knowledge snippets were provided.

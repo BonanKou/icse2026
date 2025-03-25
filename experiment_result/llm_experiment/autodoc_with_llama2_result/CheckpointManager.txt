@@ -1,0 +1,29 @@
+ Sure, here's a comprehensive list of knowledge snippets regarding CheckpointManager, covering seven types of knowledge:
+
+Functionality:
+
+1. The CheckpointManager API allows saving the model.history.history whenever a checkpoint is saved, using `joblib.dump()`.
+2. The CheckpointManager API can check if the checkpoint exists and, if it does, load it when starting the program.
+3. The CheckpointManager API can assign the proper value of model.history.history and remove the old value when starting training.
+4. The CheckpointManager API has an 'on_train_begin' event, which is triggered at the start of training, and it can reassign the value of model.history.history from the stored history and delete the stored history.
+
+Concept:
+
+1. CheckpointManager is used to manage model checkpoints during training, and it allows for saving, restoring, and monitoring of model states. Multiple checkpoints can be saved over time.
+2. Model progress can be tracked using the model._current_epoch variable, which stores the last completed epoch.
+3. During model initialization or when loading checkpoint, `joblib.dump()` and `joblib.load()` functions are used to save and load pickle files, respectively, which include model.history.history and model._history.
+4. There's a call-back function `on_train_begin()` that overwrites the latest value of model.history.history with the loaded value from a checkpoint when training starts, and deletes the old value from `model._history`.
+
+Performance:
+
+1. The CheckpointManager API has an 'on_train_begin' event, which is triggered at the start of training, and it can reassign the value of model.history.history from the stored history and delete the stored history.
+2. The CheckpointManager API can save the final model after the training has completed, regardless of the result.
+
+Directive:
+
+1. The CheckpointManager API provides guidelines on the proper use of the API, including best practices to follow and actions to avoid.
+2. The CheckpointManager API suggests other APIs offering similar functionality, which can be considered as replacements or complementary options.
+
+Environment:
+
+1. The CheckpointManager API requires TensorFlow installed and supports both

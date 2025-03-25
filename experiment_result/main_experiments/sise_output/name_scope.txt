@@ -1,0 +1,93 @@
+There are two tricks:
+
+
+Name alway each operation and use tf.name_scope to facilitate the research of name.
+You can list all operation names by following:
+print([n.name for n in tf.get_default_graph().as_graph_def().node])
+
+
+
+
+Here's the code corrected:
+
+#
+you can get the list of all images and labels from
+class_dict=train_generator.class_indices
+labels= train_generator.labels
+file_names= train_generator.filenames 
+
+the class dictionary is useful to correlate the class index to the class name, it is of the form {class name, index} I find it useful to reverse the order to get a dictionary of the form {index, class name} using the code below
+for key,value in class_dict.items():
+        new_dict[value]=key 
+
+
+Note that the Sequential constructor accepts a name argument, so to make things easy and unambiguous, add name feature to the layer you want to extract its output :
+# 6 set of CONV =&gt; RELU =&gt; POOL
+
+model.add(Conv2D(50, (5, 5), padding=&quot;same&quot;, name=&quot;my_intermediate_layer&quot;))
+
+# to extract output :
+outputs=model.get_layer(name=&quot;my_intermediate_layer&quot;).output
+
+
+Variable
+  
+
+
+Indeed, tf.name_scope still exists in TensorFlow 2.0, so you can just do:
+
+with tf.name_scope("foo"):
+    with tf.name_scope("bar"):
+        v = tf.Variable([0], dtype=tf.float32, name="v")
+        assert v.name == "foo/bar/v:0"
+
+
+Also, as the point above that states:
+
+
+  
+  the tf 1.0 version of variable_scope and get_variable will be left in tf.compat.v1
+  
+
+
+
+y = tf.add(x, v1, name='AAdd')  
+By default, TensorFlow creates a "root" default graph, which will be the graph to use when no other graph has been designed as default with .as_default().
+
+
+You can use tf.train.list_variables(ckpt_file) to get a list of all variables in checkpoint.
+x = tf.placeholder(dtype=tf.int64, shape=[1], name='x')
+   v1 = tf.get_variable("v1", shape=[1], initializer=tf.zeros_initializer, dtype=tf.int64)
+   
+GLOBAL_VARIABLES)to get a list of all variable names in current graph.
+# just to make sure that you can find the name
+   inc_v1 = v1.assign(v1+1)
+   init_op = tf.global_variables_initializer()
+   saver = tf.train.
+graph_def is a language stubs
+
+print('\n### check nodes')
+for n in tf.get_default_graph().as_graph_def().node:
+      print(n.name)
+tf.reset_default_graph()
+
+batch = tf.data.Dataset.range(10).make_one_shot_iterator().get_next()
+
+# plug in new pipeline
+
+# next line is the error line
+        t = tf.layers.conv2d_transpose(t,
+                                       filters=3,
+                                       kernel_size=3,
+                                       strides=1,
+                                       padding='same',
+                                       name=scope + 'con2d_transpose')
+        t = tf.nn.tanh(t)
+
+    with tf.name_scope('identical_conv4') as scope2:
+        
+According to the community RFC Variables in TensorFlow 2.0:
+
+
+  
+  to control variable naming users can use tf.name_scope + tf.

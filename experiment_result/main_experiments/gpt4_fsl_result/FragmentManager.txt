@@ -1,0 +1,56 @@
+# FragmentManager API Knowledge Document
+
+## Functionality
+- `FragmentManager` is used to manage `Fragment` objects associated with an `Activity`.
+- Allows adding, removing, and replacing `Fragments` in an `Activity` through transactions.
+- Supports managing the back stack of fragment operations, allowing users to navigate backwards through fragment changes.
+- Provides methods to find fragments by their ID or tag, such as `findFragmentById(int id)` and `findFragmentByTag(String tag)`.
+- Allows registering `FragmentLifecycleCallbacks` to listen for lifecycle events of fragments.
+- Manages `Fragment` state saving and restoration during `Activity` lifecycle events, such as configuration changes.
+
+## Concept
+- A `Fragment` represents a portion of the user interface in an `Activity`.
+- `FragmentTransaction` is an API for creating and committing changes to fragments, which is obtained via `beginTransaction()`.
+- The back stack in `FragmentManager` is a stack of fragment transactions that can be navigated using the Back button.
+- Each fragment transaction can be added to the back stack with `addToBackStack(String name)`.
+- `FragmentLifecycleCallbacks` provide hooks for fragment lifecycle events, allowing actions during fragment state changes.
+- Fragments can be declared in the XML layout file or added programmatically using `FragmentManager`.
+
+## Performance
+- Using the back stack can impact memory, as it retains fragment states; be mindful of memory consumption if the stack grows large.
+- Fragment transactions should be committed promptly to avoid UI inconsistencies; avoid long-running operations within a transaction.
+- Overuse of nested fragments can lead to complex state management and potential performance drawbacks.
+
+## Directive
+- Always commit fragment transactions using `commit()` or `commitAllowingStateLoss()` to apply changes.
+- Prefer `commit()` for normal operations and `commitAllowingStateLoss()` when transaction state loss might occur.
+- Avoid directly manipulating the fragment back stack outside of `FragmentManager` to prevent state inconsistencies.
+- Ensure fragment transactions are handled on the main thread to maintain UI consistency.
+- Avoid calling `FragmentTransaction` methods after `Activity.onSaveInstanceState()` to prevent `IllegalStateException`.
+- Use `FragmentLifecycleCallbacks` to manage specific actions during lifecycle events instead of handling these directly in the fragment.
+
+## Pattern
+- Commonly used to swap UI components dynamically in response to user interactions.
+- Suitable for implementing master-detail interfaces, using fragments for the list and detail views.
+- A fragment transaction pattern involves obtaining `FragmentTransaction` from `FragmentManager`, adding or replacing a fragment, optionally adding it to the back stack, and committing the transaction.
+- Use fragment tags for later retrieval and identification using `findFragmentByTag(String tag)`.
+- A pattern for managing fragments involves declaring them in XML for static fragments and using transactions for dynamic ones.
+
+Example:
+```java
+FragmentManager fragmentManager = getSupportFragmentManager();
+FragmentTransaction transaction = fragmentManager.beginTransaction();
+transaction.replace(R.id.fragment_container, new ExampleFragment(), "example");
+transaction.addToBackStack(null);
+transaction.commit();
+```
+
+## Environment
+- `FragmentManager` requires the app to be running on Android API level 11 (Honeycomb) or higher.
+- Proper integration with `FragmentActivity` or `AppCompatActivity` is required for compatibility with `FragmentManager`.
+- Ensure the hosting `Activity` or `FragmentActivity` properly manages the fragment lifecycle during configuration changes.
+
+## Alternative
+- If fragments are not required, consider using custom views or `ViewGroup` subclasses for lightweight UI changes.
+- Alternatives to `FragmentManager` include using `ViewModel` and `LiveData` for managing UI-related data and state across configuration changes without fragments.
+- For simple, non-dynamic UI, activities can sometimes replace the need for fragments by using multiple activities instead.

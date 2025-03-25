@@ -1,0 +1,21 @@
+But if you need to use sparse matrix, you just have to use tf.sparse.sparse_dense_matmul() or tf.sparse_tensor_to_dense() where your sparse interacts with a dense matrix.
+I have taken a simple XOR example from here and replaced dense with a sparse matrix:
+
+and the output is:
+
+So the only way is to use a mask matrix.
+Based on the tf-documentation, you can still pass the sparse tensor even if the sparse argument is set as False, as long as the input data is a sparse matrix.
+Place it right after Input and before the Dropout layer of the above model.
+sparse : A boolean specifying whether the placeholder to be created is sparse.
+Only one of 'ragged' and 'sparse' can be True.
+Note that, if sparse is False, sparse tensors can still be passed into the input - they will be densified with a default value of 0.
+An alternative solution uses from_tensor_slices on every sparse tensor (after the addition of a dummy batch dimension) to create many datasets with a single element that can be concatenated in a single dataset.
+If the SparseTensors have the same dense_shape you can create a unique SparseTensor instead of a list and pass it to from_tensor_slices.
+Because you only care about the values (index of rows, which are used to get the corresponding rows of the embedding matrix) in the sparse tensor.
+This was kind of tricky but here is something that works (assumes 2D sparse tensor, although I think should work the same for more outer dimensions).
+EDIT: Here is an alternative possibility, which may work well if your tensor is very sparse in all rows.
+The caveat is that the indices would be referred to the condensed tensor, so you have to take yet another step if you want to get the right indices with respect to initial sparse tensor.
+Not sure whether this would be faster or not though.
+If the metadata uses the int32 type blindly, it can easily gets larger than the tensor itself.
+If the tensor itself is relatively small, it would be wasteful to store the indices with the int32 type.
+Not sure how efficient this is and if it is a viable option for you, but you could try using tf.

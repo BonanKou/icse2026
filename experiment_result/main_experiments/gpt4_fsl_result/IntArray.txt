@@ -1,0 +1,59 @@
+# IntArray API Knowledge Document
+
+## Functionality
+- IntArray in Kotlin creates an array of the specified size, with all elements initialized to zero.
+- The `intArrayOf()` function is used to create an `IntArray` with specified elements.
+- IntArray supports standard array operations such as getting and setting elements, which can be accessed or modified using the index operator `[]`.
+- IntArray can be sorted using the `sort()` method, which sorts the array in-place.
+- The `sum()` function returns the sum of all elements in an `IntArray`.
+- IntArray provides the `average()` method to calculate the average value of its elements.
+- The `fill()` method assigns the specified value to each element in the `IntArray`.
+
+## Concept
+- An IntArray in Kotlin is an array of integers.
+- IntArray instances in Kotlin are represented as `int[]` when targeting the JVM.
+- The size of an IntArray is accessed using the `.size` property, which returns an `int`.
+- IntArray provides methods like `first()`, `last()`, and `contains()` to access specific elements or check for element existence.
+- The `intArrayOf()` function can initialize both empty and non-empty IntArray instances with predefined values.
+- On Kotlin/JVM, IntArray compiles down to a primitive array, equivalent to `int[]` in Java, and has the JVM descriptor `[I`.
+- IntArray elements can be transformed using functional methods such as `map()`, `filter()`, and more, which return new arrays or collections.
+- To convert an IntArray to a List, use the `toList()` method.
+
+## Performance
+- Direct operations on IntArray, such as accessing elements by index, are performed in constant time O(1).
+- Sorting an IntArray with the `sort()` method has a time complexity of O(n log n).
+- Using `sum()` to calculate the total of all elements operates in linear time O(n).
+- The `average()` computation has a similar linear time complexity, as it involves summation followed by division.
+
+## Directive
+- When working with IntArray, ensure indices are within bounds to prevent `ArrayIndexOutOfBoundsException`.
+- Use `intArrayOf()` for clearer initialization when the initial values of the IntArray are known at compile time.
+- For large IntArrays, consider the memory implications and optimize operations to avoid excessive memory use.
+- Use the `sort()` method instead of sorting manually to leverage Kotlin's optimized sorting algorithms.
+- For transformations or filtering, prefer functional methods like `map()` and `filter()` for clean and expressive code.
+
+## Pattern
+- To initialize an IntArray with a size and default values, use `IntArray(size) { value }`.
+- Create an IntArray with initial values using `val numbers = intArrayOf(1, 2, 3, 4)`.
+- Sorting an IntArray: `numbers.sort()` for in-place sorting.
+- Calculating sum and average: `val sum = numbers.sum()` and `val avg = numbers.average()`.
+- Use `filter { it > 0 }` to create a new IntArray with elements meeting conditions.
+  
+  ```kotlin
+  val numbers = intArrayOf(1, 2, 3, 4, 5)
+  val evenNumbers = numbers.filter { it % 2 == 0 }
+  ```
+
+- Converting to List: `val numberList = numbers.toList()`.
+- Filling an IntArray: `numbers.fill(0)` sets all elements to zero.
+
+## Environment
+- IntArray requires sufficient memory allocation to hold elements, similar to Java's `int[]`.
+- No special library imports are needed; IntArray is part of Kotlin's standard library.
+
+## Alternative
+- Alternatives to IntArray include using a `List<Int>` for dynamic sizing and additional functionalities like collection methods.
+- For specialized needs, consider `Array<Int>` or `List<Int>` if you require more than primitive operations or need nullable integers.
+- Java's `int[]` can be used if direct interoperability with Java code is needed.
+
+This document provides a comprehensive overview of the IntArray API in Kotlin, detailing its functionality, conceptual framework, performance considerations, usage directives, common patterns, environmental requirements, and alternatives.

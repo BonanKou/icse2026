@@ -1,0 +1,51 @@
+First, I save model.history.history whenever I save the checkpoint and on_train_end with
+
+
+
+When I start the program, I check if the checkpoint exists, if yes, I load it and, at the same time, I check if the history exists and if it does I load it and store in model._history variable since model.history.history is only created after you start training!
+Additionally, I set model._current_epoch value to keep track of the last epoch:
+
+
+After starting training I assign the proper value of model.history.history and remove the old value.
+You want to use this callback when you are not managing epoch iterations yourself.
+This is use-full when you are managing the training loops yourself.
+I also had a hard time differentiating between the checkpoint objects used when I looked at other people's code, so I wrote down some notes about when to use which one and how to use them in general.
+You pass in the object in you into your callbacks list when you fit the model:
+For example when you have setup a relatively simple Sequential model and you call model.fit(), which manages the training process for you.
+"
+How to initialise it:
+
+Pass in the path where to save the model
+
+The option save_weights_only is set to False by default:
+
+If you want to only save the weights make sure to update this
+
+
+The option save_best_only is set to False by default:
+
+If you want to only save the best model instead of all of them, you can set this to True.
+You might have to use checkpoint.restore(path).expect_partial().
+According to the documentation, you should be able to load the model using something like this:
+
+I am not sure it will work if the checkpoint contains other variables.
+If by latest model you mean the model after the final epoch, you can just simply leave the Checkpoint function unchanged and save your final result.
+After you fit the model add this line of code:
+The checkpoint function will save the best model, and after you finish training, the model will save one final time, regardless of the result.
+After this just load the checkpoint from where you want to resume training again
+
+And you are done.
+Let me know if you have more questions about this.
+So by having multiple checkpoints saved you can utilize these checkpoints when testing the model with test data( which may be taken from say a real time use case), and select the model which works well with your test data
+Hope this helps
+So when you are saving checkpoints with best validation accuracy , what happens is you are saving the weight(the ones which are learned by training) that best predicts results for the unseen data.
+If you look in train_rcnn.py:106:
+
+you see that they save just the model parameters.
+It should've been something like:
+
+so then after loading you get a dictionary with 'model', and the other parameters they appear to be wanting to keep.
+To save more models, simply specify a value for that argument:
+To keep all checkpoints, pass the argument max_to_keep=None to the saver constructor.
+This can be useful if you want to later analyze how a model progressed during a long training session.
+If None or 0, no checkpoints are deleted from the filesystem but only the last one is kept in the checkpoint file.

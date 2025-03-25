@@ -1,0 +1,23 @@
+# URISyntaxException API Knowledge
+
+## Functionality
+(No entries for this section)
+
+## Concept
+(No entries for this section)
+
+## Performance
+- No specific performance-related knowledge available for URISyntaxException.
+
+## Directive
+(No entries for this section)
+
+## Pattern
+(No entries for this section)
+
+## Environment
+(No entries for this section)
+
+## Alternative
+- Alternatives to URISyntaxException include using UriBuilder.
+- The post suggests using Spring Web's `UriUtils` and `UriComponentsBuilder` as alternative APIs to handle URL encoding and decoding, which could be considered as replacements or complementary options to dealing with URIs, potentially offering an alternative to using `URISyntaxException`.

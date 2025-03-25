@@ -1,0 +1,20 @@
+Maybe they're planning to add other granular locks later, or maybe they're just used to explicitly creating locking objects so you're always encouraged to think about what you're locking on.
+
+From Kotlin/Native Concurrent documentation (here):
+
+
+  Concurrency in Kotlin/Native
+  
+  Kotlin/Native runtime doesn't encourage a classical thread-oriented concurrency model with mutually exclusive code blocks and conditional variables, as this model is known to be error-prone and unreliable.
+That works not because the code in question is &quot;multicore-safe&quot;, but because it is a guarantee of the environment that a single thread behaves according to its program-order semantics.
+Kotlin's coroutine execution environment likewise guarantees the safety of your sequential code.
+You are supposed to program to this guarantee without any worry about how it is maintained.
+If you want to descend into the details of &quot;how&quot; out of curiosity, the answer becomes &quot;it depends&quot;.
+No two actions in the same coroutine can be concurrent.
+
+
+The synchronised keyword (actually a function) is used to claim a lock; either that belonging to a given object or (if none's given) 'this' object.
+
+Note that holding a lock prevents other threads holding the lock; it doesn't prevent anything else.  
+Furthermore, the executor service provides the guarantee that the code leading up to executor.execute(task) happens-before the code within the task, and the code within the task happens-before another thread's observing its completion (future.get(), future.isCompleted(), getting an event from the associated CompletionService).
+Kotlin's coroutine dispatcher drives the coroutine through its lifecycle of suspension and resumption by relying on these primitives from the executor service, and thus you get the &quot;sequential execution&quot; guarantee for the entire coroutine.

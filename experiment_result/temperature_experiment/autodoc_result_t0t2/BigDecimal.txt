@@ -1,0 +1,55 @@
+# BigDecimal API Knowledge
+
+## Functionality
+- BigDecimal is used for storing and manipulating exact decimal numbers.
+- BigDecimal uses decimal fractions internally to represent any decimal number exactly, to any precision needed, and allows for easy calculations and other manipulations.
+- BigDecimal can store and calculate decimal fractions to an arbitrary precision.
+
+## Concept
+- BigDecimal is a type intended for storing exact decimal values.
+- Floating-point types like Float and Double use binary floating-point, which is not suitable for storing exact decimal values.
+- BigDecimal is less efficient than floating-point types but is suitable for projects where exact decimal representation is crucial, such as calculator projects.
+- Kotlin provides extensions that make handling BigDecimals almost as easy as native types.
+- BigDecimal allows for exact storage and manipulation of decimal numbers, eliminating the need for rounding and possibly formatting.
+- BigDecimal should be created directly from strings to avoid rounding errors associated with converting from floats/doubles.
+- BigDecimal can represent more values than Double, making conversion from BigDecimal to Double lossy.
+- BigDecimal is effectively unlimited in precision, while Double is limited to 64-bit precision.
+- BigDecimal stores decimal fractions, whereas Double stores binary fractions, leading to potential rounding when converting between them.
+- Both BigDecimal and Double can store integers exactly up to a certain value and can store fractions like 0.5 exactly.
+- Most decimal fractions cannot be represented exactly as binary fractions, leading to precision issues in Double (e.g., 0.1 cannot be exactly represented as a Double).
+- In Kotlin and most programming languages, numeric literals like 0.1 are converted to the nearest double-precision number, which may not be exact.
+- Doubles lack precision compared to BigDecimals, meaning they cannot distinguish between values like 1.0 and 1.000000, which are represented the same in Double.
+- BigDecimal is immutable and provides arbitrary-precision for signed decimal numbers, making it suitable for cases where precision is critical.
+- BigDecimal can be created with a Double.
+- BigDecimal is a decimal type that provides perfect precision.
+
+## Performance
+- BigDecimal is a little less efficient than native types, but not by anywhere near enough to be significant in a calculator project.
+- BigDecimal is less efficient in terms of performance compared to floating-point numbers.
+
+## Directive
+- Use BigDecimal instead of floating-point types if you care about exact decimal values.
+- BigDecimal is intended for storing exact decimal values, unlike floating-point types which use binary floating-point.
+- In Kotlin, there are extensions that make handling BigDecimals almost as easy as native types.
+- BigDecimals are less efficient than floating-point types but are suitable for projects where exact decimal manipulation is required, such as calculator projects.
+- When using BigDecimal, you shouldn't need to do any rounding or formatting because they store exact values.
+- Create BigDecimal instances directly from strings, not from floats/doubles, to avoid rounding issues associated with binary floating-point numbers.
+- Never use a Float or Double to store a value that needs to be exact, such as money.
+- Use BigDecimal to represent any decimal number exactly, to any precision needed, and to perform calculations and other manipulations.
+- Do not create a BigDecimal from a Float or Double, as the damage from approximation will already have been done.
+- If you have an integer value, start from an integer type such as Int or Long to create a BigDecimal.
+- If you need an exact value from a non-integer, start from a String to create a BigDecimal.
+- If you need exact values, don't use floating-point.
+- Never store money values in floating-point.
+- The best alternative for exact decimal values is usually `BigDecimal`, which can store and calculate decimal fractions to an arbitrary precision.
+- `BigDecimal` is less efficient than floating-point numbers, but Kotlin's operator overloading makes them easier to use compared to Java.
+- To keep the precision when using BigDecimal, pass the values to the BigDecimal constructor as a string.
+
+## Pattern
+- BigDecimal is commonly used for storing and manipulating exact decimal values, especially when exactness is crucial, such as in financial calculations. It is preferred over floating-point types like Float and Double when exact decimal representation is needed. In Kotlin, there are extensions that make handling BigDecimals almost as easy as native types. It is important to create BigDecimal instances directly from strings to avoid precision issues associated with floating-point numbers.
+- BigDecimal is commonly used to store and perform calculations on values that need to be exact, such as money, because it uses decimal fractions internally to represent any decimal number exactly, to any precision needed.
+- BigDecimal is commonly used when exact decimal values are needed, such as in financial calculations, because it can store and calculate decimal fractions to an arbitrary precision, unlike floating-point numbers which cannot store most decimal numbers exactly.
+
+## Alternative
+- **String**: If you are not going to be doing any calculations, you could store values as Strings.
+- **Int or Long**: If you'll only need a certain number of decimal places, you could scale them all up to Ints or Longs.

@@ -1,0 +1,18 @@
+So when getShort is called, the buffer read the first two bytes and return the corresponding short value.
+If you want to read other parts of the ble information, you may want to wrap() the whole ByteArray and then read multiple parts of it with other methods of ByteBuffer.
+From one of your line
+
+[-6, 5, 0, 3, 0, 1, 108, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] ========364gm
+
+
+Here, buffer only contains bytes 5 and 6.
+Yes you need to decode the base64 into a ByteArray then write the bytes to a location with the postfix .apk.
+So you just have to do:
+Binary     -> 1 Kilobyte = 1024 Byte
+Non-Binary -> 1 Kilobyte = 1000 Byte
+
+Native kotlin method below, if your API level is less than or equal to 24(Nougat), it uses binary format.
+If greater, it uses non-binary format.
+When your Fetcher function is called, it will be passed a particular Key value.
+If available, it will be returned from the in memory cache or the persister
+the key is to define your data, the object which you use as key have to override the hashCode method, define your own rule.

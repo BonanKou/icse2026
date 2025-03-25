@@ -1,0 +1,100 @@
+### URISyntaxException API Documentation
+
+### 1. Functionality
+
+- **Purpose of URISyntaxException:**
+  - `URISyntaxException` is used to signal that a string could not be parsed as a valid URI reference due to syntax errors.
+  
+- **Usage Example:**
+  ```java
+  try {
+      URI uri = new URI("http://example.com:80/path?query=string#fragment");
+  } catch (URISyntaxException e) {
+      System.err.println("Invalid URI syntax: " + e.getMessage());
+  }
+  ```
+
+- **Throwing the Exception:**
+  - It is typically thrown when using the `java.net.URI` constructor with an invalid URI string format.
+
+### 2. Concept
+
+- **Understanding URI:**
+  - URI (Uniform Resource Identifier) is a string of characters used to identify a resource on the internet.  
+
+- **Components of URI:**
+  - URIs consist of components like scheme (`http`), authority (`example.com`), path (`/path`), query (`query=string`), and fragment (`#fragment`).
+
+- **Why URISyntaxException Occurs:**
+  - When a string violates the URI syntax rules defined by RFC 2396 or 3986, a `URISyntaxException` is thrown.
+  
+- **Parsing:**
+  - Parsing is the process of analyzing a string to ensure it conforms to the URI syntax, and this can fail due to invalid characters or formats.
+
+### 3. Performance
+
+- **Performance Implications:**
+  - Throwing and catching exceptions like `URISyntaxException` can be costly in terms of performance if done excessively in performance-critical code paths.
+
+- **Efficiency Considerations:**
+  - Use proper URI syntax validation before attempting to construct a URI object to avoid frequent exceptions.
+
+### 4. Directive
+
+- **Best Practices:**
+  - Validate URI strings before attempting to parse them to prevent `URISyntaxException`.
+
+- **Handling URISyntaxException:**
+  - When catching `URISyntaxException`, consider logging the detailed error message and the input that caused it for debugging purposes.
+
+- **Code Example:**
+  ```java
+  try {
+      URI uri = new URI("invalid URI");
+  } catch (URISyntaxException e) {
+      System.err.println("Error: " + e.getMessage() + " at index " + e.getIndex());
+  }
+  ```
+
+- **Guidelines for Developers:**
+  - Consider re-throwing the exception as a custom exception with a more descriptive message if it provides more context about your application's logic.
+
+### 5. Pattern
+
+- **Common Usage Scenario:**
+  - Typically used when validating user input intended to be parsed as a URI, such as in web applications or network-based services.
+  
+- **Structured Exception Handling:**
+  ```java
+  public URI createURI(String uriString) throws CustomInvalidUriException {
+      try {
+          return new URI(uriString);
+      } catch (URISyntaxException e) {
+          throw new CustomInvalidUriException("Provided string is not a valid URI: " + uriString, e);
+      }
+  }
+  ```
+
+- **URI Generation and Validation:**
+  - Employ utility methods to construct URIs using builder patterns which include validations to mitigate exceptions.
+
+### 6. Environment
+
+- **Java SE Requirement:**
+  - `URISyntaxException` is a part of the Java Standard Edition (SE) environment, available in `java.net` package.
+
+- **Version Compatibility:**
+  - Ensure you are using Java 1.4 or later, where `URISyntaxException` has been available.
+
+### 7. Alternative
+
+- **Related Exceptions:**
+  - `MalformedURLException` is another exception that deals with URI-like issues, specifically aimed at malformed URLs in networking contexts.
+
+- **Other Libraries:**
+  - Consider using libraries like Apache Commons Validator for URI validation before parsing to prevent exceptions.
+
+- **Tools for URI Validation:**
+  - The Guava library provides utility methods for URI handling that can validate and sanitize strings before they are constructed into a URI object.
+
+By following these guidelines and understanding the context and usage of `URISyntaxException`, developers can effectively handle URI parsing in Java applications, ensuring robust and error-free code.

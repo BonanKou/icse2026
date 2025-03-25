@@ -1,0 +1,47 @@
+3. use a real tensor(ones, zeros, ect.) to call model(tensor) after the model is created.
+consider to specify the shape of model inputs in the strategy scope, you can try one of the below:
+1. call model.build() after the model is created.
+In short, if you want your model to train based on your validation data, then train the model on the training set, then take the resulting model, and train it on the validation data (i.e. make the validation data the training data).
+If your validation data is a random sample of your training data, then your best bet is probably modifying your architecture.
+You don't HAVE to have a validation dataset.
+Before calling model.fit just specify the metric you want to compute during training, in this case accuracy:
+
+Link to the documentation.
+When running the model remember to test the model using inputs in form:
+
+...in case where you input one image and one gender to the network.
+That kind of input should give as a result like:
+
+...which looks like OK at this stage.
+An error is thrown because the right argument is not used.
+below is a function that will plot training and validation losses and accuracy
+
+to use this first train your model using model.fit but first you need to create a training generator and a validation generator
+
+next train your model.
+When you call the model, it is automatically built with the shape of the data you inserted.
+Because of that, you can train the model, after you have called it.
+Before you can train your model, you must build it and compile it.
+If you explicitly feed it None for input data, then the model must have been created with existing data tensor(s), and it still is what executes the actual prediction.
+Normally, when a model is created, it has placeholder tensors for the input and output.
+You can't predict on placeholders, you need to feed that function real data.
+In this case, and only this case, you can use fit, predict, or evaluate without feeding it data.
+The only reason you can do that is because the data already exists.
+However, you have the option of giving it real tensors, instead of placeholders.
+That's because the validation data is to validate that the model isn't overtrained to the training data... if it were a subset of the training data, that obviously won't work.
+Yes, the validation data should be different (not a subset of) than the training data.
+When you instantiate the model model = tf.keras.
+Now, if you use the fit method or call your model output_tensors = mymodel(input_tensors, training=True), or conversely if you use the predict method or use output_tensors = mymodel(input_tensors, training=False), the training flag will be set to True or False, (which is obvious if you call the model directly).
+You will need to call the build method, usually when you do everything by hand using the gradient tape, or when you first call the fit method.
+Save model (should be saving parameters/weights as well).
+You need to declare your model's inputs somewhere, typically something like 
+
+Try taking out the last line in your model building function 
+
+and move it to your train function, once you have declared your model you can use the output of the model as your output layer and declare your input layer with something like
+The following model, for example, can only be saved when using model.save or model.save("test", save_format='tf'):
+
+Calling model.save("test", save_format='h5') or model.save("test.h5") or even model.save("model.h5", save_format='tf') on this subclassed model will in result in an error.
+Checkpoints are especially useful when you need to interrupt the training or it crashes and you want to resume training your model from a saved state.
+Saving your model with the tf format should work.
+Either you simply save your model with the older Keras H5 format model.save("test", save_format='h5') or you use the Tensorflow SavedModel format by either explicitly setting model.save("test", save_format='tf') or simply model.save("test"), since the tf format is used by default when you call model.save.

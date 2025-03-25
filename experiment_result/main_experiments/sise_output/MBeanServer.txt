@@ -1,0 +1,74 @@
+In a real world scenario, you may need to store the offsets your consumer has processed so that you can start from the right position if your application is restarted.
+= &quot;hello-scala&quot;,
+    version := &quot;0.1.0-SNAPSHOT&quot;,
+    scalaVersion := scala2Version,
+    libraryDependencies ++= Seq(
+      &quot;org.apache.spark&quot;
+%% &quot;spark-sql&quot; % &quot;3.4.0&quot; % Provided,
+      &quot;io.delta&quot;
+I didn't find any documentation on spring to do that either.
+
+If you don´t need to access the callback from your Repository you can simply Inject the bean entityManager and detatch from your Hibernate Context.
+private final EntityManager entityManager;
+
+public void someMethod(List&lt;SomeObject&gt; objects) {
+    objects.forEach(someObject-&gt; {
+        res = someRepository.save(someObject);
+        entityManager.detatch(res); // or use ´entityManager.clear();´ 
+    });
+}
+
+
+Object)&quot; outputMimeType=&quot;application/java&quot;&gt;
+        &lt;java:args &gt;&lt;![CDATA[#[{payload : payload}]]]&gt;&lt;/java:args&gt;
+&lt;/java:invoke-static&gt;
+
+
+%% &quot;munit&quot; % &quot;0.7.29&quot; % Test
+    )
+  )
+
+// include the 'provided' Spark dependency on the classpath for  sbt run
+Compile / run := Defaults
+  .runTask(
+    Compile / fullClasspath,
+    Compile / run / mainClass,
+    Compile / run / runner
+  )
+  .evaluated
+
+Try these changes in your .sbt file and let me know if it fixes the problem.
+%% &quot;delta-core&quot; % &quot;2.4.0&quot; % Provided,
+      &quot;org.scalameta&quot;
+your certificate to spring relying party bean
+    RelyingPartyRegistration registration = RelyingPartyRegistrations
+        .fromMetadataLocation(assertingPartyMetadataLocation)
+        
+Then when you desire to forward a message from your websocket client to your manager, you can simply call the notifyObservers method to forward the request out to any registered observers.
+I don't think this is reasonably expected from Karate, it depends a lot on your environment and how you can set up the previous and current versions.
+Configurator class and override its getEndpointInstance() method to return the Spring-managed bean instance.
+import javax.websocket.server.
+Instead an easier solution is to let DataWeave do its transformation magic and convert to a Java object  automatically, in this case a String.
+Example:
+&lt;sockets:listener doc:name=&quot;Listener&quot; config-ref=&quot;UDP_Config&quot; outputMimeType=&quot;text/json&quot;/&gt; 
+&lt;ee:transform doc:name=&quot;Transform Message&quot;&gt;
+   &lt;ee:message &gt;
+      &lt;ee:set-payload &gt;&lt;![CDATA[%dw 2.0
+output application/java
+---
+write(payload,&quot;application/java&quot;)
+]]&gt;
+      &lt;/ee:set-payload&gt;
+   &lt;/ee:message&gt;
+&lt;/ee:transform&gt;
+&lt;java:invoke-static doc:name=&quot;Data Wrapper&quot; class=&quot;com.test.
+ENABLE_AUTO_COMMIT_CONFIG, false);
+
+You'll also need to ensure that the AckMode of the listener container is set to MANUAL_IMMEDIATE or MANUAL, so that your listener code has to manually acknowledge that it has processed a message:
+ContainerProperties containerProperties = new ContainerProperties(&quot;mytopic&quot;);
+containerProperties.setAckMode(ContainerProperties.
+To use a Spring-managed bean as a WebSocket handler, you can define a custom javax.websocket.server.
+the private key contained in the jks file
+    PrivateKey privateRSAKey = (PrivateKey) ks.getKey(keyStoreAlias, keyStorePassword.toCharArray());
+
+    //Fetch

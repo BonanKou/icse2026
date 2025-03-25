@@ -1,0 +1,40 @@
+Use the mousePressed() and move the slider to the next line when the button is pressed:
+
+
+Complete example:
+If you could evaluate the position of the mouse relative to the node after this translation, you would get (12,9): the mouse started at (11,8), has moved two pixels right and down, and the node is moved one pixel right and down.
+The key point is that if you are dragging a node smoothly, the mouse will always remain in the same position relative to the node.
+If you could evaluate getX() and getY() for a new mouse event immediately after this, you would necessarily get 0 for both (because you have moved the node so its origin is where the mouse is).
+When you do
+
+you will move the node so its origin (top left) is at the same position as the mouse.
+The next drag event occurs after the mouse has moved right one pixel and down one pixel, so on that drag event getX() and getY() both return 1.
+Then the idea is to record where the mouse is originally pressed, and when the mouse is dragged move the node so that the mouse is back in the same relative position.
+So the strategy is:
+
+Record the coordinates of the mouse relative to the node when the mouse is pressed.
+Since you want custom mouse behavior, you should not use setComponentPopupMenu.
+Instead, display the JPopupMenu yourself, using JPopupMenu’s show method:
+
+You must check the MouseEvent in both mousePressed and mouseReleased, because exactly when a context menu is triggered depends on the platform and the look-and-feel.
+When the program is executed and the user manipulates their mouse, a MouseEvent will be fired.
+Also, there is no default function for checking to see if the mouse was let go of but using InputProcessor, you can code it yourself (I already have done it for one of my projects so here it is:
+
+SUMARRY
+Basically here is the code you would need to write using the InputProcessor class (of course this code isn't fully valid, you'll have to implement it into your application yourself):
+(Eventually you might have to .unproject() the mouse position to get it to be correctly but assuming you're not using a moving camera etc. that won't be a hassle yet)
+When the mouse is just pressed on one of the left images, create a temporary variable to store the mouse position and then once the mouse is just let go of on another image, draw a line using ShapeRenderer like this:
+
+Both variables in the function are Vector2s btw.
+for
+
+So now you dont even have the start position
+You should have
+
+Make sure the mouse Positions update
+A mouse event is generated when the mouse is pressed, released clicked (pressed and released).
+The class that is interested in processing a mouse event either implements this interface (and all the methods it contains) or extends the abstract MouseAdapter class (overriding only the methods of interest).
+A mouse event is also generated when the mouse cursor enters or leaves a component.
+When a mouse event occurs, the relevant method in the listener object is invoked, and the MouseEvent is passed to it.
+After you register a MouseListener on a component by calling addMouseListener, that component will call the appropriate method on each MouseListener attached to it whenever a MouseEvent occurs, passing the MouseEvent as the first argument.
+The function mousePressed itself doesn't check if the mouse is actually pressed.

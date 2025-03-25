@@ -1,0 +1,51 @@
+For example, you could extract all certificated from a PDF and add them to the trusted list before validation
+See the DSS FAQ
+
+When validating a signature I receive INDETERMINATE/NO_CERTIFICATE_CHAIN_FOUND indication
+
+
+The result means the validator was not able to reach a trust anchor when validating the certificate chain of the signature.
+If you're only verifying signatures created by yourself, add your CA root/your signing certificate to the trusted source.
+If you're verifying third-party signatures, the solution is more complex.
+To do it, you need to add trust anchors to the instance of CertificateVerifier you use within DocumentValidator:
+So you need to add some certificates to the CommonTrustedCertificateSource.
+You should get a CA to issue a certificate for the server.
+If you didn't intend to use a typical "browser-trusted CA," you can sign the certificate with your own CA and use that CA's certificate as a trust source:
+
+There are many sites and scripts that describe how to make your own CA and sign server certificates, if that is what you end up wanting.
+If it is already a valid cert, make sure to provide the "certificate chain" when configuring the server, not just the bare server certificate.
+This is default behavior when your make use of self signed certificate in server machine.
+adding certificate to truststore will make sure that only trusted clients are authorized to make the request.
+Think about it ideally request to server should only and only come from legitimate clients (in your case spring app is client to redis server).
+The error was: "PKIX path building failed".
+In other words to make an external call with RestTemplate what you have to do is change it from:
+
+to:
+
+I think I have given an explanation.
+It is as if the certificate is self-signed for the trust-store when it is not.
+These are the intermediary certificates of the CAs:
+Intermediate cert CAs chain
+On a programmatic level, when JAVA persists the trusted certificates in the Trust-Store, it writes information related to the fact that it was not possible to recover the whole CA chain.
+When making an external call to an application-side https server, the client is not fully aware of the certificate.
+First, I assume you are using Paketo buildpacks, and the documentation explains how you can provide a CA certificate to your JVM Truststore, either at
+
+buildtime (if you use the same CA certificate for your image across your environments; that's the easiest solution since you just need to provide your CA cert during buildtime and the image is ready to be deployed) or at
+runtime (if your CA cert is going to be different across environments; that's a more complicated option since at deployment time, in kpack, you will need to provide and bind the CA certificate)
+If you choose runtime, then you would need to create a service binding that would link to your CA certificate
+Hope that helps!
+So a trust store contains the trust anchors for that to happen: if a valid trust path can be build to a trust anchor in the trust store then the certificate is deemed valid and - after some additional checks of e.g. the server name - the private key can be used by the server to indicate that it is the server named within the server certificate.
+This is why you either have to trust a server based on the cacerts, or to distribute a certificate with the application.
+So downloading the trust store every time you need to secure a connection is adding another high availability component to your infrastructure.
+Preferably, a private key should not be distributed that way.
+Having the trust store unavailable will obviously be a big issue.
+That basically means that the connection to your service should be free from attacks.
+The other thing is that the trust store should not be altered in traffic.
+The reason why a trust store exists is because you are trying to create a secure communication to a web server, and you need to trust the server certificate that they offer.
+It means that your Intermediate certificate must be signed by the root CA, and your leaf certificate must be signed by your intermediate CA.
+If a client can’t build a trusted cert chain to the cert provided by a server an SSL connection will fail with the dreaded “PKIX path building failed” error.
+I find it easier to add untrusted Intermediate CA certs to CACERTS rather than adding the server cert to the client truststore (as you correctly show) because that allows multiple servers to be trusted (because, in a typical corporate environment, they will all have certs signed by the Intermediate CA)
+If the Intermediate CA’s signing cert is not registered in the official Java CACERTS in the client’s JRE then it must be added like this.
+In simple terms, a party (client or server) will trust another party (server or client) if the other party’s certificate chain as provided on the wire can be traced back (recursively via signers) to the CACERTS stored in the original party’s JRE.
+If the server certificate is signed by a Intermediate CA that has a cert held in the client’s CACERTS then no client side intervention is necessary.
+If you want to specifically use Java SSLContext, you can use a custom TrustManager that directly trusts the specified certificate.

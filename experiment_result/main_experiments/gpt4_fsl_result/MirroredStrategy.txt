@@ -1,0 +1,109 @@
+# MirroredStrategy API Knowledge Document
+
+## Functionality
+- `tf.distribute.MirroredStrategy` is used to distribute computation across multiple devices, typically GPUs, on a single machine.
+- It automatically replicates models and variables across all available devices.
+- MirroredStrategy provides an easy way to scale model training by leveraging multiple GPUs without changing much code.
+- It handles the synchronization of updates across devices automatically.
+- When using MirroredStrategy, operations on a variable are mirrored across each replica, ensuring consistency.
+- It provides support for distributed dataset processing, enhancing input pipeline performance.
+
+## Concept
+- `MirroredStrategy` is a part of TensorFlow's `tf.distribute` API, which is used for distributed training.
+- The strategy creates a single model instance that is mirrored on each of the devices.
+- Each device has its own copy of the model, and gradients are averaged across all devices before updating the model's parameters.
+- It uses a concept called "synchronous training" where updates to the model are made simultaneously across all devices.
+- Devices in MirroredStrategy can be either physical GPUs or logical devices set up on CPU.
+- MirroredStrategy is primarily designed for training on multiple GPUs on a single machine.
+
+## Performance
+- MirroredStrategy is optimized for performance when using multiple GPUs by ensuring efficient communication and synchronization.
+- It reduces the overhead of communication between devices through a technique known as "All-Reduce," which effectively averages gradients across devices.
+- Training with MirroredStrategy can lead to almost linear speedup with the addition of more GPUs.
+- However, there may be an overhead related to device communication, especially when the number of GPUs is very high.
+- The strategy also enables effective utilization of the input pipeline, ensuring devices are kept busy.
+
+## Directive
+- Users should ensure that their model and input pipeline can efficiently handle multiple devices when using MirroredStrategy.
+- It is recommended to use `tf.distribute.MirroredStrategy` with models that benefit from synchronous updates across devices.
+- When using MirroredStrategy, ensure that batch sizes are sufficiently large to keep all devices busy.
+- All device-specific operations should be performed within the scope of MirroredStrategy to ensure consistent results.
+- Use `strategy.run()` to distribute execution across replicas.
+- Avoid using `session.run()` directly; instead, work within the strategy's context to ensure proper device management.
+
+## Pattern
+- A common pattern is to instantiate MirroredStrategy before building and compiling the model:
+  ```python
+  strategy = tf.distribute.MirroredStrategy()
+  with strategy.scope():
+      model = create_model()
+      model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+  ```
+- MirroredStrategy is often used in conjunction with `tf.data` pipelines to efficiently distribute datasets:
+  ```python
+  dataset = tf.data.Dataset.from_tensor_slices((features, labels))
+  dataset = dataset.batch(batch_size).repeat()
+  distributed_dataset = strategy.experimental_distribute_dataset(dataset)
+  ```
+- MirroredStrategy can be used for both Keras-based workflows and custom training loops.
+- The strategy is effective in scenarios where data parallelism is beneficial.
+
+## Environment
+- MirroredStrategy requires TensorFlow 2.x and supports both CPU and GPU execution, though it is primarily beneficial for multi-GPU setups.
+- It can be used on local machines with multiple GPUs or cloud environments that offer multi-GPU instances.
+- Ensure that all necessary GPU drivers and CUDA libraries are installed and properly configured.
+- TensorFlow must be compiled with GPU support for MirroredStrategy to utilize available GPUs.
+
+## Alternative
+- Alternatives to MirroredStrategy include `tf.distribute.MultiWorkerMirroredStrategy` for multi-node setups and `tf.distribute.OneDeviceStrategy` for single-device execution.
+- `tf.distribute.TPUStrategy` can be used for training on TPUs.
+- If the model is to be trained across multiple machines, `tf.distribute.MultiWorkerMirroredStrategy` might be more suitable.
+- For asynchronous training, `tf.distribute.ParameterServerStrategy` can be considered.
+
+Here are some code snippets to illustrate the use of MirroredStrategy:
+
+### Code Example 1: Basic Usage of MirroredStrategy
+```python
+import tensorflow as tf
+
+strategy = tf.distribute.MirroredStrategy()
+
+with strategy.scope():
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Dense(64, activation='relu', input_shape=(784,)),
+        tf.keras.layers.Dense(10, activation='softmax')
+    ])
+    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+# Assume you have 'train_dataset' defined and distributed using 'strategy.experimental_distribute_dataset'
+model.fit(train_dataset, epochs=10)
+```
+
+### Code Example 2: Custom Training Loop with MirroredStrategy
+```python
+@tf.function
+def train_step(inputs):
+    def step_fn(inputs):
+        features, labels = inputs
+        with tf.GradientTape() as tape:
+            predictions = model(features, training=True)
+            loss = compute_loss(labels, predictions)
+        gradients = tape.gradient(loss, model.trainable_variables)
+        optimizer.apply_gradients(zip(gradients, model.trainable_variables))
+        return loss
+
+    per_replica_losses = strategy.run(step_fn, args=(inputs,))
+    return strategy.reduce(tf.distribute.ReduceOp.SUM, per_replica_losses, axis=None)
+
+# Training loop
+for epoch in range(EPOCHS):
+    total_loss = 0.0
+    num_batches = 0
+    for x in distributed_train_dataset:
+        total_loss += train_step(x)
+        num_batches += 1
+    train_loss = total_loss / num_batches
+    print(f'Epoch {epoch}, Loss: {train_loss}')
+```
+
+These snippets and explanations provide a comprehensive view of how `tf.distribute.MirroredStrategy` can be used effectively in TensorFlow to leverage multiple GPUs for training deep learning models.

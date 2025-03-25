@@ -1,0 +1,7 @@
+Dense(10, activation=tf.nn.relu, input_shape=(len(numeric_headers),)),  # input shape required
+  tf.keras.layers.
+In TF 2.0, you do not pass the distribution strategy to the compile method.
+This approach works as is in TensorFlow 2.0 too as mentioned in your title.
+For more information check the API doc on TPUStrategy as well as this intro to TPUs in TF2 colab notebook.
+
+Note that the call to model.fit(...) should not be inside the distribution strategy scope.

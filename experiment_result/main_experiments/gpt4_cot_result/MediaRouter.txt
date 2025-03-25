@@ -1,0 +1,120 @@
+Sure, here's a comprehensive API document for the `MediaRouter` from the Android library, organized into seven sections with a total of 35 knowledge snippets, including code examples.
+
+### 1. Functionality
+
+- **Snippet 1**: `MediaRouter` allows applications to control the routing of media channels and streams both within and outside of the device. 
+
+- **Snippet 2**: The API enables applications to query and select available media routes, manage route selection, and provide user interfaces for media migration between routes.
+
+- **Snippet 3**: Through `MediaRouter`, developers can register their apps as route providers, enabling device discovery and interaction.
+
+```java
+MediaRouter mediaRouter = (MediaRouter) context.getSystemService(Context.MEDIA_ROUTER_SERVICE);
+MediaRouter.Callback callback = new MediaRouter.Callback() {
+    @Override
+    public void onRouteSelected(MediaRouter router, RouteInfo route) {
+        // Handle route selection
+    }
+
+    @Override
+    public void onRouteUnselected(MediaRouter router, RouteInfo route) {
+        // Handle route unselection
+    }
+};
+
+// Set up the MediaRouteSelector specifying the categories of media you intend to route
+MediaRouteSelector mediaRouteSelector = new MediaRouteSelector.Builder()
+        .addControlCategory(MediaControlIntent.CATEGORY_LIVE_AUDIO)
+        .addControlCategory(MediaControlIntent.CATEGORY_LIVE_VIDEO)
+        .build();
+
+mediaRouter.addCallback(mediaRouteSelector, callback, MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN);
+```
+
+### 2. Concept
+
+- **Snippet 4**: Media routes refer to the paths through which audio or video content can be sent, such as a built-in speaker, an HDMI-connected TV, or a peer device over a network.
+
+- **Snippet 5**: `MediaRouteProvider` is an interface for adding new media route-related features or devices, enabling the discovery and control of additional routes.
+
+- **Snippet 6**: `MediaRouter.ControlRequestCallback` is used for handling application-specific control requests, allowing finer control for custom media devices.
+
+- **Snippet 7**: Routes can be defined as either `User Routes` for user-defined paths or `Selectable Routes` which can be discovered and interacted with.
+
+### 3. Performance
+
+- **Snippet 8**: `MediaRouter` efficiently manages route discovery by only actively scanning when necessary, reducing unnecessary network and processing load.
+
+- **Snippet 9**: Route changes are managed through callback mechanisms, ensuring minimal impact on UI performance and seamless user experience.
+
+- **Snippet 10**: Using `CALLBACK_FLAG_PERFORM_ACTIVE_SCAN` can increase resource consumption; it should be used sparingly and only when actively scanning is required.
+
+### 4. Directive
+
+- **Snippet 11**: Always unregister callbacks in your `onStop` or equivalent lifecycle method to prevent memory leaks – especially important for long-lived activities or services.
+
+- **Snippet 12**: While interacting with different routes, verify their availability periodically to handle instances where routes may become unavailable.
+
+- **Snippet 13**: Use a `MediaRouteSelector` to specify exactly the categories you wish to discover to reduce overhead and unnecessary callbacks.
+
+- **Snippet 14**: For optimal user experience, synchronize route management with the app's media session management.
+
+### 5. Pattern
+
+- **Snippet 15**: A common use case involves integrating `MediaRouter` with the `Cast` framework to send media to a Chromecast device.
+
+- **Snippet 16**: Applications can leverage `MediaRouter` to dynamically switch audio output from a local device to a Bluetooth headset.
+
+- **Snippet 17**: One recurring pattern is monitoring route changes to adapt the UI, such as displaying appropriate icons when a device is connected or disconnected.
+
+```java
+mediaRouter.addCallback(mediaRouteSelector, new MediaRouter.Callback() {
+    @Override
+    public void onRouteChanged(MediaRouter router, RouteInfo route) {
+        // Adapt UI when the route changes
+    }
+});
+```
+
+### 6. Environment
+
+- **Snippet 18**: The `MediaRouter` API requires Android 4.1 (API level 16) or higher.
+
+- **Snippet 19**: Ensure the app has the necessary permissions, such as `ACCESS_NETWORK_STATE`, to discover routes on network-based devices.
+
+- **Snippet 20**: To support casting, apps may require additional SDKs or libraries, such as Google Cast SDK.
+
+### 7. Alternative
+
+- **Snippet 21**: Alternatives to `MediaRouter` include directly using device-specific APIs such as those for Bluetooth, HDMI, or third-party SDKs like DLNA.
+
+- **Snippet 22**: For applications targeting older Android versions, consider using compatibility libraries that backport some of the `MediaRouter` features.
+
+- **Snippet 23**: The `Cast` API can be used specifically for interactions with Chromecast and offers built-in features for managing media cast.
+
+### Additional Code Snippets
+
+- **Snippet 24**: Example of stopping media routing:
+
+```java
+@Override
+protected void onStop() {
+    super.onStop();
+    mediaRouter.removeCallback(callback);
+}
+```
+
+- **Snippet 25**: Example showing route unavailability handling:
+
+```java
+@Override
+public void onRouteRemoved(MediaRouter router, MediaRouter.RouteInfo route) {
+    if (route.equals(currentRoute)) {
+        // Handle the case where the current route is removed
+    }
+}
+```
+
+### Summary
+
+This structured document encompasses all necessary aspects of using the `MediaRouter` API effectively. From understanding core concepts to leveraging directives and patterns for optimized implementation, the outlined snippets ensure developers navigate through their use cases effectively, maintaining performant and robust applications.

@@ -1,0 +1,26 @@
+In this case the training code need to run individually on each node.
+You can create MultiWorkerMirroredStartegy in the following way
+
+For this you also need to configure multi-worker setup using TF_CONFIG on different nodes.
+If you are distributing the training across large number of nodes, consider using Kubernetes.
+There is no concept of such a thing when executing eagerly.
+This error:
+
+RuntimeError: tf.placeholder() is not compatible with eager execution.
+Sounds like you need to use a Distributed Strategy per the docs.
+They should be optimized during training.
+Here is an example of retrieving the gradients of the predictions with respect to the inputs using eager execution
+Basically, you need to use tape.watch(inputs)
+Like:
+
+And for prediction the feed_dict will contain only x values, also you will specify the parameter y_out (the output of your model):
+But if you look carefully you will find inputs to sess.run() are different, when training the feed_dict contains both x and corresponding y's.
+In TensorFlow 1.x, you need to define a Session and both training and prediction happens inside it.
+Note that the call to model.fit(...) should not be inside the distribution strategy scope.
+Instead, you need to build your model and compile it inside of the distribution strategy scope.
+For example, this is a redacted version of your colab code which should solve your problem:
+
+Please see the Using tf.distribute.
+In TF 2.0, you do not pass the distribution strategy to the compile method.
+One question to ask is whether you want to compare the variables within TFF (as part of the federated computation) or post-hoc/outside TFF (analyzing within Python).
+In fact, I'd recommend forking the simplified implementation on GitHub at tensorflow_federated/python/research/simple_fedavg/simple_fedavg.py, rather than digging into tff.learning.

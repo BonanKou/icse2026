@@ -1,0 +1,47 @@
+This removes the one-instance-across-everything property from your variable and makes it 'object-specific'.
+Little additional info: You typically only want to declare variables static, when they're global properties or values, which aren't going to be object-specific, such as e.g.
+private static final int MAX_LENGTH_TEXT = 425
+Hope this helped!
+Let me explain:
+private String color;
+private int maxSpeed;
+private String brand;
+
+public Car(String somevar, int somevar2, String somevar3) {
+    this.color = somevar;
+    this.maxSpeed = somevar2;
+    
+static and final key words can be used on a class variable to make it behave like a constant.
+
+The static modifier causes the variable to be available without an instance of it’s defining class being loaded
+
+The final modifier makes the variable unchangeable
+
+
+For example:
+    private static final String FILE_NAME = &quot;dictionary.txt&quot;;
+    private static final File DICTIONARY = new File(FILE_NAME);
+
+    public static void main(String[] args) throws FileNotFoundException  {
+
+        if (!DICTIONARY.isFile()) {
+            System.out.println(&quot;Dictionary file cannot be opened&quot;);
+            System.exit(0);
+        }
+        Scanner input = new Scanner(DICTIONARY);
+        while (input.hasNextLine()) {
+            System.out.println(input.nextLine());
+        }
+
+        getSelection();
+        substringProblem();
+        pointsProblem();
+
+
+    }
+
+
+Fields of a class are initialized in textual order.
+That means that the initial value of variableA is computed before variableB has been initialized.   
+The other two is container.properties and dev.properties,define the different environment variable.
+Then set the different variable in your develop operate system and your container system.

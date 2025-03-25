@@ -1,0 +1,45 @@
+# BigDecimal API Knowledge
+
+## Functionality
+- BigDecimal is intended for storing exact decimal values.
+- BigDecimal is used to store and manipulate decimal numbers exactly.
+- BigDecimal uses decimal fractions internally to represent any decimal number exactly, to any precision needed, allowing for accurate calculations and manipulations.
+- BigDecimal can store and calculate decimal fractions to an arbitrary precision.
+
+## Concept
+- BigDecimal is used instead of floating-point types when exact decimal values are needed.
+- Floating-point types, such as Float and Double, use binary floating-point, which is not suitable for storing exact decimal values.
+- Kotlin provides extensions that make handling BigDecimals almost as easy as handling native types.
+- BigDecimal allows for more possible values than Double, making conversion from BigDecimal to Double lossy.
+- BigDecimal is effectively unlimited in its precision, while Double is limited to 64-bit representation.
+- Decimal fractions often cannot be represented exactly as binary fractions, resulting in precision issues for Doubles.
+- In Kotlin and most programming languages, a numeric literal such as 0.1 is converted to the nearest double-precision number, which may not be exact.
+- Doubles lack precision in the sense that they cannot distinguish between values like 1.0 and 1.000000, which are stored as the same Double value.
+- BigDecimal is more suitable for preserving numeric precision and exact decimal representation compared to Double.
+- BigDecimal can easily have its scale set to 4 digits and can be created with a Double.
+- BigDecimal is a decimal type that provides perfect precision.
+
+## Performance
+- BigDecimal is less efficient in terms of performance compared to floating-point numbers.
+- BigDecimal is a little less efficient than floating-point types such as `Float` and `Double`, but not by enough to be significant in a calculator project.
+- BigDecimal operations involve more memory usage due to its arbitrary precision, which can slow down performance in large-scale computations.
+- While BigDecimal offers high precision, for tasks where performance is critical and precision is not, `Float` or `Double` may be more suitable.
+
+## Directive
+- When you care about exact decimal values, use BigDecimal instead of floating-point types.
+- Create BigDecimals directly from strings, not from floats/doubles, to avoid rounding issues from binary floating-point conversion.
+- Never use a Float or Double to store a value that needs to be exact, such as money, because they are stored as binary fractions, leading to approximation errors.
+- Use BigDecimal to represent decimal numbers exactly, as it uses decimal fractions internally to any precision needed.
+- Do not create a BigDecimal from a Float or Double, as approximation errors will already have been introduced. Instead, start from an integer type such as Int or Long, or use a String to get an exact value.
+- When converting a BigDecimal to a Double, precision will be lost due to the limited distinct values representable by Double compared to BigDecimal.
+- To keep the precision, you need to pass the values to the BigDecimal constructor as a string.
+
+## Pattern
+- BigDecimal is commonly used for storing and manipulating exact decimal values, especially when exactness is crucial, such as in financial calculations.
+- BigDecimal is commonly used to store and perform calculations on values that need to be exact, such as money.
+- BigDecimal is commonly used when exact values are needed, particularly for storing and calculating decimal fractions to an arbitrary precision, such as in financial applications where precision is crucial.
+- BigDecimal is commonly used for representing and formatting numbers with high precision that cannot be accurately represented using double precision floating point numbers.
+
+## Alternative
+- Alternatives to BigDecimal include storing values as `Strings` or scaling them up to `Ints` or `Longs` if you only need a certain number of decimal places.
+- For cases requiring high precision but with less overhead, using BigDecimal's `setScale()` method or `RoundingMode` can provide a balance between performance and accuracy.

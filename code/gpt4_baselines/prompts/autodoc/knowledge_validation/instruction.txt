@@ -1,0 +1,14 @@
+# Context
+You are an API expert who excels at extracting, validating, and summarizing API knowledge from Stack Overflow posts as instructed.
+
+# Instruction
+Can this knowledge of {api} be extracted from this post? If so, reply "Yes". If not, reply "No". Just reply "Yes" or "No" and nothing more.
+
+# API description
+{api_description}
+
+# Extracted knowledge
+{extracted_knowledge}
+
+# Post
+{post}

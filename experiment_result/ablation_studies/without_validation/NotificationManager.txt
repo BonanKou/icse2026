@@ -1,0 +1,37 @@
+# NotificationManager API Knowledge
+
+## Functionality
+- All notifications from an app are created by the app and handed to the OS via `NotificationManager`.
+
+## Concept
+1. If an app has its own concept of "internal notification settings," that controls when the app actually invokes `NotificationManager`.
+2. In Android 8.0 (API level 26) and above, notifications must be assigned to notification channels.
+3. NotificationManager allows for various notification styles such as Notification.BigPictureStyle, Notification.BigTextStyle, Notification.DecoratedCustomViewStyle, Notification.InboxStyle, Notification.MediaStyle, and Notification.MessagingStyle.
+4. From Android 8.0, to show a notification, it must be associated with a Notification Channel.
+
+## Performance
+- No specific performance knowledge snippets were provided.
+
+## Directive
+1. If an app has its own "internal notification settings," it manages when to invoke `NotificationManager`, but the OS ultimately applies the system rules.
+2. On Android TV OS, general app notifications do not show up using the regular NotificationManager and related APIs; instead, they should be displayed within the app's UI.
+3. Using NotificationManager on Android TV OS won't result in a notification being visible to the user and should be avoided.
+4. When using NotificationManager, ensure that a notification channel is created and assigned to notifications for Android 8.0 (API level 26) and above.
+5. Check if the notification is already visible and show it only if it's not visible. Maintain a reference to the notification PendingIntent and notificationId.
+6. From Android 8.0, to show a notification, first create a new Notification Channel, then display your notification.
+
+## Pattern
+1. All notifications from an app are created by the app and handed to the OS via `NotificationManager`.
+2. Creating a NotificationChannel is necessary when displaying notifications on devices running Android 8.0 (API level 26) or higher.
+3. To avoid playing notification sound on successive `startForegroundService()` calls, verify if the notification is visible before creating it again.
+4. To return to the application when clicking a foreground notification, use a PendingIntent to open the app from the notification.
+5. You can open the last activity shown by using Preferences in the `onResume()` method of each activity, and route the notification to a routing activity that starts the correct activity based on saved preferences.
+6. Another method is to update the notification PendingIntent with the last activity shown if it's already visible, eliminating the need to store values in Preferences or use a routing activity.
+7. Using NotificationManager allows developers to take full control of the display of messages by using data messages instead of notification messages, enabling customization of display and timing within the app's code.
+
+## Environment
+1. Notifications on Android TV OS are limited to system-level notifications within the launcher, and general app notifications do not show up. Therefore, NotificationManager and related APIs cannot make notifications visible to users on Android TV OS. Notifications should be displayed within the app UI instead.
+2. NotificationManager requires notification channels to be set up for notifications in Android 8.0 (API level 26) and above.
+
+## Alternative
+- No specific alternative knowledge snippets were provided.

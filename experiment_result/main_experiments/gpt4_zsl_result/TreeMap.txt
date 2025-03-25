@@ -1,0 +1,80 @@
+### Functionality
+
+1. **Sorted Map Implementation**: `TreeMap` is a Java class that implements the `NavigableMap` interface. It provides a map implementation that keeps its keys in sorted order.
+
+2. **Key-Value Mapping**: Like other map implementations, `TreeMap` allows you to store and retrieve key-value pairs.
+
+3. **Logarithmic Time Complexity**: The primary actions like inserting, deleting, and searching for keys have a time complexity of O(log n) because `TreeMap` is implemented using a Red-Black tree.
+
+4. **Range View Operations**: Methods like `subMap()`, `headMap()`, and `tailMap()` return a view of the portion of the map whose keys are within a specified range.
+
+5. **Navigational Methods**: Provides methods such as `higherKey()`, `lowerKey()`, `ceilingKey()`, and `floorKey()` for navigating through the map entries in sorted order.
+
+6. **Custom Sorting**: You can create a `TreeMap` with a custom comparator to define an ordering different from the natural ordering of keys.
+
+```java
+TreeMap<String, Integer> map = new TreeMap<>(Comparator.reverseOrder());
+map.put("apple", 3);
+map.put("banana", 2);
+map.put("cherry", 1);
+```
+
+### Concept
+
+1. **Red-Black Tree**: `TreeMap` is based on the Red-Black tree data structure, which is a balanced binary search tree with automatic balancing while ensuring O(log n) complexity on operations.
+
+2. **Not Synchronized**: `TreeMap` is not synchronized and is therefore not thread-safe. Use `Collections.synchronizedMap()` for a synchronized view.
+
+3. **SortedMap Interface**: `TreeMap` is a part of the Java Collections Framework and implements the `SortedMap` interface for maintaining keys in a sequence.
+
+4. **EntrySet View**: The `entrySet()` method returns a set of key-value pairs, providing a collection that maintains the order of entries.
+
+5. **KeySet and Values Collection**: The `keySet()` method returns a set view of the keys contained in this map, whereas `values()` returns a collection of values.
+
+### Performance
+
+1. **Efficient Searching**: The O(log n) time complexity for basic operations provides efficient searching compared to unoptimized data structures.
+
+2. **Memory Usage**: Due to the tree structure, `TreeMap` might use more memory than `HashMap` but offers consistent ordering of keys.
+
+3. **Overhead with Comparators**: Using custom comparators for sorting keys might introduce additional computational overhead.
+
+### Directive
+
+1. **Ensure Key Comparability**: All keys inserted into a `TreeMap` must be mutually comparable. Attempting to insert an incompatible key will result in a `ClassCastException`.
+
+2. **Avoid Null Keys**: `TreeMap` does not allow null keys. Attempting to insert a null key will result in a `NullPointerException`.
+
+3. **Iterating Over Map**: Use enhanced for-loops or iterators to efficiently loop through the entries in `TreeMap`.
+
+```java
+for (Map.Entry<String, Integer> entry : map.entrySet()) {
+    System.out.println(entry.getKey() + " = " + entry.getValue());
+}
+```
+
+### Pattern
+
+1. **Sorted Key Cache**: Use `TreeMap` as a cache where items are automatically sorted and can be retrieved by the lowest or highest key.
+
+2. **Range Based Querying**: Implement features that require querying elements by range, such as in an interval tree.
+
+3. **Event Timing**: Useful for applications where elements are processed in sequential order based on timestamp keys.
+
+4. **Priority Scheduling**: Implement custom task scheduling where tasks should be processed in order of priority based on keys.
+
+### Environment
+
+1. **Java Development Kit**: Ensure you have JDK 1.2 or later as `TreeMap` has been part of Java since JDK 1.2.
+
+2. **Multi-threaded Environment**: If `TreeMap` is to be used in concurrent applications, ensure appropriate synchronization is managed externally.
+
+### Alternative
+
+1. **HashMap**: If ordering of keys is not required, `HashMap` can be an alternative due to its constant time operations.
+
+2. **LinkedHashMap**: Use `LinkedHashMap` if insertion order needs to be preserved while providing similar operations to `HashMap`.
+
+3. **ConcurrentSkipListMap**: In multi-threaded environments, `ConcurrentSkipListMap` is an alternative as it provides concurrent access.
+
+4. **NavigableSet**: For merely maintaining a sorted set of keys without values, consider `TreeSet`. It provides similar functionality without the value mapping.

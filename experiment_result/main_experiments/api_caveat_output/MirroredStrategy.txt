@@ -1,0 +1,25 @@
+Also, you could try making use of mixed precision which should free up memory significantly by altering the float type of the parameters in the model.
+You can see in the docs here
+
+For instance, if using MirroredStrategy with 2 GPUs, each batch of size 10 will get divided among the 2 GPUs, with each receiving 5 input examples in each step.
+So in your case if you want each GPU to process 32 samples per step, you can set the batch size as 32 * strategy.num_replicas_in_sync.
+When using MirroredStrategy, the batch size refers to the global batch size.
+Someone here had a similar problem: { AttributeError: module 'tensorflow_core._api.v2.config' has no attribute 'experimental_list_devices' } how can i solve this error?
+It will be removed after
+2020-04-01.
+Not only do you avoid such problems but it's also the recommended way in the foreseeable future.
+My strong recommendation is to switch to MirroredStrategy() if you want to train the model on multi_gpus.
+The problem is that there are some issues with the tensorflow.keras and plain keras compatiblity and my intuition tells me (according to the error you posted) that there is a problem with the multi_gpu function, in that it doesn't correctly detect the available devices.
+For instance, if using MirroredStrategy with 2 GPUs, each batch of size 10 will get divided among the 2 GPUs, with each receiving 5 input examples in each step.
+For the Second Error :
+TensorFlow 2.10 was the last TensorFlow release that supported GPU on native-Windows.
+For the First Error :
+You are getting this error because multi_gpu_model is deprecated to use in Tensorflow 2.x.
+multi_gpu_model api is used in TensorFlow 1.x version and replaced with tf.distribute.
+Using this reduced my Dedicated GPU Memory usage from 9.7GB to in between 3.2GB and 4 GB.
+EDIT: I'm not sure at which point it will aim to allocate that Memory, but if you attempt to train the model and keep an eye on Task Manager Performance for the GPU you should find if it is behaving this way!
+If you open task manager, at time of importing tensorflow and creating your model, will it show extremely high values of GPU memory reserved?
+If so, it may not be the size of either the model or the data, but the fact that tensorflow reserves as much memory as possible for all model training.
+If this is the case, have a look at the set_memory_growth method on https://www.tensorflow.org/guide/gpu#limiting_gpu_memory_growth.
+So you must configure memory usage which involves a session with a parameter set.
+By default, Tensorflow will try to allocate all available GPU memory, which can lead to issues if other processes require GPU memory, that is what is happening in your scenario.

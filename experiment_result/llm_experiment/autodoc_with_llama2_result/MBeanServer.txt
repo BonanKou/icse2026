@@ -1,0 +1,35 @@
+ Sure, I'd be happy to help! Here's a comprehensive and accurate list of knowledge snippets regarding MBeanServer, grouped into seven types of knowledge as described in the instruction:
+
+Functionality:
+
+1. MBeanServer provides a way to interact with JMX MBeans, and the interaction might involve query operations using ObjectName instances.
+2. MBeanServer can be used to register MBeans with the MBeanServer.
+3. MBeanServer can be used to query MBeans using their ObjectName.
+4. MBeanServer can be used to unregister MBeans from the MBeanServer.
+5. MBeanServer can be used to add listeners for notifications from MBeans.
+6. MBeanServer can be used to remove listeners from the MBeanServer.
+7. MBeanServer can be used to notify listeners of an event.
+8. MBeanServer can be used to get the attributes of an MBean.
+9. MBeanServer can be used to set the attributes of an MBean.
+10. MBeanServer can be used to invoke operations on an MBean.
+
+Concept:
+
+1. MBeanServer is an interface for managing and accessing the Java Management Extensions (JMX) MBeans.
+2. MBeanServer provides a way to interact with JMX MBeans, and the interaction might involve query operations using ObjectName instances.
+3. MBeanServer can be used to register MBeans with the MBeanServer.
+4. MBeanServer can be used to query MBeans using their ObjectName.
+5. MBeanServer can be used to unregister MBeans from the MBeanServer.
+6. MBeanServer can be used to add listeners for notifications from MBeans.
+7. MBeanServer can be used to remove listeners from the MBeanServer.
+8. MBeanServer can be used to notify listeners of an event.
+9. MBeanServer can be used to get the attributes of an MBean.
+10. MBeanServer can be used to set the attributes of an MBean.
+11. MBeanServer can be used to invoke operations on an MBean.
+
+Performance:
+
+1. MBeanServer has overhead when used on large tensors.
+
+Directive:
+

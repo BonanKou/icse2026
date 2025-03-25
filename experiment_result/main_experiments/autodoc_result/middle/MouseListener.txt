@@ -1,0 +1,27 @@
+# MouseListener API Knowledge Document
+
+## Functionality
+- No specific functionality knowledge snippets were provided for MouseListener.
+
+## Concept
+- The `MouseInputListener` interface combines the functionalities of both `MouseListener` and `MouseMotionListener`.
+- The Java Tutorials provide guides on implementing `MouseListener` and `MouseMotionListener` for handling mouse events in a Swing application.
+- `MouseInputListener` is commonly used with components like `JPanel` or `JComponent` to track both clicks and movement within a single interface.
+- Implementing `MouseInputListener` helps reduce boilerplate code by avoiding the need to register separate listeners for mouse actions and motion events.
+
+## Performance
+- No specific performance knowledge snippets were provided for MouseListener.
+
+## Directive
+- To handle mouse button events within a `MouseListener`, it's recommended to use the `SwingUtilities` class.
+
+## Pattern
+- Example usage of `SwingUtilities` within a `mouseDragged` method to print which mouse button is pressed and the coordinates of the mouse event.
+
+## Environment
+- No specific environment knowledge snippets were provided for MouseListener.
+
+## Alternative
+- Alternatives to `MouseListener` include the `MouseInputListener` interface, which implements both `MouseListener` and `MouseMotionListener`.
+- Methods like `isLeftMouseButton`, `isMiddleMouseButton`, and `isRightMouseButton` can help determine which mouse button was pressed during mouse events.
+- `SwingUtilities` provides a convenient way to handle different mouse button events without manually checking event button codes.

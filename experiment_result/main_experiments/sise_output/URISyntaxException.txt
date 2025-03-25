@@ -1,0 +1,130 @@
+Here's the code:
+public class UrlEncoder {
+
+    public Optional&lt;URL&gt; encode(final String link) {
+        try {
+            final URI validatedURI = reencode(link).parseServerAuthority();
+            return Optional.of(validatedURI.toURL());
+        } catch (MalformedURLException | URISyntaxException e) {
+            return Optional.empty();
+        }
+    }
+
+    private URI reencode(String url) { // best effort
+        final String decodedUrl = UriUtils.decode(url, StandardCharsets.UTF_8);
+        return UriComponentsBuilder.fromHttpUrl(decodedUrl)
+                .encode()
+                .build()
+                .toUri();;
+    }
+}
+
+Here's the gist of it:
+
+reencode → best attempt to &quot;fix&quot; URL encoding by decoding and re-encoding
+parseServerAuthority()
+URI which has getters for various URI-components.
+var uri = new URI(&quot;https://123/v1/a/b/&quot;);
+
+String authority = uri.getAuthority(); // returns 123 
+System.out.println(authority);
+
+String path = uri.getPath(); // returns /v1/a/b/
+String pathTrimmed = path.replaceAll(&quot;^/&quot;, &quot;&quot;).replaceAll(&quot;/$&quot;, &quot;&quot;);  // trim leading and trailing slashes: v1/a/b
+String
+It is easy enough to come up with a &quot;broken&quot; test case.
+[]{
+        &quot;26&quot; // code for '&amp;'
+};
+
+private URI reencode(String url) throws URISyntaxException {
+    final String urlWithDoubleEncodedSpecialCharacters = doubleEncodeSpecialCharacters(url);
+    final String decodedUrl = UriUtils.decode(urlWithDoubleEncodedSpecialCharacters, StandardCharsets.UTF_8);
+    final String encodedUrl = UriComponentsBuilder.fromHttpUrl(decodedUrl).toUriString();
+    final String encodedUrlWithSpecialCharacters = decodeDoubleEncodedSpecialCharacters(encodedUrl);
+
+    return URI.create(encodedUrlWithSpecialCharacters);
+}
+
+private String doubleEncodeSpecialCharacters(String url) {
+    final StringBuilder sb = new StringBuilder(url);
+    for (String code : CODES_TO_DOUBLE_ENCODE) {
+        final String codeString = PERCENT_SIGN + code;
+        int index = sb.indexOf(codeString);
+        while (index !
+So as far as general purpose components (browsers, caches, spiders...) colon is just another letter - it doesn't mean anything more or less than the letter &quot;e&quot; does.
+As it happens, the same is true of comma (&quot;,&quot;), which is a sub-delim.
+
+Below works
+UsernamePasswordCredentialsProvider cr = new UsernamePasswordCredentialsProvider(&quot;username&quot;, &quot;password&quot;);
+Git.cloneRepository()
+   
+
+is legal RDF, despite the fact that the RDF/XML syntax spec requires that the value of the rdf:about attribute (the subject) is a full URI.
+String)" rel="noreferrer">URI::resolve with the URI you wish to make relative.
+To construct a file: based URL, (1) call Path::toURI, (2) then URI::toURL.
+
+Ex: URI uri = Paths.get( &quot;/Users/your_user_name/example.txt&quot; ).toUri() ;
+Details
+Understand that:
+
+<a href="https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/net/URL.html#%3Cinit%3E(java.lang.
+E.g. the code bellow deals with ampersands by making sure that %26 isn't decoded:
+private final char PERCENT_SIGN = '%';
+private final String ENCODED_PERCENT_SIGN = &quot;25&quot;;
+private final String[] CODES_TO_DOUBLE_ENCODE = new String
+.setDirectory(new File(&quot;/path/to/checkout&quot;))
+   
+The ModelBuilder (actually, the ValueFactory, but it comes tot the same thing) interprets this as a full URI, because there is no namespace defined in the ModelBuilder that has base as its prefix.
+Writing that model to XML file does not change that, regardless of what you define as base URI or namespaces while writing: you are exporting an RDF model that has base:foo as a full URI, so that's what you'll get in your output.
+To get what you want, you need to make sure that your Model object has the full URIs, and that, instead of trying add a namespace to the writer, you set its base URI when creating the writer.
+        var model = new ModelBuilder().add(&quot;http://example.org/foo&quot;, RDFS.ISDEFINEDBY, &quot;http://example.org/FOO&quot;).build();
+        var writer = Rio.createWriter(RDFFormat.
+A good enough &quot;best effort&quot; heuristic would be my recommendation.
+
+This is a perfectly valid URL, but likely not what one would be looking for.
+
+.queryParam(&quot;name&quot;, name)
+    .queryParam(&quot;key&quot;, key)
+    .toTemplate();
+
+
+I'm not sure but it is quite likely that one of the implementations changed in Java 17 and that is why it is a terrible idea and design to have a space in your URI.
+rel="noreferrer">produce a URI.
+
+Path path = Paths.get( &quot;/Users/your_user_name/example.txt&quot; ) ;
+URI uri = path.toUri () ;
+
+
+uri.toString() = file:///Users/your_user_name/example.txt
+
+
+.setBranchesToClone(Arrays.asList(&quot;refs/heads/branch-name&quot;))
+   .setBranch(&quot;branch-name&quot;)
+   .call();
+
+
+This approach ensures that the URI includes both the actual and template parameters as needed.
+String key = &quot;b4o3h4{g}fghg3&quot;;
+String uri = UriBuilder.fromUri(getUriForName(name))
+    
+.setURI(&quot;https://{username}:{pasword}@https://github.com/eclipse/jgit.git&quot;)
+   .setCredentialsProvider(cr)
+   
+The correct &quot;name&quot; for a resource is a lot like the correct &quot;name&quot; for a function in your code -- any spelling that is consistent with local conventions is fine.
+
+I think the issue in your case is that the space character is being encoded twice.
+You can specify the field &quot;Base URL&quot; in the client configuration in KeyCloak - this determines the link from the Applications List.
+The sample provided looked like:
+//moremaps.com/map/color;lat=50;long=20;scale=32000
+
+With the idea that the key value pairs here represent values in a &quot;sparse matrix&quot; of possibilities.
+Part of the legacy of matrix URLs is that we have URI Templates using Path Style Parameter Expansion -- which is to say that we have a general purpose way of describing a range of identifiers that include key value pairs like
+/map/color{;keys*} 
+
+Which would produce the matrix sample if expanded with a suitable map of values.
+For your examples, you would get almost the same result with a slightly different spelling
+/fruit{;list*}/price
+
+which would produce your first example if expanded with [banana], and your second example with [banana, mango], except replacing your colon with a semi-colon.
+Note that this doesn't tell us anything about meaning; it's a purely mechanical way to expand/extract information in resource identifiers (provided you are willing to abide the spelling constraints).

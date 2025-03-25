@@ -1,0 +1,69 @@
+# FragmentTransaction API Knowledge Document
+
+## Functionality
+- FragmentTransaction allows the addition, removal, replacement, and detachment of fragments in an activity.
+- You can use `add(int containerViewId, Fragment fragment)` to add a new fragment to the specified container.
+- The `replace(int containerViewId, Fragment fragment)` method replaces an existing fragment in the container with a new one.
+- `remove(Fragment fragment)` detaches a fragment from the UI but keeps it in the memory, offering the ability to reattach it later.
+- `hide(Fragment fragment)` makes an existing fragment invisible, without destroying its state.
+- `show(Fragment fragment)` makes a hidden fragment visible again.
+- `commit()` applies all the changes made in a FragmentTransaction to the FragmentManager.
+- `commitAllowingStateLoss()` commits the transaction but allows it to be executed after an activity's state is saved.
+- `attach(Fragment fragment)` reattaches a previously detached fragment, making it active.
+
+## Concept
+- A FragmentTransaction is a set of operations that can be performed on fragments, such as adding, removing, or replacing them.
+- FragmentTransactions allow dynamic management of fragments, enabling a flexible user interface that can adapt to different device configurations.
+- The `addToBackStack(String name)` method adds the transaction to the back stack, allowing users to navigate back to the previous state.
+- Transactions are applied to the FragmentManager, which manages fragment lifecycles and interactions within an activity.
+- A FragmentTransaction can be committed using `commit()` or `commitAllowingStateLoss()` based on the need to handle potential state loss.
+
+## Performance
+- FragmentTransaction operations involving UI changes should be done on the UI thread to maintain performance.
+- Using `commitNow()` for immediate execution can block the UI thread, potentially impacting performance if overused.
+- Transactions are deferred until `commit()` is called, allowing batch operations and reducing unnecessary layout passes for better performance.
+
+## Directive
+- Always call `commit()` or `commitAllowingStateLoss()` after setting up a FragmentTransaction to ensure changes are applied.
+- Prefer using `commit()` over `commitAllowingStateLoss()` unless you have a specific reason to allow state loss, as it can lead to an inconsistent UI state.
+- Avoid performing heavy computations or blocking operations inside a FragmentTransaction to prevent UI lag.
+- Use `addToBackStack(null)` if you want the transaction to be reversible via the back button.
+- Use `attach()` and `detach()` for efficient fragment management when dealing with temporary fragment visibility changes without destroying them.
+
+## Pattern
+- Use `add()` to introduce a new fragment into the UI while retaining existing fragments.
+  ```java
+  FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+  transaction.add(R.id.fragment_container, new MyFragment());
+  transaction.commit();
+  ```
+- Leverage `replace()` for swapping one fragment for another, ensuring only one active fragment at a time.
+  ```java
+  FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+  transaction.replace(R.id.fragment_container, new AnotherFragment());
+  transaction.addToBackStack(null);
+  transaction.commit();
+  ```
+- Utilize `remove()` to clean up fragments no longer needed when they're being destroyed.
+  ```java
+  FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+  transaction.remove(myFragment);
+  transaction.commit();
+  ```
+- For a user interface that frequently toggles fragments' visibility, `hide()` and `show()` can toggle visibility without reinstantiating fragments.
+  ```java
+  FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+  transaction.hide(myFragment);
+  transaction.show(anotherFragment);
+  transaction.commit();
+  ```
+
+## Environment
+- FragmentTransaction requires the AndroidX Fragment library, ensuring compatibility with modern Android development practices.
+- Operating with FragmentTransaction requires an understanding of fragment lifecycles and their interaction with activity lifecycles.
+- Proper handling of configuration changes, such as screen rotations, should be considered when working with FragmentTransaction to maintain UI consistency.
+
+## Alternative
+- If FragmentTransaction functionality causes significant complexity, consider using the Navigation component from Android Jetpack for simpler navigation and back stack management.
+- For simple and static UIs that do not require dynamic fragment management, consider using a single activity with different Views instead of fragments.
+- DialogFragment can be used as an alternative for simple popup-like behaviors instead of manually using FragmentTransaction to manage dialog interfaces.

@@ -1,0 +1,51 @@
+You'll have to convert your Char to a String in order to convert it to a Digit.
+UPDATE: If you are using Kotlin 1.5 or higher
+Kotlin 1.5 introduced Char.digitToInt(), which does this conversion for you.
+Before Kotlin 1.5
+
+And you could define an extension function to make this cleaner:
+Otherwise, you will get the integer used to represent the Char internally.
+If I understand correctly, you want this for loop to result in a true or false based on whether any inner array has the same sequence and number of chars as the key String.
+If you want to skip the step of converting the key to a CharArray, you can manually check it like this:
+Then you can use all and contentEquals to check if any of the inner CharArrays are a match for the key.
+First of all, the inner array should be a CharArray instead of an Array<Char>, to avoid boxing.
+The easiest, if all values are the same (here I'm using blanks)
+Not sure if that's what you really want, but you can do it this way (I have an array of 25 items, each of which is an array with 5 blanks):
+, is this:
+
+If you have a specific set of characters (here I made it a constant), I found this to be an easy way:
+
+If you want to copy one to another (clone), you can do this:
+
+In the example you gave above, you're trying to initialize an array of CharArray.
+To create an array in Kotlin, you must use a function such as arrayOf or intArrayOf.
+Instead, you should prefer the primitive-specific CharArray:
+That means that when you use *delim, you're actually creating a vararg Character (instead of vararg Char).
+Maybe someone should open an issue on YouTrack for this...
+And perhaps later when the above issue was fixed, they missed unhiding the method.
+You could write an extension function so you can continue to use it:
+
+The error message if you choose an out-of-bounds index will be slightly less informative than the one in the original method.
+For other arguments that have an array type, you need to use the array
+  literal syntax (since Kotlin 1.2) or arrayOf(...):
+//
+These are not part of the actual Kotlin syntax and only reserved for annotations.
+Before you can set elements of that CharArray, you have to create an instance of CharArray.
+Bonus point: if you have a function that can provide an array element value given its index you can use the similar constructor to create instance and initialized its elements at once:
+this is my try with kotlin only
+
+
+
+here is your snake string: this_is_camel_case
+convert from snake to camel
+
+
+
+
+snakeCaseString
+Output:
+
+I hope now it makes sense you just need to pass the class to the method and it returns an object.
+If you just want to replace all of the instances of one Char in a String with another Char, you can use the String.replace() extension, which is part of the Kotlin standard library:
+
+There shouldn't be a need to do any conversions to Strings, CharArrays, or anything else.

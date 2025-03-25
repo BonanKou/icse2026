@@ -1,0 +1,16 @@
+You need to understand how the GradientTape operates.
+Supposing you are working with Tensorflow 2.x, If you are trying to create a custom training step, to track the model gradients, you have to invoke the model under the tf.
+Here you have your code updated to correctly work with the GradientTape:
+
+Also note that instead of using model.predict I am using the call method which is the one you should be using when training
+If you want to compute higher-order derivatives you have to create nested GradientTape objects
+GradientTape automatically track variables in its context, if you want to track tensors (as in your case, you want to track z and t) you have to call tape.watch(<my_tensor>) otherwise you will not have gradients for it.
+https://www.tensorflow.org/api_docs/python/tf/custom_gradient
+If you're using eager execution, you can monitor the gradients using Gradient Tape.
+https://www.tensorflow.org/api_docs/python/tf/GradientTape
+After trying different things out and reading more about automatic differentation and especially about GradientTape I came across the batch_jacobian function which does exactly what I was looking for.
+Once the gradients are computed, any desired gradient clipping, normalization, or transformation can be performed before passing them to the optimizer to apply them to the model variables.
+This allows multiple calls to the gradient() method as resources
+are released when the tape object is garbage collected.
+After train step, as long as no other object has a reference to that tape, the garbage collector will collect it.
+In your case should be something like that:

@@ -1,0 +1,53 @@
+# GradientTape API Knowledge Document
+
+## Functionality
+- `tf.GradientTape` is used as a context manager to record operations for automatic differentiation.
+- Within the `tf.GradientTape` context, you can invoke the model to compute outputs and subsequently calculate the loss.
+- After computing the loss, `tape.gradient` is used to compute the gradients of the loss with respect to the model's trainable variables.
+- The computed gradients can be applied to the model's weights using an optimizer, such as `tf.keras.optimizers.Adam`, through the `apply_gradients` method.
+- To compute higher-order derivatives, you need to create nested GradientTape objects.
+- GradientTape automatically tracks variables in its context, but to track tensors, you must call `tape.watch(<my_tensor>)`.
+- `tape.watch(<my_tensor>)` is used to ensure that gradients are computed for tensors that are not automatically tracked.
+- If you're using eager execution, you can monitor the gradients using Gradient Tape.
+- GradientTape can be used to compute multiple gradients over the same computation by creating a persistent gradient tape, which allows multiple calls to the gradient() method.
+
+## Concept
+- TensorFlow provides the `tf.GradientTape` API for automatic differentiation, which involves computing the gradient of a computation with respect to some inputs, usually `tf.Variables`.
+- TensorFlow "records" relevant operations executed inside the context of a `tf.GradientTape` onto a "tape".
+- TensorFlow uses the recorded tape to compute the gradients of a "recorded" computation using reverse mode differentiation.
+- To compute a gradient or a jacobian, the tape needs to record the operations that are executed in its context.
+- Once the forward pass has been executed outside the context of the tape, it is possible to use the tape to compute the gradient or jacobian.
+- The `tf.GradientTape` can be used in a context manager (using `with` statement) to record operations for automatic differentiation.
+- To track model gradients in TensorFlow 2.x, you need to invoke the model under the `tf.GradientTape` context manager.
+- Instead of using `model.predict`, the `call` method should be used when training the model.
+- By default, the resources held by a GradientTape are released as soon as the GradientTape.gradient() method is called.
+- A persistent gradient tape allows multiple calls to the gradient() method as resources are released when the tape object is garbage collected.
+- After a train step, as long as no other object has a reference to that tape, the garbage collector will collect it.
+- `tape.watch(x)` is used to observe a variable within the `GradientTape` context.
+- The computation of gradients using `tape.gradient(loss, x)` must be done outside the recording context.
+
+## Performance
+- No specific performance-related knowledge snippets were provided.
+
+## Directive
+- To compute a gradient (or a jacobian), the tape needs to record the operations that are executed in its context. Then, outside its context, once the forward pass has been executed, it's possible to use the tape to compute the gradient/jacobian.
+- When creating a custom training step in TensorFlow 2.x, you should invoke the model under the `tf.GradientTape` context manager to track the model gradients.
+- Use the `call` method of the model instead of `model.predict` when training, as it is the appropriate method to use within the `GradientTape` context.
+- If you want to compute higher-order derivatives, you have to create nested GradientTape objects.
+- When using `tf.GradientTape`, ensure that the forward pass on the input tensor is called inside the `tf.GradientTape` context manager to record all computations on the gradient tape.
+
+## Pattern
+- `tf.GradientTape` is commonly used to compute gradients or Jacobians by recording operations executed within its context.
+- You can use `tf.GradientTape` to compute the Jacobian of a model's output with respect to its weights by executing the forward pass within the tape's context and then calling `tape.jacobian()` outside of it.
+- To create a custom training step and track model gradients in TensorFlow 2.x, you should invoke the model within the `tf.GradientTape` context manager.
+- Within the `tf.GradientTape` context, you can compute the loss by comparing model predictions with target values, and then use `tape.gradient` to compute the gradients of the loss with respect to the model's trainable variables.
+- The computed gradients can be applied to the model's weights using an optimizer, such as `tf.keras.optimizers.Adam`, through the `apply_gradients` method.
+
+## Environment
+- If you are working with TensorFlow 2.x, to track model gradients, you must invoke the model under the `tf.GradientTape` context manager.
+- TensorFlow's GradientTape requires operations to be executed within its context to record them for automatic differentiation.
+- If you're using eager execution, you can monitor the gradients using Gradient Tape.
+- To use `tf.GradientTape`, it is necessary to call the forward pass on the input tensor inside the `tf.GradientTape` context manager to ensure that all computations are recorded on the gradient tape.
+
+## Alternative
+- No specific alternative-related knowledge snippets were provided.

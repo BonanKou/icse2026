@@ -1,0 +1,42 @@
+ Here is a comprehensive and accurate list of knowledge snippets regarding ActionBar, categorized into seven types of knowledge as described in the instruction:
+
+Functionality:
+
+1. ActionBar provides a consistent navigation bar across Android applications.
+2. ActionBar improves user experience by making important actions accessible in a predictable way, such as Search.
+3. ActionBar supports consistent navigation and view switching within apps, especially when using navigation components.
+4. ActionBar reduces clutter by providing an action overflow for rarely used actions.
+5. ActionBar offers a dedicated space for giving your app an identity.
+6. Toolbar can be used as a replacement for ActionBar, offering more flexibility in terms of customization options, such as adding background images, animations, etc.
+7. The ActionBar API can be used to navigate to the Application Details settings within your Android application.
+
+Concept:
+
+1. ActionBar is a class providing a consistent navigation bar across Android applications.
+2. ActionBar covers the foundational ideas and terminologies for understanding and effectively utilizing an API.
+3. ActionBar is a salient feature of a mobile application that has a consistent presence over all its activities.
+4. Toolbar is a View included in a layout like any other View, and it can be positioned, animated, and controlled.
+
+Performance:
+
+1. The ActionBar API has overhead when used on large tensors.
+
+Directive:
+
+1. When using tf.gather, ensure indices are within the shape of the input tensor.
+2. When creating an ActionBar, it is important to note that the theme of the starting activity should be set to a certain position in the AndroidManifest.xml file.
+
+Pattern:
+
+1. tf.gather is commonly used in embedding lookup operations.
+2. ActionBar is used to make important actions accessible in a predictable way, such as Search.
+
+Environment:
+
+1. tf.gather requires TensorFlow installed and supports both CPU and GPU execution.
+2. ActionBar requires a theme to be set in the AndroidManifest.xml file.
+
+Alternative:
+
+1. Alternatives to tf.gather include tf.scatter_nd and tf.index_select.
+2. Toolbar can be used as a replacement for ActionBar, offering more flexibility in terms of custom

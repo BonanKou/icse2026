@@ -1,0 +1,27 @@
+
+
+Here is the comprehensive and accurate list of knowledge snippets regarding ByteArray, categorized by the seven types of knowledge:
+
+**Functionality**
+
+1. The `takeLowestOneBit()` method of the `Byte` type in Kotlin 1.4+ is used to get the least significant bit of any byte.
+2. The ByteArray API in Kotlin can perform the following actions with a ByteBuffer: wrap a part of a ByteArray, retrieve a primitive value (like Short, Int, Long) from the ByteBuffer using the appropriate method.
+3. The `ByteArray` API in Kotlin allows the creation and manipulation of arrays of bytes.
+4. The `File("aaa").readBytes()` method reads the whole file into a `ByteArray`.
+5. A `ByteArray` can be created using the `ByteArray(size)` constructor, where `size` specifies the size of the array.
+6. The `RandomAccessFile` can benefit from the use of the `readFully()` function for more efficient reading of exact amounts of bytes.
+7. It is possible to read a file by reading it in chunks of a specific size, demonstrated with a `ByteArray` buffer of size 1230 in the provided example.
+8. The `hexToByteArray()` function, introduced in Kotlin 1.9, is an experimental API available in the standard library, which converts a hexadecimal string into a `ByteArray`.
+9. The ByteArray API in Kotlin, when used with the function `byteArrayOf()`, can be employed to create both empty and filled byte arrays.
+10. The `decode` function is used in the context of the `ByteArray` API in Kotlin to decode a base64-encoded string into a byte array.
+11. The ByteArray API in Kotlin can perform the following operation: reading all bytes of an InputStream into a ByteArray using the extension method `InputStream.readBytes()`.
+
+**Concept**
+
+1. ByteArray is an array of bytes that is used to handle and store data, specifically used in this context for the Kotlin JVM.
+2. ByteBuffer is a class that enables efficient reading and updating of a sequence of bytes.
+3. `ByteArray` is a data structure in Kotlin for holding an array of bytes.
+4. The `.takeLowestOneBit()` method can be used to get the least significant bit of any byte in a ByteArray.
+5. `ByteArray` in Kotlin is represented as `byte[]` when targeting the JVM.
+6. The `ByteArray(size)` constructor creates a new array of the specified size, with all elements initialized to zero.
+7. The `size

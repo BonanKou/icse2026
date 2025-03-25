@@ -1,0 +1,98 @@
+# API Documentation for `MessageDigest` in Java
+
+## 1. Functionality
+
+1. **Basic Use**: `MessageDigest` provides applications with the functionality of a message digest algorithm, such as SHA-256 or MD5. Message digests are used to create a unique hash from data input.
+   
+   ```java
+   MessageDigest md = MessageDigest.getInstance("SHA-256");
+   byte[] hash = md.digest(inputData);
+   ```
+
+2. **Updating Digest**: The `update(byte[] input)` method is used to update the digest using the specified array of bytes.
+
+3. **Completing the Hash**: The `digest()` method completes the hash computation and returns the resulting byte array.
+
+4. **Resetting the Digest**: Once `digest()` is called, the `MessageDigest` object is automatically reset and can be used to start a new hash computation.
+
+5. **Cloning**: `MessageDigest` objects can be cloned if supported by the algorithm. This allows intermediate states to be captured.
+
+6. **Algorithm Identification**: `getAlgorithm()` method can be used to get the name of the algorithm used by the `MessageDigest` instance.
+
+## 2. Concept
+
+1. **Cryptographic Hash Function**: `MessageDigest` implements cryptographic hash functions, which take inputs and return a fixed-size string of bytes that is unique to each unique input.
+
+2. **Immutability of Digest Output**: The hash output from `MessageDigest` is deterministic and, given the same input, will always produce the same result but infeasible to revert to the original input.
+
+3. **Collision Resistance**: `MessageDigest` algorithms aim for collision resistance, ensuring it is difficult to find two different inputs that produce the same hash output.
+
+4. **MD5 and SHA-1 Obsolescence**: MD5 and SHA-1 are generally considered obsolete due to vulnerabilities and are not recommended for use in security-sensitive contexts.
+
+5. **Digest Length**: The output length of the digest is dependent on the algorithm selected, e.g., SHA-256 produces a 256-bit (32-byte) hash.
+
+## 3. Performance
+
+1. **Time Complexity**: The performance of a `MessageDigest` operation is generally O(n), where n is the length of the input data.
+
+2. **Memory Footprint**: MessageDigest instances use a small amount of memory relative to the input size since they process input in fixed-size chunks.
+
+3. **Efficient for Large Data**: Use of the `update()` method allows for efficient processing of large data sets in chunks rather than all at once.
+
+## 4. Directive
+
+1. **Use Secure Algorithms**: Prefer secure, modern algorithms like SHA-256 or SHA-3 over MD5 or SHA-1, especially in security-sensitive applications.
+
+2. **Check Support**: Always check if an algorithm is supported using `getInstance` and handle `NoSuchAlgorithmException`.
+
+    ```java
+    try {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+    } catch (NoSuchAlgorithmException e) {
+        // Handle exception
+    }
+    ```
+
+3. **Thread Safety**: `MessageDigest` instances are not thread-safe. External synchronization is necessary when using the same instance across multiple threads.
+
+4. **Do Not Re-Use Credentials**: Avoid using hash outputs directly as passwords or encryption keys; use them in conjunction with keys derived using a method such as PBKDF2.
+
+## 5. Pattern
+
+1. **File Integrity Check**: Use `MessageDigest` to compute the hash of a file and compare it with a known hash value for integrity verification.
+
+2. **Data Verification**: Store and compare message digests as a quick way to verify the integrity of cached data.
+
+3. **Password Hash Storage**: Hash passwords before storing them in a database to enhance security.
+
+4. **Digital Signatures**: Combine `MessageDigest` with digital signatures to verify the authenticity and integrity of messages.
+
+## 6. Environment
+
+1. **Java Version**: `MessageDigest` is available since JDK 1.1.
+
+2. **Algorithm Provider**: Ensure that the chosen provider for the message digest algorithm is available in the Java Security Provider list.
+
+3. **Configuration**: Algorithms may be delivered by different providers (e.g., SunJCE, BC) and can be specified at runtime.
+
+4. **Platform Independence**: `MessageDigest` functionality is independent of the underlying platform or architecture.
+
+## 7. Alternative
+
+1. **Bouncy Castle**: A Java library that provides additional, and often more secure, cryptographic algorithms compared to the standard Java implementation.
+
+2. **Guava Hashing**: The Google Guava library offers a more user-friendly API for hashing operations including composite hashing.
+
+3. **Apache Commons Codec**: Provides additional digest algorithms and utilities for handling hash computations.
+
+4. **Java's `SecureRandom`**: While not a direct hash function, `SecureRandom` can be used to generate random data used for salting before hash computation.
+
+5. **OpenSSL**: For applications requiring high-performance hash operations in C/C++, the OpenSSL library could be an option as an external tool.
+
+6. **PBKDF2 or Argon2**: For password-based key derivation, these functions provide more secure alternatives to basic `MessageDigest` operations.
+
+7. **SP800-108**: Block-cipher-based key derivation functions could serve as an alternative when combined hashing is needed.
+
+8. **Java's `Mac` Class**: For message authentication codes, which provide another layer of security verification on top of traditional hashing.
+
+9. **SHA-3**: Consider using SHA-3 for an improved hashing standard compared to SHA-2, supported in later versions of Java.

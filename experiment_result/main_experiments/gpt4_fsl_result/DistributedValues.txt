@@ -1,0 +1,55 @@
+# DistributedValues API Knowledge Document
+
+## Functionality
+- DistributedValues provides a way to handle values that need to be distributed across multiple devices in a distributed TensorFlow setting.
+- It allows you to work with different types of distribution strategies, such as MirroredStrategy, TPUStrategy, and MultiWorkerMirroredStrategy.
+- DistributedValues can be used to perform operations on tensors that are distributed across multiple devices, ensuring synchronized computations.
+- It helps in managing variable replication across devices, ensuring each device gets the correct data for computation.
+- The `reduce` method can be used to aggregate the values across devices, using operations like SUM or MEAN.
+
+## Concept
+- DistributedValues is an abstract representation of values that exist across multiple devices in a distributed TensorFlow execution environment.
+- It is a part of TensorFlow's `tf.distribute` API, which provides tools for distributed training.
+- DistributedValues is typically used in conjunction with a `tf.distribute.Strategy`, which is responsible for distributing the input, computation, and output across the devices.
+- Each strategy creates its own subclass of DistributedValues, like `PerReplica` or `Mirrored`.
+- A `tf.distribute.Strategy` coordinates how DistributedValues interacts with variables and computations across devices.
+
+## Performance
+- Utilizing DistributedValues efficiently can lead to significant performance improvements in distributed training by leveraging parallelism across multiple devices.
+- Overhead is minimized when operations are performed locally on each device before synchronization, reducing communication costs.
+- The efficiency of DistributedValues depends on the underlying distribution strategy and how effectively it manages data parallelism and device communication.
+
+## Directive
+- When using DistributedValues, ensure that all devices are correctly configured and part of the distribution strategy to avoid computation errors.
+- Avoid unnecessary data transfers between devices; instead, perform computations locally on each replica where possible.
+- Use the `reduce` method to aggregate results from different devices to minimize data transfer and synchronization overhead.
+- When implementing custom training loops, always wrap the loop using the `strategy.run` method to ensure correct execution with DistributedValues.
+- Ensure that all operations on DistributedValues are compatible with the chosen distribution strategy to prevent runtime errors.
+
+## Pattern
+- A common use case for DistributedValues is in distributed training loops where each device computes gradients locally and then aggregates them using `reduce`.
+  ```python
+  @tf.function
+  def distributed_train_step(dataset_inputs):
+      def replica_fn(inputs):
+          # Compute gradients
+          gradients = compute_gradients(inputs)
+          # Apply gradients
+          optimizer.apply_gradients(zip(gradients, model.trainable_variables))
+
+      strategy.run(replica_fn, args=(dataset_inputs,))
+  ```
+- DistributedValues is often used with `tf.distribute.Strategy.experimental_distribute_dataset` to distribute data loading across devices.
+- It is typical to use DistributedValues for aggregating metrics during training, such as accuracy or loss.
+
+## Environment
+- DistributedValues requires TensorFlow with distributed strategy support, and it can be executed on CPU, GPU, or TPU environments.
+- The correct setup of the TensorFlow runtime environment, including necessary configurations for device placement, is crucial for effective use of DistributedValues.
+- DistributedValues functions optimally when the hardware setup supports high-bandwidth communication between devices, such as NVLink for GPUs or Cloud TPU interconnect.
+
+## Alternative
+- Alternatives to DistributedValues include using custom aggregation and synchronization mechanisms in TensorFlow, though they may not offer the same level of abstraction and integration with distribution strategies.
+- For simple distributed tasks that do not require full strategy control, consider using standard TensorFlow operations with data parallelism across different input batches.
+- `tf.distribute.ReduceOp` can be used as an alternative for reduction operations without the full DistributedValues infrastructure.
+
+By understanding and leveraging DistributedValues, users can efficiently manage and distribute computations across devices, leading to optimized performance in distributed TensorFlow workloads.

@@ -1,0 +1,56 @@
+Because the most proper solution is to use a FragmentFactory.
+Also, as an option, your fragment knows about the parent Activity.
+Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = &quot;param1&quot;;
+    private static final String ARG_PARAM2 = &quot;param2&quot;;
+
+    // TODO:
+The message:
+
+I/FragmentNavigator: Ignoring navigate() call: FragmentManager has
+already saved its state
+
+is defined in the androidx.navigation.fragment.
+The only solution I found is to use FragmentManager.
+FragmentTransaction#commitAllowingStateLoss to ignore the warning , but this state will not be restored when the Activity is recreated.)
+In your scenes, I recommend jumping to the next activity for editing, returning and refreshing the list
+
+Each set of changes that you commit to
+the activity is called a transaction and you can perform one using
+APIs in FragmentTransaction
+
+// Create new fragment and transaction
+Fragment searchEngineFragment = new SettingsSearchEngineFragment();
+FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+//
+I would not suggest you put any toolbar in your fragment as Fragments are not usually meant for holding toolbars.
+You can set callbacks or whatever you want to your fragment after its (re)creation.
+If base is destroyed then other stories are not supposed to be stable.
+Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack
+transaction.replace(R.id.fragment_container, searchEngineFragment);
+transaction.addToBackStack(null);
+
+// Commit the transaction
+transaction.commit();
+
+Even though this is a viable solution, there's an approach that is much more stress-free.
+FragmentActivity.
+
+From the documentation,
+
+
+  Base class for activities that want to use the support-based
+  Fragments.
+
+
+Also from Fragment's documentation,
+
+
+  
+  Your activity must extend FragmentActivity
+  You must call FragmentActivity.getSupportFragmentManager() to get the    FragmentManager
+  
+

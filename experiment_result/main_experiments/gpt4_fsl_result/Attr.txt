@@ -1,0 +1,61 @@
+# Attr API Knowledge Document
+
+## Functionality
+- `Attr` in Android represents a single XML attribute, used to describe UI elements' properties.
+- It allows retrieval of attribute values from XML resources, typically used in custom views.
+- `TypedArray.getAttribute` methods can fetch attribute values from `Attr`.
+- `Attr` provides default value handling if an attribute is not explicitly defined in XML.
+- You can apply attribute values directly to view properties using `Attr`.
+
+## Concept
+- `Attr` in Android is essentially a representation of a styled attribute, including its name and value.
+- It is part of Android's attribute system, allowing separation of design and logic, enabling themes and styles.
+- Attributes are defined in `res/values/attrs.xml` and can be referenced in layouts.
+- An `Attr` can be a dimension, color, string, integer, or boolean value.
+- In custom views, attributes are typically retrieved using a `TypedArray` and accessed with `context.obtainStyledAttributes`.
+
+## Performance
+- Efficient use of `Attr` reduces the need for hard-coded UI properties, promoting reuse and reducing memory overhead.
+- Accessing attributes via `TypedArray` is optimized, but should be recycled after use to avoid memory leaks.
+
+## Directive
+- Always define custom attributes in `attrs.xml` to maintain consistency and avoid duplication.
+- When retrieving attributes, always recycle the `TypedArray` with `recycle()` to free resources.
+- Use `Attr` to leverage Android's theming capabilities, ensuring your app respects user preferences like dark mode.
+- Avoid using `Attr` directly in code; prefer using styles and themes to change UI properties.
+- Use `Attr` to abstract away resource specifics, allowing for easier localization and modification.
+
+## Pattern
+- Define a custom attribute in `attrs.xml` and access it in a custom view:
+
+  ```xml
+  <!-- attrs.xml -->
+  <declare-styleable name="CustomView">
+      <attr name="customText" format="string"/>
+  </declare-styleable>
+  ```
+
+  ```java
+  // In CustomView.java
+  TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomView, 0, 0);
+  try {
+      String customText = a.getString(R.styleable.CustomView_customText);
+  } finally {
+      a.recycle();
+  }
+  ```
+
+- Use `Attr` to implement dark mode by defining color attributes that switch based on themes.
+- Implementing a dynamic UI by defining multiple styles and switching between them using attributes.
+- Create reusable components by defining common attributes in a base style and extending it.
+
+## Environment
+- Requires Android API level 1+.
+- Best utilized with Android's resource system, including themes, styles, and drawables.
+- Custom view development often involves `Attr` to allow XML customization.
+
+## Alternative
+- Alternatives to `Attr` include programmatically setting properties on views, though this is less flexible.
+- Use data binding to achieve similar results, allowing dynamic UI updates without direct attribute access.
+- Styles and themes can sometimes replace `Attr` when defining UI properties globally.
+- For complex UI logic, consider using ViewModel patterns in conjunction with attribute-based styling.

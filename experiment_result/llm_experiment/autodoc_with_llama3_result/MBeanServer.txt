@@ -1,0 +1,41 @@
+
+
+Here is the comprehensive and accurate list of knowledge snippets regarding MBeanServer, categorized by the seven types of knowledge:
+
+**Functionality**
+
+1. MBeanServer provides a way to interact with JMX MBeans, and the interaction might involve query operations using ObjectName instances.
+2. The MBeanServer API is used for managing and accessing MBeans.
+3. MBeanServer can perform the following actions:
+	* Registering MBeans
+	* Querying MBeans
+	* Unregistering MBeans
+	* Getting MBean attributes
+	* Setting MBean attributes
+	* Invoking operations on MBeans
+	* Adding/removing listeners
+	* Notifying listeners
+4. MBeanServer can be used to manage JMX MBeans, as seen by the use of @EnableJpaRepositories and @EnableTransactionManagement annotations.
+5. MBeanServer can be used to register JMX MBeans, access and manipulate the state of JMX MBeans, and manage Spring Data JPA-related resources.
+6. MBeanServer can be used to define and use a custom transaction manager with injected EntityManagerFactory.
+7. MBeanServer can be integrated with Karate through writing custom routines.
+
+**Concept**
+
+1. MBeanServer is an interface for managing and accessing the Java Management Extensions (JMX) MBeans.
+2. MBeanServer is accessed and used to run queries with an ObjectName.
+3. MBeanServer is a Java Management Extensions (JMX) interface that is used for managing and accessing JMX MBeans.
+4. MBeanServer provides access to WebLogic's internal MBeans for management and monitoring purposes.
+5. MBeanServer is a crucial underlying concept for the API being discussed in the context of Spring Boot and JPA.
+6. MBeanServer is related to Java Management Extensions (JMX) and is managed and accessed through an API for MBeans.
+7. MBeanServer is an interface for managing and accessing JMX MBeans in Java.
+
+**Performance**
+
+1. Creating a reference to the MBeanServer and running queries using ObjectName may consume some resources, though specifics about the extent or performance implications are not mentioned.
+2. The MBeanServer API, when used as instructed by adding the provided JVM property, does not directly expose performance-related information.
+3. The operation `getMemoryConsumption()` may have some performance overhead, especially when dealing with a large number of sessions, as it performs a deep size calculation on all instances.
+
+**Directive**
+
+No knowledge

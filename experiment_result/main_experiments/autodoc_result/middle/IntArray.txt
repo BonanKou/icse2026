@@ -1,0 +1,40 @@
+# IntArray API Knowledge Document
+
+## Functionality
+- IntArray is created using the `intArrayOf` function to initialize an array of integers.
+- IntArray can be used to implement a function that converts an array of integers into a single color integer value. The `toColor` function iterates over the IntArray using `withIndex()`, which provides both the index and value of each element. The function initializes a color variable to `0xFF000000` and modifies it by combining the array elements using bitwise operations. Specifically, for each element in the array, it uses bitwise OR and shift left operations to construct the color integer, with `value shl (8 * (maxIndex - index))`.
+- IntArray can be used as a parameter for a function that takes a variable number of integer arguments using the `vararg` keyword. The spread operator `*` is used to pass an IntArray as individual arguments to a vararg parameter. Before applying the spread operator, a list of integers can be converted to an IntArray using the `toIntArray()` method.
+
+## Concept
+- Array elements in IntArray are initialized sequentially starting from Kotlin version 1.3.50.
+- IntArray in Kotlin is equivalent to `int[]` in Java.
+- Kotlin does not have an array syntax (varray = {1,2,3,4,5}). To create an array in Kotlin, you must use a function such as `arrayOf` or `intArrayOf`.
+- IntArray in Kotlin is used for interoperability with Java, allowing for mapping to the proper type in Java.
+- IntArray is a specific array type in Kotlin designed for handling integer values.
+- IntArray is one of several primitive array types in Kotlin, which also includes ByteArray and ShortArray.
+- `IntArray` in Kotlin is an array of integers that corresponds to the `int[]` type in Java bytecode.
+- To call a function with a variable number of integer arguments (`vararg`), you can pass an `IntArray` using the spread operator (`*`).
+- The spread operator (`*`) is used to pass an `IntArray` to a function that takes a variable number of arguments in Kotlin.
+- The spread operator can only be applied to arrays, so if you have a list of `Int`, it needs to be converted to an `IntArray` before using the spread operator.
+- You can convert a list of integers to an `IntArray` using the `toIntArray()` function in Kotlin.
+
+## Performance
+- No specific performance knowledge available.
+
+## Directive
+- Since version 1.3.50, the API documentation guarantees that array elements in an IntArray are initialized sequentially.
+- To create an array of integers in Kotlin, use the function `intArrayOf`.
+- When using Kotlin, prefer using IntArray for arrays of primitives to ensure compatibility with Java's `int[]`.
+- When using an IntArray with a vararg parameter in Kotlin, use the spread operator (*) to pass the array elements as individual arguments.
+
+## Pattern
+- IntArray elements can be initialized sequentially starting from Kotlin version 1.3.50.
+- IntArray is commonly created using the `intArrayOf` function in Kotlin to initialize an array with integer values.
+- IntArray is commonly used in Kotlin to work with arrays of primitive integers, providing a more efficient alternative to `Array<Int>` which corresponds to `Integer[]` in Java.
+- IntArray is used to construct a color integer by iterating over its elements and shifting their bits to their appropriate positions within a 32-bit integer.
+
+## Environment
+- No specific environment knowledge available.
+
+## Alternative
+- Alternatives to IntArray include `arrayOf` and `intArrayOf`.

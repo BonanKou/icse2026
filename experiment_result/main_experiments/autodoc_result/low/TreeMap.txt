@@ -1,0 +1,72 @@
+# TreeMap API Document
+
+## Functionality
+- TreeMap is sorted by the ordering of its keys.
+- TreeMap can be constructed with a specified Comparator to define the ordering of keys.
+- If a Comparator is not specified, TreeMap expects the key objects to implement the Comparable interface.
+- TreeMap throws an error if neither a Comparator is specified nor the key objects implement Comparable.
+- TreeMap can only be sorted based on its keys, not on its entries.
+- You can initialize a TreeMap by passing a Supplier such as `TreeMap::new` to specify the type of Map during collection.
+- TreeMap is used to store elements sorted according to their natural ordering or a specified comparator.
+- TreeMap maintains the order of entries based on its Keys, not on its Values.
+- TreeMap provides navigational methods like `ceilingKey()`, `floorKey()`, `higherEntry()`, and `lowerEntry()`, which are not part of the Map interface.
+- TreeMap can be used in conjunction with `NavigableMap` to access its navigational methods.
+- The `merge()` method can be used on a TreeMap to update the map by merging an old value with a new one using a specified function.
+- TreeMap can be updated using the `put()` method along with `getOrDefault()` to handle default values when updating entries.
+- TreeMap allows you to provide a custom key comparator, such as String.CASE_INSENSITIVE_ORDER.
+
+## Concept
+- TreeMap is sorted by the ordering of its keys.
+- To define the ordering of key objects in a TreeMap, you can specify a Comparator as a parameter for the constructor.
+- Alternatively, key objects can implement the Comparable interface to define their natural ordering.
+- If no Comparator is specified, TreeMap expects the key objects to implement Comparable.
+- Without specifying a Comparator or implementing Comparable, TreeMap will produce an error.
+- TreeMap can only be sorted based on its keys, not on its entries.
+- TreeMap can be instantiated using a supplier function such as `TreeMap::new`.
+- TreeMap maintains keys sorted in their natural order or according to a specified comparator.
+- TreeMap can be used in a functional programming context with Java Streams to collect data into a structured, hierarchical map.
+- TreeMap can be nested within itself as a value type to create multi-level maps.
+- TreeMap works seamlessly with Java's `Collectors` framework to group and collect stream elements based on map keys.
+- TreeMap is not only for storing data but can also be used in complex data collection pipelines, as shown in the `groupingBy` and `mapping` methods.
+- TreeMap maintains the order of entries based on its Keys, not on its Values.
+- In Java, TreeMap is a specific type of SortedMap.
+- Kotlin on the JVM provides similar functionality with the `toSortedMap` function, which returns a sorted version of a `Map`.
+- The Kotlin `toSortedMap` function uses a TreeMap under the hood when running on the JVM.
+- The `toSortedMap` function is missing on other Kotlin platforms, possibly due to the absence of a corresponding TreeMap implementation.
+- TreeMap is part of the Java Collections Framework.
+- TreeMap implements the Map interface and provides a navigable map.
+- TreeMap keys are sorted in their natural order or by a specified comparator.
+- NavigableMap is a type that allows access to methods like ceilingKey(), floorKey(), higherEntry(), and lowerEntry() which are not defined in the Map interface.
+- TreeMap can be used with custom objects as keys, which helps prevent typos and provides the possibility to add useful behavior.
+
+## Performance
+- When using a TreeMap, if only a single lookup is required, iterating over a HashMap is more efficient. However, TreeMap is advantageous for retrieving keys for subsequent lookups without repeated iterations.
+
+## Directive
+- When using `TreeMap`, if you need a sorted map, you must define the ordering of your key objects.
+- You can define the ordering of keys in a `TreeMap` by either specifying a `Comparator` as a parameter in the constructor or by implementing `Comparable` in the key class.
+- If you do not specify a `Comparator` or implement `Comparable`, `TreeMap` will throw an error, as it cannot determine how to sort the keys.
+- If a sorted map is not required, consider using another class that implements `Map`, such as `HashMap`, which does not maintain order.
+- A TreeMap can only be sorted based on its keys, not on its entries. If you want to sort entries based on both the key and the value, you can't do that built into the map; you must do it separately on the entrySet of a map.
+- When using TreeMap, remember that it maintains the order of entries based on its keys, not on its values.
+- Utilize `NavigableMap` as a type to access methods like `ceilingKey()`, `floorKey()`, `higherEntry()`, and `lowerEntry()` which are not defined in the `Map` interface.
+- Consider using custom objects as keys in a `TreeMap` to avoid typos and to add useful behaviors to the key objects.
+- Use the `merge()` method in Java 8 to update a map by providing a key, a value, and a function to merge the old and new values.
+- If uncomfortable with Java 8 functions, use a combination of `put()` and `getOrDefault()` methods to achieve similar functionality as `merge()`.
+- When using TreeMap, you can provide a custom key comparator such as String.CASE_INSENSITIVE_ORDER to perform case-insensitive ordering of keys.
+
+## Pattern
+- TreeMap is commonly used when a sorted map is needed, and you have two options to define the ordering of the keys: by providing a Comparator to its constructor or by implementing Comparable in the key objects.
+- A TreeMap can only be sorted based on its keys, not on its entries.
+- TreeMap is commonly used when a specific order is needed during iteration, as it sorts elements according to their natural order or a specified comparator.
+- TreeMap is commonly used to store items and count their occurrences, with items as keys and their counts as values.
+- TreeMap is commonly used with a custom key comparator, such as `String.CASE_INSENSITIVE_ORDER`, to perform case-insensitive key sorting.
+- TreeMap is used when entries are sorted by keys, and it allows returning the first entry with a specific value efficiently, enabling easy retrieval of keys for subsequent operations without repeated iterations.
+
+## Environment
+- Kotlin's `toSortedMap` function, which uses a TreeMap under the hood, is available only on the JVM platform; it is missing on other Kotlin platforms possibly due to the absence of a corresponding TreeMap implementation on those platforms.
+
+## Alternative
+- If you should not need a sorted map, you can replace `TreeMap` with another class that implements `Map` (for example `HashMap`).
+- Alternatives to TreeMap include LinkedHashMap.
+- Kotlin's `Map` has a `toSortedMap` function, which provides similar functionality to Java's `TreeMap`.

@@ -1,0 +1,45 @@
+If you have tests that validate your business logic, as you should, you'll see that you can swap adapters, everything will work fine
+and you won't have to change your Core tests.
+It depends if the change is a technical change or a business logic change.
+On the other hand, if your business logic requirements change (depending on some business rule you have to send the contact to A or to B), you'll notice that you'll have to change your tests to verify the new requirements.
+If you're initializing object with two different constructors then you'll get the value of the object which you initialized later.
+If yes, then that's where the problem is.
+but it works in this situation)
+
+just pass the instance of your dialog to the constructor of your Adapter Class
+and inside onbind method use that dialog instance to dismiss it
+
+create an interface, take it as a constructor argument in your adapter class,
+call the function whenever your activity/fragment to be notified,
+and then when ever you want to create an instance of your adapter class, let the class implement the interface by passing "this" instead of that interface to your adapter instance.
+It's pretty hard to debug without having full access but it seems that in your adapter there are some hardcoded things right now
+
+Try changing that to be
+
+So that when you call notify adapter, it doesn't operate with hardcoded 0 lengths.
+You can define an interface in your adapter, like below
+
+Implement in fragment or activity that your adapter at:
+
+then pass interface to adapter use constructor or setter, and you can use interface in your viewHolder when bind like below:
+Try this:
+After adapter initialization:
+The StartDisplay() function is earlier then where I define the adapter exactly so when I used the adapter.notifyDataSetChanged() then I got an exception as null object reference.
+Your Adapter created when your list is empty, you can change your code like this:
+
+Suggest:
+you don't need put your list in constructor of Adapter, setUserList method did it for you
+a List works well
+Call notifyDataSetChanged() whenever the data inside your adapter
+changes
+
+Also, you do not need to re-initialize the entire adapter on every selection.
+There are 2 main things to remember in solving your issue:
+
+Pass in a "reference" of the your data when initializing the ArrayAdapter. eg.
+What this means is that when the button is clicked it is set checked to true and the above line will save it's state to the method written in your prefmanager
+Now for the final step add this line in start of adapter:
+Do let me know if this helps you !!
+Now your getter should return a boolean value on which you will verify the last state of your button, by default it will be false
+Now first intialize your pref manager class inside adapter and after that inside your  holder.btnacp click listener do this:
+Whenever your adapter will be initialised, this above method will check it's last state and set it accordingly, don't forget to add null checks for pref manager class and then for methods !!

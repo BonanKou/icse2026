@@ -1,0 +1,47 @@
+In your trained folder where checkpoints are, there is checkpoint key file, open that and change the &quot;model_checkpoint_path&quot; checkpoint-number in the first line.
+
+The model checkpoint callback is now ready to for training.
+You pass in the object in you into your callbacks list when you fit the model:
+
+model.fit(X, y, epochs=100, callbacks=[mc])
+
+
+
+And you probably want to define how much you want to keep, since this can be a lot of complex models
+
+manager = CheckpointManager(ckpt, &quot;training_checkpoints_wgan&quot;, max_to_keep=3)
+
+How to use it:
+
+)
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+model.fit(x_train, y_train, epochs=10, callbacks=[Tensorboard()])
+model.save('./final_model.h5', include_optimizer=True)
+
+model = load_model('./final_model.h5')
+
+callbacks = list()
+
+
+(False), so you can update this to 1 to validate it
+
+
+mc = ModelCheckpoint(&quot;training_checkpoints/cp.ckpt&quot;, save_best_only=True, save_weights_only=False)
+
+How to use it:
+
+This is use-full when you are managing the training loops yourself.
+You use them like this:
+1.1) Checkpoint
+Definition from the docs:
+&quot;A Checkpoint object can be constructed to save either a single or group of trackable objects to a checkpoint file&quot;.
+How to initialise it:
+
+You can pass it key value pairs for:
+
+All the custom function calls or objects that make up your model and you want to keep track of:
+Like a generator, discriminiator, loss function, optimizer etc
+

@@ -1,0 +1,20 @@
+If you want to create different variants of your manifest file, you'll have to do that from outside the Android app, before building the various apps.
+if you want any kind of interaction with other apps you must add the package's name into the manifest file.
+If you are using on Android 11 (Api level 30), you must have to include <queries> in your Manifest.xml file inside <manifest> tag.
+When building your app, the Gradle build merges all manifest files into a single manifest file that's packaged into your app.
+"
+I was able to see the merged manifest by clicking the "Merged Manifest" tab along the bottom pane of the window when the manifest for my mobile app was open:
+
+I right clicked on the line in the manifest and selected "Remove".
+Make sure to add android:required="false" for every "uses-feature" line you add in the manifest - if the app can work without that feature as well.
+This may be because you have  set the hardware acceleration to false on the manifest(application level) or on the activity level ,if this is the case then add this piece of code to your manifest's application tag
+<application android:hardwareAccelerated="true" ...>
+or in your activity level (in the manifest)
+
+have a look at the full documentation here
+
+manifest.xml
+If you are running on Android 10 (API 29) add the following line in the manifest:
+Add this  to your manifest
+
+If your app targets Android 11 or higher and needs to interact with apps other than the ones that are visible automatically, add the  element in your app's manifest file.

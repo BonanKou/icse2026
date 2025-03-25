@@ -1,0 +1,41 @@
+In this case the training code need to run individually on each node.
+You can create MultiWorkerMirroredStartegy in the following way
+
+For this you also need to configure multi-worker setup using TF_CONFIG on different nodes.
+If you are distributing the training across large number of nodes, consider using Kubernetes.
+They should be optimized during training.
+Essentially, anything that creates variables that need to be distributed across replicas should be initialized inside the strategy's scope (e.g. Models, Optimizers, Metrics).
+Note that you can enter the strategy's scope without using the scope context manager, for example through the strategy.run and strategy.reduce APIs.
+Therefore, as shown in Rishabh Sahrawat's answer, only these two steps need to occur in the strategy's scope.
+No* -- this is now deprecated in favour of strategy.run which does not need to be wrapped in strategy's scope.
+However, if you are writing a custom training loop and need to define your variables explicitly, then these will also need to be in scope:
+If created using model.compile(), then model object must be defined inside scope.
+Dataset creation: No
+Dataset experimental_distribute_dataset: No
+apply_gradients call: No* -- as recommended in the docs, the training step should be called using strategy.run which enters the strategy's scope internally.
+Yes* -- if manually defined.
+If you are using the high-level model API (model.fit(), model.predict()) then likely all of your distributed variable creation will occur in the model creation and compilation steps.
+The relationship between X and y is 2 so the training should make the constant converge towards 2.
+Let's say we have a dataset wi X, and y which is y = X * 2:
+
+We will create a model which has a constant inside, which will need to replicate the relationship between X and y. We will of course initialize this value as something other than 2.
+If you define your constant as a tf.
+In order to perform the optimization only once, and accumulate the gradient from several tapes, you can do the following:
+
+Using tf.
+Variable() should be avoided inside the training loop, since it will produce errors when trying to execute the code as a graph.
+If I understand correctly from this statement:
+
+How can I accumulate the losses/gradients and then apply a single optimizer step?
+If you use tf.Variable() inside your training function and then decorate it with "@tf.function" or apply "tf.function(my_train_fcn)" to obtain a graph function (i.e. for improved performance), the execution will rise an error.
+Like:
+
+And for prediction the feed_dict will contain only x values, also you will specify the parameter y_out (the output of your model):
+But if you look carefully you will find inputs to sess.run() are different, when training the feed_dict contains both x and corresponding y's.
+In TensorFlow 1.x, you need to define a Session and both training and prediction happens inside it.
+Checkpoint file only contains variables for specific model and should be loaded with  either exactly same, predefined graph or with specific assignment_map to load only chosen variables.
+Note this method is not effective when dealing with many metrics.
+If this is the case, it is better to use other answers to combine history objects.
+Tensorflow's recommended way to merge multiple training log data (https://www.tensorflow.org/tutorials/images/transfer_learning#continue_training_the_model) is as follows:
+
+Extract the initial training log data points.

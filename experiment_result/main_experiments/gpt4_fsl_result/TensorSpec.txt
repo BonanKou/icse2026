@@ -1,0 +1,53 @@
+# TensorSpec API Knowledge Document
+
+## Functionality
+- `tf.TensorSpec` defines the shape and dtype of a TensorFlow `Tensor`, acting as a template for describing the input or output tensor properties.
+- It is used in `tf.function` to specify input signatures, ensuring consistent tensor shapes and types across function calls.
+- `TensorSpec` can be combined with other specifications like `tf.RaggedTensorSpec` and `tf.SparseTensorSpec` to handle complex data structures.
+- `TensorSpec.from_tensor` creates a `TensorSpec` based on an existing tensor, capturing its dtype and shape automatically.
+
+## Concept
+- A `TensorSpec` is an object that specifies the expected shape (`tf.TensorShape`) and data type (`tf.DType`) of a tensor.
+- Shape in `TensorSpec` can be fully defined, partially defined, or undefined, allowing flexibility in specifying tensor dimensions.
+- The `dtype` attribute defines the data type of the tensor, such as `tf.float32`, `tf.int32`, etc.
+- `TensorSpec` is immutable, meaning once it's instantiated, its shape and dtype cannot be modified.
+- `TensorSpec` is commonly used in TensorFlow models to define expected inputs, providing clear documentation and constraints for model reusability and debugging.
+- The `name` attribute in `TensorSpec` is optional and can be used to identify tensors in complex models or graphs.
+  
+## Performance
+- The use of `TensorSpec` in defining input signatures can optimize TensorFlow's graph building process, potentially leading to faster execution by ensuring consistent input types and shapes.
+- Using `TensorSpec` helps reduce the overhead of dynamic shape inference during model execution, improving runtime efficiency.
+- When specifying large and complex shapes, `TensorSpec` can impose some memory overhead during the graph construction phase but results in better runtime optimizations.
+
+## Directive
+- Always specify the `dtype` when creating a `TensorSpec` to ensure type consistency across tensor operations.
+- If you are unsure about the shape of tensors, use `None` for dimensions that can vary, providing flexibility while still imposing constraints on the tensor rank.
+- Utilize `TensorSpec` in `tf.function` decorators to enforce static typing and shape checks, reducing runtime errors and enhancing performance.
+- Avoid changing the shape or dtype of a `TensorSpec` after it has been created to prevent logical errors and unexpected behavior.
+- Use named `TensorSpec` instances for better readability and maintainability in complex models, especially when dealing with multiple inputs and outputs.
+
+## Pattern
+- `TensorSpec` is frequently used in defining the input signature for `tf.function` to enable graph execution, which is more efficient than eager execution.
+  ```python
+  @tf.function(input_signature=[tf.TensorSpec(shape=[None, 10], dtype=tf.float32)])
+  def my_function(x):
+      return x * 2
+  ```
+- It is commonly used in TensorFlow's SavedModel format to define input and output signatures for model serving.
+- `TensorSpec` is often used in combination with `tf.data.Dataset` to specify the output types and shapes in dataset transformation pipelines.
+  ```python
+  dataset = dataset.map(lambda x: x + 1, 
+                        output_signature=tf.TensorSpec(shape=(), dtype=tf.int64))
+  ```
+- In multi-input models, `TensorSpec` can be used to document and enforce the expected input shapes and types for each entry point.
+- `TensorSpec` is a key component in modular model design, where submodules define their input and output specs for integration and testing.
+
+## Environment
+- `TensorSpec` is compatible with TensorFlow 2.x and requires TensorFlow to be installed in the environment.
+- It supports both CPU and GPU execution, subject to the constraints of the tensors described by the spec.
+- `TensorSpec` can be used in environments where TensorFlow is run in eager or graph execution modes.
+
+## Alternative
+- `tf.RaggedTensorSpec` serves as an alternative when dealing with ragged (non-uniform length) tensors, offering similar functionality with support for ragged dimensions.
+- `tf.SparseTensorSpec` is used in place of `TensorSpec` when working with sparse tensors to efficiently describe and process sparse data structures.
+- For simpler use cases, Python's built-in types (like `list` or `tuple`) combined with dtype checks can sometimes replace `TensorSpec`, though they lack the robustness and integration benefits in TensorFlow workflows.

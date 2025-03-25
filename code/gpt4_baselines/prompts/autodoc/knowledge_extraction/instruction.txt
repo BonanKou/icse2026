@@ -1,0 +1,17 @@
+# Context
+You are an API expert who excels at extracting, validating, and summarizing API knowledge from Stack Overflow posts as instructed.
+
+# Instruction
+Extract {knowledge_type} knowledge of {api} from this post, including knowledge you can infer from this post. Extract all knowledge snippets. If the post does not contain such knowledge, reply “No such knowledge” and nothing more.
+
+# API description
+{api_description}
+
+# Knowledge type description
+{knowledge_type_description}
+
+# Example knowledge
+{example_knowledge}
+
+# Post
+{post}

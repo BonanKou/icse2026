@@ -1,0 +1,38 @@
+## Functionality
+- When you call the model, it is automatically built with the shape of the data you inserted.
+
+## Concept
+- Before you can train a model, it must be built and compiled.
+- Building a model creates all variables of the model depending on the `input_shape` of the training data.
+- Compiling a model sets the optimizer and loss function to be used during training.
+- When a model is called, it is automatically built with the shape of the data provided.
+- You can manually build a model by calling `model.build(input_shape)` before training or evaluation.
+- The `compile()` method also allows setting evaluation metrics using the `metrics` argument.
+- Once compiled, the model is ready to be trained using methods like `fit()`, `train_on_batch()`, or evaluated with `evaluate()`.
+- Recompiling a model after modifying its structure may require rebuilding it to reset weights and layers.
+
+## Performance
+- No performance-related knowledge snippets were provided.
+
+## Directive
+- Before calling `model.fit`, specify the metric you want to compute during training by including it in the `model.compile` method, such as accuracy.
+- When using the Model class for predictions, ensure the input to `model.predict` has the same dimensions as it was trained on.
+- Before you can train your model, you must build it and compile it. Building the model creates all variables of the model depending on the `input_shape` of your training data. Compiling the model sets the optimizer and loss function you would like to use during training. When you call the model, it is automatically built with the shape of the data you inserted. Because of that, you can train the model after you have called it.
+- Use `model.summary()` after building the model to inspect its architecture, including layers, output shapes, and parameter counts.
+- If your model includes custom layers or metrics, make sure they are properly defined and imported before compilation to avoid runtime errors.
+- Always validate your data shape and type consistency before training to ensure successful model fitting and convergence.
+
+## Pattern
+- The `Model` class in TensorFlow is commonly used for building custom neural network architectures.
+- It is especially useful in transfer learning scenarios, where a pre-trained model is adapted to a new task.
+- For example, you can modify a pre-trained VGG19 model by adding custom layers and training it on a new dataset.
+- The `Model` class allows for flexible customization by defining the model architecture through the Keras functional API or subclassing `tf.keras.Model`.
+- It enables easy access to the layers, activations, and weights of the model, allowing fine-tuning for specific applications.
+- You can add custom layers, loss functions, and optimizers to the model, making it highly adaptable for various use cases.
+- The `Model` class also supports multi-input and multi-output architectures, useful for more complex models and tasks.
+
+## Environment
+- No environment-related knowledge snippets were provided.
+
+## Alternative
+- No alternative-related knowledge snippets were provided.

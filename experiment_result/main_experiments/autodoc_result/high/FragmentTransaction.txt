@@ -1,0 +1,36 @@
+# FragmentTransaction API Knowledge Document
+
+## Functionality
+- `FragmentTransaction` allows you to perform a set of Fragment operations in a single transaction.
+- These operations include adding, removing, attaching, detaching, and replacing fragments.
+- Transactions ensure that multiple fragment changes happen together, maintaining UI consistency.
+- A `FragmentTransaction` must be committed to apply the changes.
+- You can commit a transaction using methods like `commit()`, `commitAllowingStateLoss()`, or `commitNow()`, depending on the timing and state constraints.
+
+## Concept
+- A FragmentTransaction represents an atomic set of operations you can perform on a Fragment.
+- Fragments are a part of an Android activity that represents a portion of user interface or behavior.
+
+## Performance
+- Using FragmentTransaction for multiple operations within a single transaction can be more efficient than performing each operation separately.
+- Committing a large number of FragmentTransactions simultaneously can lead to increased memory usage and potential performance issues.
+
+## Directive
+- Always call `commit()` or `commitAllowingStateLoss()` to apply the FragmentTransaction.
+- Avoid committing FragmentTransactions after `onSaveInstanceState()` has been called to prevent state loss.
+- Use `addToBackStack()` if you want the transaction to be reversible with the back button.
+- Ensure that FragmentTransaction operations are performed on the main thread to avoid concurrency issues.
+
+## Pattern
+- Commonly used to replace fragments in a ViewPager setup when responding to user actions.
+- Used to dynamically add or remove Fragments in response to user interactions or configuration changes.
+
+## Environment
+- FragmentTransaction operations should be done within an activity or a fragment.
+- Requires a FragmentManager, which is typically obtained from an Activity or Fragment.
+
+## Alternative
+- For simple UI changes, consider using Views instead of Fragments to avoid the overhead of `FragmentTransaction`s.
+- Use Navigation Components for better handling of fragment transactions and back stack management in Android applications.
+- Navigation Components also provide safer argument passing between destinations using Safe Args.
+- Fragments are better suited for modular, reusable UI components, especially when tied to lifecycle-aware architecture.

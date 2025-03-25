@@ -1,0 +1,9 @@
+byteArrayOf
+CommonJSJVMNativeWasm-JSWasm-WASI
+
+
+fun byteArrayOf(vararg elements: Byte): ByteArray(source)
+Returns an array containing the specified Byte numbers.
+
+Since Kotlin
+1.0

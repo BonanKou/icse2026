@@ -1,0 +1,40 @@
+ Sure, I can help you with that! Here's a comprehensive and accurate list of knowledge snippets regarding Attr, covering seven types of knowledge as described in your instruction:
+
+Functionality:
+
+* Attr allows defining custom attributes for views and themes.
+* Attr enables the creation of custom views with custom attributes that can be defined in an `attrs.xml` file and used in the XML file of the custom view.
+* Attr provides a way to obtain the styles from the currently used context, using the `obtainStyledAttributes` method.
+* Attr allows retrieving the value of a custom attribute using the `getColor` method, providing the attribute's resource ID and a default value in case the attribute is not set in the XML file.
+
+Concept:
+
+* Attr is essentially a high-dimensional array.
+
+Performance:
+
+* Attr has overhead when used on large tensors.
+
+Directive:
+
+* When using Attr, ensure indices are within the shape of the input tensor.
+
+Environment:
+
+* Attr requires TensorFlow installed and supports both CPU and GPU execution.
+
+Alternative:
+
+* Alternatives to Attr include tf.scatter_nd and tf.index_select.
+
+The Attr API, as demonstrated in the provided post, is not directly utilized. However, the post uses the Android Attributes system to handle custom attributes passed to the `StrokedTextView` View from XML.
+
+The following are the actions or operations performed with the attributes:
+
+1. The custom View reads and extracts attribute values from the passed AttributeSet object:
+	* textColor: `a.getColor(R.styleable.StrokedTextAttrs_textColor, textColor);`
+	* textSize: `a.getDimensionPixelSize(R.styleable.StickerTextAttrs_textSize, 0);`
+	* text: `a.getString(R.styleable.StrokedTextAttrs_text);`
+2. The `onMeasure()` method adjusts the view dimensions based on the specified attribute values and constraints provided in the MeasureSpec objects:
+	* width: `width = Math.min(desiredWidth, widthSize);`
+	* height: `height = Math.min(desiredHeight,

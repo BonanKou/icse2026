@@ -1,0 +1,67 @@
+# TreeMap API Knowledge Document
+
+## Functionality
+- `TreeMap` in Java is used to store key-value pairs in a sorted order based on the natural ordering of its keys or by a comparator provided at map creation time.
+- The method `put(K key, V value)` inserts a key-value pair into the TreeMap.
+- `get(Object key)` retrieves the value associated with the specified key.
+- `remove(Object key)` deletes a key-value pair from the TreeMap.
+- `clear()` removes all of the mappings from the TreeMap.
+- `firstKey()` returns the first (lowest) key currently in the map.
+- `lastKey()` returns the last (highest) key currently in the map.
+- `subMap(K fromKey, K toKey)` returns a view of the portion of this map whose keys range from `fromKey` to `toKey`.
+- `headMap(K toKey)` returns a view of the portion of this map whose keys are strictly less than `toKey`.
+- `tailMap(K fromKey)` returns a view of the portion of this map whose keys are greater than or equal to `fromKey`.
+- `size()` returns the number of key-value mappings in the TreeMap.
+- `containsKey(Object key)` checks if the map contains a mapping for the specified key.
+- `containsValue(Object value)` checks if the map contains one or more keys mapped to the specified value.
+- `keySet()` returns a Set view of the keys contained in the map.
+- `values()` returns a Collection view of the values contained in the map.
+
+## Concept
+- A `TreeMap` is a part of Java's Collections Framework and implements the `NavigableMap` interface.
+- The keys in a TreeMap are sorted according to their natural ordering or by a custom `Comparator` provided at map creation.
+- `TreeMap` is based on a Red-Black tree, which ensures that the tree is balanced.
+- Iteration over the keys, values, and entries in a TreeMap is guaranteed to be in ascending key order.
+- `TreeMap` does not allow null keys but permits null values.
+- The `Comparator` used for sorting can be specified by the constructor of the TreeMap or can be the natural ordering of the keys.
+
+## Performance
+- `TreeMap` provides guaranteed log(n) time cost for the basic operations (`get`, `put`, `remove`).
+- The performance of `TreeMap` operations is slower than `HashMap` due to the overhead of maintaining the order.
+- Memory consumption of `TreeMap` is generally higher than that of `HashMap` due to the overhead of maintaining tree structure.
+
+## Directive
+- Ensure that the keys in the `TreeMap` are comparable; otherwise, a `ClassCastException` will be thrown at runtime.
+- Avoid using null keys in `TreeMap` as it will result in a `NullPointerException`.
+- Use `TreeMap` when you need sorted key-value pairs and can afford the overhead of maintaining order.
+- It's best to use the `ConcurrentSkipListMap` if you need a concurrent sorted map.
+- When implementing custom comparators, ensure they are consistent with `equals` to avoid unexpected behavior.
+
+## Pattern
+- Use `TreeMap` when you need a map that maintains order and allows for range operations like `subMap`.
+- `TreeMap` is commonly used for applications that require fixed-time operations on sorted data.
+- It is suitable for implementing associative arrays where keys need to be sorted.
+- Utilize `headMap`, `tailMap`, and `subMap` for operations on subranges of the map.
+
+Example:
+```java
+TreeMap<Integer, String> map = new TreeMap<>();
+map.put(3, "Three");
+map.put(1, "One");
+map.put(2, "Two");
+
+// Iteration in ascending order of keys
+for (Map.Entry<Integer, String> entry : map.entrySet()) {
+    System.out.println(entry.getKey() + " = " + entry.getValue());
+}
+```
+
+## Environment
+- Java Development Kit (JDK) version 1.2 or higher is required to use the `TreeMap` class.
+- Ensure that the runtime environment has sufficient memory to accommodate the overhead of maintaining a balanced tree structure.
+- `TreeMap` is not thread-safe. For multithreaded applications, consider using `Collections.synchronizedSortedMap(new TreeMap(...))`.
+
+## Alternative
+- `HashMap` can be used when order does not matter and faster performance is required.
+- `LinkedHashMap` offers insertion order or access order iteration, but not sorted order like `TreeMap`.
+- `ConcurrentSkipListMap` can be used as a concurrent alternative to `TreeMap` providing similar functionality in a thread-safe manner.

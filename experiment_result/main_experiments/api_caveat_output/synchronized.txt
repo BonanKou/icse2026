@@ -1,0 +1,49 @@
+From Kotlin/Native Concurrent documentation (here):
+
+Concurrency in Kotlin/Native
+Kotlin/Native runtime doesn't encourage a classical thread-oriented concurrency model with mutually exclusive code blocks and conditional variables, as this model is known to be error-prone and unreliable.
+The three accesses are strictly sequentially ordered, with no concurrency between them, and you can rest assured that Kotlin's infrastructure takes care of establishing a happens-before edge when handing off to the IO thread pool and back to your calling coroutine.
+Therefore your question about happen-before guarantees applies equally to this example.
+While it clearly reads:
+
+UnsupportedOperationException - always
+
+Therefore, even if it would be known, it would still be quite useless.
+Kotlin coroutines may run on a single thread asynchronously, there is a state machine inside, which switches between suspend calls, but when you call Thread.sleep(), it blocks the entire thread.
+If you want to use pure Kotlin, you could leverage coroutines, and more specifically its Mutex for locking.
+So, as I said, if you can use a higher-level construction instead, your life will be easier!
+I had a server app with a thread that got stuck in a busy-loop -- chewing up 100% of a CPU but never continuing with the rest of the code -- because I had one thread update a HashMap while another thread was reading it, and I'd missed the synchronisation on one of those.
+But the short answer is: they're quite low-level, and tricky to get right, so please exercise due caution.
+The synchronised keyword (actually a function) is used to claim a lock; either that belonging to a given object or (if none's given) 'this' object.
+So you can do your own synchronisation (as per your synchronized block); but you have to take care to synchronise every possible access to the list -- otherwise, a race condition could leave your list in an inconsistent state.
+And if a higher-level construction (work queues/executors, map/reduce, actors...) or immutable objects can do what you need, life will be easier if you use that instead!
+Note that holding a lock prevents other threads holding the lock; it doesn't prevent anything else.
+If you can follow Java, there are many resources out there which can explain them fully.
+Ideally, every class would be written with some consideration for how it interacts with multithreading; it could document itself as 'immutable' (no mutable state to worry about), 'thread-safe' (safe to call from multiple threads simultaneously), 'conditionally thread-safe' (safe to call from multiple threads if certain patterns are adhered to), 'thread-compatible' (taking no special precautions but callers can do their own synchronisation to make it safe), or 'thread-hostile' (impossible to use from multiple threads).
+That means they have to yield the control by themselves, nobody can suspend, stop or kill them externally.
+OS can put an underlying thread to sleep, but if resumed, it will continue with the same coroutine.
+If we write a CPU-intensive algorithm which never suspends, we are encouraged to yield manually from time to time to not occupy the thread entirely.
+For example in this case it would look like the following:
+
+If this doesn't improve the speed, further investigation should be made, perhaps BLE device executes commands slowly.
+Each object has an intrinsic lock (or monitor) which, if you make use of it, only one thread can acquire at a time.
+One other benefit of a separate locking object is that it can be shared between different instances of a class, or even different classes, if they all do work where they could interfere with each other.
+(If you're only familiar with Kotlin, Java's what it's based on and it's close enough to get the idea)
+If you use a plain synchronized method (without specifying a token), or if you use a synchronized statement with this, in both cases it uses the containing object's lock to control access to the code in that method/block.
+So you can use that to turn an object into a kind of access token - if another thread wants to acquire that lock, it has to wait until the first thread is done with it.
+As for why this particular example (with one synchronised block) uses an explicit locking object instead of this, I'm not sure.
+Maybe they're planning to add other granular locks later, or maybe they're just used to explicitly creating locking objects so you're always encouraged to think about what you're locking on.
+If you have multiple synchronised blocks that are really separate from each other, and could safely be run concurrently, then sharing a lock is inefficient - it's holding up other threads for no good reason.
+But if you have a separate lock object for each, then acquiring one for task A doesn't interfere with acquiring the one for task B.
+You still have to be careful though - if task A actually involves calling stuff in task B, and vice versa, you can end up with a situation where both threads are blocked, waiting for the other to complete.
+In that case both tasks should really use a shared lock, so whatever starts a task is guaranteed to finish it.
+(This doesn't prevent threads from accessing non-synchronised code, like other methods, or the code before a synchronised block.)
+When you cancel a Job, at the first suspension after the cancellation the execution will be stopped, even if you are in a finally block.
+Your example code should look like this: 
+
+The output:
+If you use Thread.sleep(1000) instead of delay(1000) in your finally block, there are no suspensions taking place, because Thread.sleep() is blocking, not suspending, so your whole finally block gets executed.
+Note that using blocking functions inside of suspending functions is an anti-pattern and should be avoided!!
+A single task submitted to the executor ends whenever the coroutine suspends, and the dispatcher submits a new task when the coroutine is ready to resume (when the user code calls continuation.resume(result)).
+Furthermore, the executor service provides the guarantee that the code leading up to executor.execute(task) happens-before the code within the task, and the code within the task happens-before another thread's observing its completion (future.get(), future.isCompleted(), getting an event from the associated CompletionService).
+If you want to descend into the details of "how" out of curiosity, the answer becomes "it depends".

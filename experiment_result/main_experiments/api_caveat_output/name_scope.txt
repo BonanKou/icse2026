@@ -1,0 +1,31 @@
+You can also add the name of the scope to the names of layers you define and then filter out those variables that do not have scope name substring in their names:
+
+Note that in this case the names should be unique for each layer you define!
+Use tf.variable_scope() instead of tf.name_scope().
+tf.name_scope() will append scope name only to the resulting tensor name (e.g. to the result of applying convolutional/dense layer) but not to the underlying variables.
+Whenever you perform an operation in tensorflow it will get a name according to some state maintained by tensorflow, but if you want those operations to be named clearly for your use case then name scope is used.
+All tensor creation operations are executed by C++ backend of tensorflow, so scopes should be mostly handled by them
+So you can just fall back to tf.compat.v1.variable_scope and tf.compat.v1.get_variable if you really need to.
+To do that you just define it 
+
+And load 
+
+This will output 
+
+Edit: As mentioned earlier you can get variable names with
+
+When you know exact names of all variables you can assign whatever value you need, provided variables have same shape and dtype
+So to get a dict
+
+You can construct this dictionary either explicitly or in any kind of loop you'll see fit.
+Name scopes in TensorFlow are hierarchical, so your bar scope is actually foo/bar and you should query it as such:
+
+Prints:
+Usually the GraphDisconnected error is caused by having overriding names in the program.
+I think you should add graph = tf.get_default_graph() and with graph.as_default():
+What about this?
+So when you do predictions and get the index of the prediction using index= np.argmax(p) you can get the corresponding class name from
+Note that the Sequential constructor accepts a name argument, so to make things easy and unambiguous, add name feature to the layer you want to extract its output :
+By default, TensorFlow creates a "root" default graph, which will be the graph to use when no other graph has been designed as default with .as_default().
+So, if you want to use some specific graph as default, you always need to use the .as_default() context to make it so, and the graph will stop being the default when you are out of that.
+If you call tf.reset_default_graph() and then tf.get_default_graph() again you will see that you get now a different graph.

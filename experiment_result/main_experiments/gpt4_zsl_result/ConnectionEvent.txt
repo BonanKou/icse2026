@@ -1,0 +1,97 @@
+### Functionality
+
+1. **Event Triggering**: `ConnectionEvent` is used to trigger specific actions when there is a change in network connectivity status.
+   
+2. **Listening Connectivity Changes**: It allows applications to listen for changes in network connectivity, such as when a device connects to or disconnects from Wi-Fi or a mobile network.
+
+3. **Detailing Connection States**: Provides detailed state information about the current connectivity such as the type of connection (WiFi, Mobile, etc.) and its availability.
+
+4. **Broadcasting Intents**: It utilizes the Android broadcast system to send intents when the connectivity changes. Applications can register to listen for these intents to respond to connectivity changes.
+
+5. **Connection State Callbacks**: Offers callbacks to notify applications whether a network connection has been established or lost.
+
+### Concept
+
+1. **Network Connectivity**: Refers to the ability of a device to connect to the internet or other devices using various types of networks (WiFi, Mobile Data, Ethernet).
+
+2. **Broadcast Receiver**: A component of Android used to listen for broadcast messages from other applications or from the system itself.
+
+3. **Intents in Android**: An "intent" is a messaging object you can use to request an action from another app component.
+
+4. **Callback Mechanisms**: These are functions that are passed as arguments to other functions or systems, allowing them to be called automatically when a particular event occurs.
+
+5. **Wi-Fi vs Mobile Networks**: WiFi typically refers to local wireless networks provided by routers, while mobile networks are larger networks provided by telecom companies.
+
+6. **Network State**: Represents the status of connectivity at any given moment, including factors like type, availability, and strength.
+
+### Performance
+
+1. **Efficient State Management**: `ConnectionEvent` efficiently manages and updates network state changes to reduce unnecessary checks and battery usage.
+
+2. **Low Overhead**: Designed to have a minimal impact on device resources, ensuring it runs efficiently in the background without hindering performance.
+
+3. **Asynchronous Handling**: Uses asynchronous operations to handle connection events without blocking the main application thread.
+
+### Directive
+
+1. **Register Broadcast Receivers**: Make sure to properly register and unregister broadcast receivers in the app’s lifecycle to avoid memory leaks.
+
+```java
+@Override
+protected void onStart() {
+    super.onStart();
+    registerReceiver(connectionReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+}
+
+@Override
+protected void onStop() {
+    super.onStop();
+    unregisterReceiver(connectionReceiver);
+}
+```
+
+2. **Check Permissions**: Ensure that the necessary permissions, such as `ACCESS_NETWORK_STATE`, are declared in the manifest file.
+
+3. **Handle Null States**: Be prepared to handle null states or anomalies, especially when the connectivity state is uncertain or unknown.
+
+4. **Battery Conservation**: Limit connectivity checks to avoid excessive battery drain, particularly in applications that run constantly in the background.
+
+### Pattern
+
+1. **Network Availability Checker**: Commonly used to implement a connectivity status checker that notifies users about changes in network availability.
+
+2. **Adaptive Content Loading**: Used to fetch and prioritize content loading based on connectivity type (e.g., high-quality media on WiFi and compressed on mobile data).
+
+3. **Background Syncing**: Integrates with background data syncing procedures to update or fetch data only when a network is available.
+
+4. **Offline Mode Activation**: Automatically switch the app to offline mode when no network connection is detected.
+
+### Environment
+
+1. **Minimum SDK Version**: Requires at least Android API level 1 for basic connectivity listening, but higher levels provide enriched features.
+
+2. **Permission Requirement**: Requires the `ACCESS_NETWORK_STATE` permission to access network information and changes.
+
+3. **Different Android Versions**: Behavior and features may vary slightly across different versions of Android, due to updates in the connectivity API.
+
+### Alternative
+
+1. **NetworkCallback of ConnectivityManager**: Offers a more modern callback-based approach to listen to network changes, available from API level 21 onwards.
+
+2. **JobScheduler API**: Suitable for scheduling tasks based on network connectivity status, focusing on deferred tasks or jobs.
+
+3. **WorkManager API**: Good for handling network-related work, especially as it can determine prerequisites like connectivity.
+
+4. **OkHttp's EventListener**: If using the OkHttp library, its `EventListener` can be used for network call monitoring which can indirectly provide connectivity information.
+
+5. **ReactiveX (RxJava2) Network Status**: Through the use of observables, it can reactively manage connectivity changes along with other asynchronous operations.
+   
+6. **LiveData for Connectivity**: Use LiveData to observe network state changes in a lifecycle-aware manner.
+
+7. **NetworkCapabilities API**: Provides detailed capabilities of the network, offering more granular control over connectivity checks.
+
+8. **ConnectivityManagerCompat**: Offers compatibility handling for network operations across different versions of Android.
+
+9. **Mobile Data Usage API**: Provides more control and information about the use of mobile data for an application.
+
+10. **Instant Apps Connectivity API**: When working with instant apps, use the connectivity-related APIs tailored for instant app use cases.

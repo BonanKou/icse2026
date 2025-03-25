@@ -1,0 +1,30 @@
+When a variable is declared as volatile, the compiler and processor are instructed to treat it with a higher level of caution and to avoid certain optimizations that might interfere with the correct operation of the program.
+This cache isn't always in sync especially when you are using multiple threads.
+These techniques can cause the processor to execute instructions in a different order than the order in which they appear in the code, which can lead to unexpected behavior if the programmer is not careful.
+When you mark a variable as volatile, you are telling the system that the cache has to be updated immediately so that anyone else using it will have the updated value.
+In summary, the volatile keyword is still relevant today because it allows programmers to control how variables are accessed and modified in multithreaded or concurrent programs, which is an important consideration when writing high-performance code that executes on modern processors.
+When a variable is created and used, it also exists in a cache.
+If you say why parameters are used, it is necessary to understand why functions are used.
+The important thing is that if the developer wants to use this variable in the program, he can use it easily and separate it from other variables.
+It doesn't matter where you define it, if you're using 1 byte of ram it's the same everywhere.
+Solution: if you want it as a new variable, just create it.
+That means that the initial value of variableA is computed before variableB has been initialized.
+You need to initialize your driver variable in your CommonFunctions class.
+Once you've started a variable expression, there's no need to surround additional variables with ${...} expressions.
+Nesting variable expressions  like this: ${... ${...} ...} is a syntax error.
+However, this is unrelated with your issue, because nested scopes can access variables from their parent scope (otherwise most code wouldn’t work).
+No, in Java if statements do not by themselves create a new scope (until Java 14, that is!).
+So the following works:
+
+If {…} didn’t inherit the parent scope, that code wouldn’t work.
+Do if statements have their own scope?
+In particular, the calculation of the average and the output should not be part of the loop but instead happen afterwards:
+
+A commonly used alternative way of writing this loop is using for(;;) with break;.
+Little additional info: You typically only want to declare variables static, when they're global properties or values, which aren't going to be object-specific, such as e.g.
+private static final int MAX_LENGTH_TEXT = 425
+Hope this helped!
+In your instance this, this means, that once you've set 'name', it'll be shared across all instances of Cereal
+*shared here simply means, that there will only be one instance of that specific variable, shared across all the objects of that class.
+To make your code 'work', you simply have to remove the static keyword from your variable name.
+So, you don't need to use the same name of the fields in the parameters, but it will make your code be more readable and understandable.

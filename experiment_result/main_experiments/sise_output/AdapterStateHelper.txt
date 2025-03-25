@@ -1,0 +1,153 @@
+Throwable t) {
+    Log.d(&quot;Retrofit error&quot;, t.getMessage());
+  }
+});
+
+Suggest:
+you don't need put your list in constructor of Adapter, setUserList method did it for you
+
+It's pretty hard to debug without having full access but it seems that in your adapter there are some hardcoded things right now
+ @Override
+public int getItemCount() {
+    return 0;
+}
+
+Try changing that to be
+ @Override
+public int getItemCount() {
+    return list.size;
+}
+
+So that when you call notify adapter, it doesn't operate with hardcoded 0 lengths.
+ArrayList;
+
+    public class contactList extends AppCompatActivity {
+    RecyclerView recyclerView;
+    DatabaseReference reference;
+    contAdapter adapter;
+    ArrayList&lt;Contact&gt; list;
+    FirebaseUser user;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_contact_list);
+
+    user = FirebaseAuth.getInstance().getCurrentUser();
+    recyclerView = findViewById(R.id.contList);
+    reference = FirebaseDatabase.getInstance().getReference(&quot;Contact&quot;);
+    recyclerView.setHasFixedSize(true);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+    list = new ArrayList&lt;&gt;();
+
+    myRef.addChildEventListener(new ChildEventListener() {
+    @Override
+    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+         Contact contact = dataSnapshot.getValue(Contact.class);
+         list.add(contact);
+      }
+    }
+
+    adapter = new contAdapter(this, list);
+    recyclerView.setAdapter(adapter);
+
+    reference.addValueEventListener(new ValueEventListener() {
+    @Override
+    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+    Contact contact = dataSnapshot.getValue(Contact.class);
+    list.add(contact);
+
+    }
+    adapter.updateList(list);
+  }
+
+   @Override
+   public void onCancelled(@NonNull DatabaseError error) {
+
+   }
+  });
+ }
+}
+
+
+p>(this is not the right way but it works in this situation)
+
+just pass the instance of your dialog to the constructor of your Adapter Class
+and inside onbind method use that dialog instance to dismiss it
+
+create an interface, take it as a constructor argument in your adapter class,
+call the function whenever your activity/fragment to be notified,
+and then when ever you want to create an instance of your adapter class, let the class implement the interface by passing &quot;this&quot; instead of that interface to your adapter instance.
+
+
+
+// Load the new data into the list
+                adapter7.notifyDataSetChanged(); // Important, this will ensure that your data changes are reflected on the Spinner
+            } else if (axlesText.equals(&quot;3x2&quot;)) {
+Note that we are not updating the adapter here, just the list that was passed to it previously
+                spinner7DataList.clear();
+                spinner7DataList.addAll(Arrays.asList(getContext().getResources().getStringArray(R.array.
+OVER_SCROLL_NEVER);
+
+Call&lt;List&lt;UsersModel&gt;&gt; getUersData = RetrofitClient.getInstance().getApi().getUsersData();
+getUersData.enqueue(new Callback&lt;&gt;() {
+  @Override
+  public void onResponse(@NonNull Call&lt;List&lt;UsersModel&gt;&gt; call, @NonNull Response&lt;List&lt;UsersModel&gt;&gt; response) {
+    usersList = response.body();
+    usersAdapter = new UsersAdapter(mContext, usersList, 4);
+    binding.recyclerViewUser.setAdapter(usersAdapter);
+    usersAdapter.setUsersList(usersList);
+
+    Log.d(&quot;Retrofit success&quot;, &quot;Yeah!&quot;);
+
+    long requestTime = response.raw().sentRequestAtMillis();
+    long responseTime = response.raw().receivedResponseAtMillis();
+    long apiTime =  responseTime - requestTime;
+
+    Log.d(&quot;Retrofit time&quot;, apiTime + &quot;ms&quot;);
+  }
+
+  @Override
+  public void onFailure(@NonNull Call&lt;List&lt;UsersModel&gt;&gt; call, @NonNull
+Your Adapter created when your list is empty, you can change your code like this:
+binding.recyclerViewUser.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+binding.recyclerViewUser.setOverScrollMode(View.
+R.layout.simple_spinner_item, spinner7DataList);
+        adapter7.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner7.setAdapter(adapter7);
+        spinner7.setOnItemSelectedListener(this);
+
+        return rootView;
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView&lt;?&gt; adapterView, View view, int position, long id) {
+        // Verify that the adapter that triggered this method is the one you want
+        if (adapterView!= null &amp;&amp; adapterView.getId() == R.id.spinnerAxles) {
+            String axlesText = adapter3.getItem(position).toString();
+            if (axlesText.equals(&quot;6x4&quot;)) {
+                //
+OnItemSelectedListener {
+
+    private ArrayAdapter&lt;CharSequence&gt; adapter3, adapter7;
+    private List&lt;CharSequence&gt; spinner7DataList; // Save a reference to your data here
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
+
+        ViewGroup rootView = (ViewGroup) inflater
+                .inflate(R.layout.page_1, container
+                        , false);
+
+        Spinner spinner3 = (Spinner) rootView.findViewById(R.id.spinnerAxles);
+        adapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.

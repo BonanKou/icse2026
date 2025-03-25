@@ -1,0 +1,89 @@
+# Manifest API Knowledge Document
+
+## Functionality
+- **Manifest File**: The AndroidManifest.xml file is essential for declaring the application's components, permissions, and other configurations.
+- **Component Declaration**: Defines application components such as activities, services, broadcast receivers, and content providers.
+- **Permission Request**: Specifies permissions that an application must have to access protected parts of the API and interact with other apps.
+- **Intent Filters**: Used to declare the capabilities of a component and filter specific intents it can respond to.
+- **Hardware and Software Features**: Declares the hardware and software features your application requires.
+- **Application Metadata**: Contains metadata in the form of key-value pairs used to pass additional information to the app.
+- **Versioning**: Declares the version code and version name for the application.
+
+## Concept
+- **Manifest File Structure**: The root element is `<manifest>`, which can contain tags like `<application>`, `<uses-permission>`, and `<compatible-screens>`.
+- **Package Attribute**: The `package` attribute uniquely identifies the application.
+- **Activities and Intents**: Defined within `<application>`, activities are specified with `<activity>` tags, and intent filters within `<intent-filter>`.
+- **Permissions**: Defined with `<uses-permission>` tags, they request access to restricted APIs.
+- **Service Components**: Services are defined using `<service>` tags in the manifest.
+- **Broadcast Receivers**: Declared with the `<receiver>` tag, they listen for broadcast messages.
+- **Content Providers**: Defined using `<provider>` tags, they manage shared datasets.
+- **Task Affinities**: Defined to control the behavior of tasks and activities in the task stack.
+- **Metadata**: Allows passing of custom data using the `<meta-data>` tag.
+- **Version Management**: The `versionCode` and `versionName` attributes manage app versioning.
+
+## Performance
+- **Manifest Parsing**: Efficient parsing of the manifest file is crucial, as it is read every time the app is launched, impacting startup time.
+- **Permission Requests**: Minimizing unnecessary permissions can streamline app performance and enhance security.
+- **Resource Management**: Proper declaration and use of configuration qualifiers improve resource management, avoiding unnecessary resource loading.
+
+## Directive
+- **Explicit Component Declaration**: Always declare all components explicitly in the manifest to ensure they are recognized by the system.
+- **Minimal Permissions**: Request only necessary permissions to maintain security and reduce potential misuse of application data.
+- **Correct Intent Filters**: Ensure intent filters are correctly specified to prevent unauthorized access to application components.
+- **Handle Configuration Changes**: Use the `configChanges` attribute in activities to manage configuration changes effectively.
+- **Version Numbers**: Maintain proper versioning for updates by incrementing the `versionCode` and changing the `versionName`.
+- **Security**: Validate all input to components declared in the manifest to avoid vulnerabilities.
+- **Avoid Duplicate Entries**: Ensure no duplicate declarations to prevent unexpected application behavior.
+
+## Pattern
+- **Activity Declaration**: Defining a main activity using:
+  ```xml
+  <activity android:name=".MainActivity">
+      <intent-filter>
+          <action android:name="android.intent.action.MAIN" />
+          <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+  </activity>
+  ```
+- **Using Permissions**: Requesting internet access:
+  ```xml
+  <uses-permission android:name="android.permission.INTERNET" />
+  ```
+- **Service Declaration**: Defining a service:
+  ```xml
+  <service android:name=".MyService" />
+  ```
+- **Broadcast Receiver**: Registering a receiver:
+  ```xml
+  <receiver android:name=".MyReceiver">
+      <intent-filter>
+          <action android:name="android.intent.action.BOOT_COMPLETED" />
+      </intent-filter>
+  </receiver>
+  ```
+- **Metadata Usage**: Passing metadata to the application:
+  ```xml
+  <meta-data
+      android:name="com.example.MY_DATA"
+      android:value="Some Value" />
+  ```
+- **Feature Requirement**: Declaring required hardware features:
+  ```xml
+  <uses-feature android:name="android.hardware.camera" />
+  ```
+- **Task Affinity**: Setting task affinity for an activity:
+  ```xml
+  <activity
+      android:name=".SecondaryActivity"
+      android:taskAffinity="com.example.myapp.affinity" />
+  ```
+
+## Environment
+- **Android SDK**: Manifest files are utilized within Android applications that are developed using the Android SDK.
+- **Minimum API Level**: The `<uses-sdk>` tag specifies the minimum API level required for the application to run.
+- **Application Configuration**: Proper configuration of the AndroidManifest.xml file is essential for the app's functionality and compatibility across devices.
+- **Development Tools**: Android Studio provides tools for editing and validating the manifest file.
+
+## Alternative
+- **Gradle Build File**: Certain configurations traditionally done in the manifest can now be performed in the Gradle build file, such as setting version codes and handling permissions dynamically at runtime.
+- **Runtime Permissions**: Since Android 6.0, use runtime permission requests for dangerous permissions instead of solely relying on manifest declarations.

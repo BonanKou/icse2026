@@ -1,0 +1,26 @@
+
+
+Here is the comprehensive and accurate list of knowledge snippets regarding CheckpointManager, categorized into seven types of knowledge: functionality, concept, performance, directive, pattern, environment, and alternative.
+
+**Functionality**
+
+1. The CheckpointManager API allows saving the model.history.history whenever a checkpoint is saved using `joblib.dump()`.
+2. The CheckpointManager API can check if the checkpoint exists and, if it does, load it, and also check if the history exists and, if it does, load it and store it in the model's `_history` variable.
+3. The CheckpointManager API can assign the proper value of `model.history.history` and remove the old value when starting training.
+4. The CheckpointManager API has an 'on_train_begin' event, which is triggered at the start of training, and can reassign the value of `model.history.history` from the stored history and delete the stored history.
+5. The CheckpointManager API can be used to save model checkpoints during training, and allows for saving, restoring, and monitoring of model states.
+6. The CheckpointManager API can save the final model after the training has completed, regardless of the result.
+7. The CheckpointManager API can be used to save model checkpoints at different stages during training that have the best validation accuracy.
+8. The CheckpointManager API can perform actions such as saving a model checkpoint file, monitoring and saving the model state based on a specified metric, and loading a previously saved model from the checkpoint file.
+9. The CheckpointManager API can save and load the state dictionaries of a model, optimizer, and learning rate scheduler.
+
+**Concept**
+
+1. A Checkpoint refers to a saved model state during training, managed by the CheckpointManager API.
+2. The CheckpointManager API allows for easy saving of checkpoints during training.
+3. CheckpointManager is used to manage model checkpoints during training, allowing for easy saving, restoring, and monitoring of model states.
+4. Model checkpoints can be created while training a model using the ModelCheckpoint callback from TensorFlow.
+5. CheckpointManager is associated with TensorFlow, as indications from the provided links suggest.
+6. The CheckpointManager API, in the context of TensorFlow Keras, is utilized for managing model checkpoints during training.
+7. Checkpoint files store the best model state during training based on a specified validation metric.
+8. The CheckpointManager API, in the context of this post, is used for saving and restoring model states during training, specifically for

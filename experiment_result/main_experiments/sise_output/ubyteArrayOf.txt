@@ -1,0 +1,40 @@
+it is according to your set key to return the data.
+It can be used as follows:
+@OptIn(ExperimentalStdlibApi::class)
+val byteArray = &quot;16665373b6bf396f75914a0bed297d44&quot;.hexToByteArray()
+
+
+A key can be any value object that properly implements toString(), equals() and hashCode().
+its functions as the key in hashmap
+
+UTF_8) decodes the bytes into UTF-8 character set, which is why it says &quot;This could mean either than the input has been truncated&quot; it probably have tried to convert 8-bits into a Char and build a String out of it.
+Use the readBytes() to get ByteArray which is represented same as byte[] in JVM platform.
+Example:
+GZIPInputStream(payload.inputStream())
+      .bufferedReader()
+      .use
+Key): Value: This method returns a single value for the given key.
+*/
+                '\r'.code.toByte() -&gt; Unit
+
+                '\n'.code.toByte() -&gt; {
+                    emit(buffer.readUtf8())
+                    
+ByteBuffer supports putInt(), putLong() etc, so you can call buf.putInt(unsignedInt.toInt()).
+this is the key describes:
+
+
+  Store uses generic keys as identifiers for data.
+/api/latest/jvm/stdlib/kotlin.text/to-byte-array.html" rel="noreferrer">toByteArray returns a ByteArray which (for Kotlin/JVM) is actually the same type as byte[].
+
+= &quot;Stack Overflow!&quot;.toUTF8String()
+
+
+For people arriving from search engines and looking to get an answer to the question as written in the title, the way to read bytes from a fetch response is to use Response.arrayBuffer or Response.blob.
+More information can be found here: https://developer.mozilla.org/en-US/docs/Web/API/Response
+Some unsolicited tips for working with array buffers:
+
+To access individual bytes use Uint8Array - i.e. new Uint8Array(array)
+To view bytes as a (a.k.a primitive hexdump) decode them as iso-8859-1 using TextDecoder - i.e. new TextDecoder(&quot;iso-8859-1&quot;)
+To convert bytes to normal strings, also use TextDecoder.
+

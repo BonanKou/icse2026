@@ -1,0 +1,37 @@
+I'll assume that you need the tensor to remain ragged.
+And,
+X-y gives,
+
+Caveat
+For y a ragged_rank=2 will lead to the following error.
+which has a shape (y.shape) of [1, None, 1].
+Tensor do not always as expected.
+X can remain as is,
+
+which has a shape (X.shape) of [2, None, None].
+Thus tf.reduce_mean can be used as follows
+
+We can subtract (add, multiply, etc) from a ragged tensor of ragged rank 1 an ordinary tensor of rank 1 if their first dimensions coincides.
+I'm not sure however if the ResNet(weights=None) is able to take ragged_tensor or not directly.
+Data
+
+Basic Model
+
+Ragged Model
+Here we convert ragged_tensor to tensor before passing the data to ResNet.
+Not sure if the following answer or workaround is stable for complex network design.
+So, if we can convert the ragged data right before the ResNet gets fed, maybe it won't complain.
+RaggedTensor (instead of normal Tensor) before being fed to the layer.
+Output for normal input tensor
+
+Output for ragged tensor
+
+The solution also works when you decorate call() with tf.function, which is usually what happens when you call fit on a model whom this layer is a member of.
+I assume that this custom layer operates on a batch having varied number of tuples per sample.
+In that case, to avoid graph retracing, you should ensure that all batches are of the same type, i.e., either all RaggedTensor or all Tensor.
+The only operation left is averaging.
+For example:
+
+When creating a dataset from TFRecord files, one would apply the parse_example as a transformation by passing it to the Dataset.map() function.
+A ragged tensor needs two arrays: values and something defining how the values should be split into rows (e.g. row_splits, row_lengths, ... see the docs).
+Example and create the ragged tensor when loading the files.

@@ -1,0 +1,67 @@
+# LinkedList API Documentation
+
+## Functionality
+1. LinkedList allows for dynamic modification of its size by adding or removing elements.
+2. `LinkedList<T>` allows for creating a linked list of any data type using generics.
+3. The `add(T data)` method is used to add an element to the end of the linked list.
+4. The `size()` method returns the number of elements in the linked list.
+5. The `get(int pos)` method retrieves the element at a specified position in the linked list.
+6. The `set(int pos, T data)` method updates the element at a specified position in the linked list.
+7. The `delete()` method removes the last element from the linked list.
+8. LinkedList's `.add(idx, newItem)` method is O(n) because it has to iterate through elements to reach the correct position for insertion.
+9. LinkedList has guaranteed O(1) performance for additions at the beginning of the list.
+10. Using `.listIterator()` or `.iterator().remove()` can achieve O(1) performance in LinkedList for operations where ArrayList would be O(n).
+11. With a ListIterator, once the correct position is reached, each `.add` operation is O(1).
+
+## Concept
+1. `LinkedList` is a doubly linked list in Java, which means each element (node) in the list has a reference to both the previous and the next element.
+2. `LinkedList` implements both `List` and `Queue` interfaces.
+3. Nodes `first` and `last` being declared as `static` in a `LinkedList` class means that all `LinkedList` instances share the same first and last nodes.
+4. `LinkedList` nodes consist of three fields: the value, a reference to the previous node, and a reference to the next node.
+5. The `LinkedList` structure itself maintains a reference to the start and end nodes, which are `null` when the list is empty.
+6. Tracker objects in `LinkedList` can lead to cache misses, as they may not be stored contiguously in memory.
+7. Modern CPUs have an on-die cache that is more efficient for contiguous memory operations, which benefits `ArrayList` operations when the list fits within a cache page.
+8. Java does not support mixins or combi-types that could combine types for contiguous memory storage, unlike some other languages.
+9. JavaScript lacks many built-in data structures, but its objects allow for flexible additions, like introducing `next` and `prev` pointers for a linked list.
+10. `LinkedList`'s performance is often not significantly better than `ArrayList`, even when big-O notation might suggest it should be.
+11. Random access in `LinkedList` is slower (`O(n)`) compared to `ArrayList` (`O(1)`), making it inefficient for index-based operations.
+12. `LinkedList` is better suited for scenarios with frequent insertions and deletions at the beginning or middle of the list.
+13. Iterating over a `LinkedList` using a `ListIterator` is generally preferred over repeatedly calling `get(index)` due to performance.
+14. `LinkedList` consumes more memory than `ArrayList` due to the extra node pointers required for each element.
+15. Converting a `LinkedList` to an array using `toArray()` can improve access speed if random access is frequently needed afterward.
+
+## Performance
+1. `LinkedList`'s `.add(idx, newItem)` method has O(n) time complexity due to the necessity of iterating through elements to reach the desired index.
+2. `LinkedList`'s cache performance is poor due to non-contiguous memory allocation, causing cache misses during traversal.
+3. `LinkedList`'s extra memory overhead due to tracker objects increases memory usage compared to other data structures like `ArrayList`.
+4. `LinkedList` performs well for add operations at the start of the list, which are O(1).
+5. `ArrayList` benefits from contiguous memory allocation, making operations effectively instantaneous when the entire list fits into a single cache page.
+6. Using `ListIterator` to achieve O(1) insertions in `LinkedList` is possible after reaching the desired position.
+7. `ArrayDeque` offers better performance characteristics for insertions and removals both at the start and end of the list.
+8. Finding scenarios where `LinkedList` outperforms `ArrayList` is rare, even when theoretical big-O notation may suggest otherwise.
+9. `LinkedList` is not thread-safe, so concurrent modifications require external synchronization or using thread-safe variants like `CopyOnWriteArrayList` (though it is not a true linked list).
+10. Insertion and deletion in the middle of a `LinkedList` are theoretically efficient but still require traversal to reach the insertion point.
+11. When frequent random access is needed, `LinkedList` is a poor choice compared to `ArrayList`, due to O(n) access time.
+12. `LinkedList` is suitable in use cases like implementing queues or deques where access is mostly sequential and at the ends.
+13. Garbage collection in `LinkedList` may take longer due to each node being an individually allocated object.
+
+## Directive
+1. When modifying a LinkedList while looping over it, avoid using a simple index-based loop as the list size changes with element removal, leading to skipped elements.
+2. Instead of looping from the start, loop over the LinkedList from the end to avoid skipping elements, though this has a time complexity of O(n²).
+3. A better approach is to use a ListIterator to remove elements, which provides a time complexity of O(n).
+4. When using LinkedList's `.add(idx, newItem)` method, remember that it is O(n) because it must iterate through elements to reach the desired index.
+5. To achieve O(1) performance when modifying LinkedList, utilize `.listIterator()`, or `.iterator().remove()` methods; ListIterator can be used to reach the desired position, and subsequent additions are O(1).
+6. LinkedList performs well with operations at the beginning, offering O(1) for additions.
+7. LinkedList's non-contiguous memory allocation may result in inefficient cache usage, leading to poor actual performance despite theoretical advantages.
+8. When using the LinkedList API, instantiate a LinkedList object directly for functionality from both List and Queue interfaces.
+
+## Pattern
+1. LinkedList is commonly perceived to have better insertion and deletion time for cases with large data sets, but this is generally not true except in very rare circumstances.
+2. LinkedList is used when you need a data structure that implements both the List and Queue interfaces, allowing access to methods from both interfaces such as `poll`.
+3. The post illustrates the use of generics with the LinkedList API in Java to handle multiple data types without creating separate classes for each type.
+
+## Environment
+No environment-specific knowledge snippets were provided.
+
+## Alternative
+1. Alternatives to LinkedList include ArrayList, ArrayDeque, TreeMap, HashMap, databases, skiplists, primitive lists, and enumsets.

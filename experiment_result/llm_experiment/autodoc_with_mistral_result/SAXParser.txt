@@ -1,0 +1,35 @@
+ summary:
+
+SAXParser is an API used for parsing XML documents using the Simple API for XML (SAX) methodology. It allows for efficient processing of XML content through event-driven callbacks.
+
+functionality:
+- SAXParser can count nested start and end tags to determine the end of the XML document
+- If the application is implemented as a SAX filter, it can pass everything it's given to the JAXB process, suppressing the error that would otherwise occur due to the unwanted content following the XML
+
+concept:
+- XML is an extensible markup language used to store and transport data
+- A SAXParser API powers an event-driven XML parser
+
+performance:
+- Performance is not explicitly discussed in the provided posts
+
+directive:
+- When using SAXParser, ensure indices are within the shape of the input tensor
+- It's a best practice to use SAXParser when the XML document doesn't fit in RAM
+- When dealing with large XML files, custom document builders may be necessary to defer or modify tree construction based on specific conditions
+- When using SAXParser, duplicating the events might consume more memory, so be aware of handling large XML documents
+
+pattern:
+- SAXParser can be used in conjunction with a ContentHandler for custom content handling during the parsing process
+- SAXParser can validate XML documents against a schema definition (XSD) and manipulate the data based on specific maxLength constraints
+
+environment:
+- SAXParser API is part of the Java Standard Edition Development Kit (JDK)
+- SAXParser requires Java 8 or higher
+
+alternative:
+- DOM4J, JDOM, and StAX are alternatives for parsing XML documents in Java
+- XPath, being internally based on the DOM model, can be used as an alternative for parsing XML in a simpler manner
+- StAX can be used when the XML is too large for SAX and you find it annoying to use
+- In server-side XML document querying, XQuery can be used as an alternative to passing serialized queries
+- Calling a MarkLogic module from a Java client API can be an alternative for querying XML documents in MarkLogic.

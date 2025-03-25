@@ -1,0 +1,50 @@
+# BigDecimal API Knowledge Summary
+
+## Functionality
+- BigDecimal is used for storing and manipulating exact decimal values.
+- BigDecimal uses decimal fractions internally to represent any decimal number exactly, allowing for accurate calculations and manipulations.
+- BigDecimal can store and calculate decimal fractions to arbitrary precision.
+- BigDecimal is commonly used in financial applications to ensure precise monetary calculations without rounding errors.
+- Operations with BigDecimal are immutable, meaning any modification results in a new BigDecimal object, ensuring consistency and predictability in calculations.
+
+## Concept
+- BigDecimal is intended for storing exact decimal values, as opposed to floating-point types like Float and Double, which use binary floating-point and are unsuitable for precision.
+- Kotlin provides extensions that make BigDecimal almost as easy to handle as native types.
+- BigDecimal is the most general and flexible way to handle numbers requiring precise value representation in Kotlin and Java.
+- When creating a BigDecimal, do not use a Float or Double as the starting point because these types cannot represent decimal values exactly; instead, use an integer type like Int or Long or start from a String.
+- BigDecimal has more possible values than Double, making conversion from BigDecimal to Double lossy.
+- Decimal fractions often cannot be represented exactly as binary fractions, affecting precision when using Double.
+- BigDecimal allows setting the scale to a specified number of digits and can be created using a Double.
+- BigDecimal is a decimal type that offers perfect precision.
+
+## Performance
+- BigDecimal is a little less efficient than floating-point types, but not by enough to be significant in projects like a calculator.
+- BigDecimal can store and calculate decimal fractions to arbitrary precision but are less efficient than floating-point numbers.
+
+## Directive
+- If you care about exact decimal values, use BigDecimal instead of floating-point types.
+- Do not create BigDecimal objects from floats or doubles due to rounding errors; create them directly from strings.
+- BigDecimal is slightly less efficient than floating-point types but sufficient for applications requiring exact decimal storage and manipulation.
+- Never use a `Float` or `Double` to store values that need to be exact, such as money, because they can lead to approximation errors.
+- When using BigDecimal, do not create it from a `Float` or `Double`; instead, create it from a String to ensure exact values.
+- When converting a BigDecimal to a `Double`, precision will be lost.
+- BigDecimal provides methods for rounding, scaling, and performing exact arithmetic operations like addition, subtraction, multiplication, and division.
+- Operations on BigDecimal are immutable, meaning any changes create new BigDecimal objects.
+- BigDecimal can represent arbitrarily large or small numbers with exact precision, making it suitable for scientific and financial calculations.
+- Avoid using BigDecimal in performance-critical code unless necessary, as it may introduce additional overhead compared to simpler numeric types.
+
+## Pattern
+- BigDecimal is used for storing exact decimal values, avoiding the inaccuracies inherent in floating-point arithmetic.
+- BigDecimal is commonly used to store values that need to be exact, such as money, because it uses decimal fractions internally to represent any decimal number exactly.
+- BigDecimal is commonly used for storing and calculating decimal fractions to an arbitrary precision, especially in financial calculations where exact values are needed.
+- BigDecimal can perform precise arithmetic operations like addition, subtraction, multiplication, and division without introducing rounding errors.
+- The BigDecimal class is preferred over `Double` and `Float` for calculations that require high accuracy and consistency across different systems.
+
+## Environment
+- No specific environment knowledge is provided.
+
+## Alternative
+- Use a String if you are not going to perform any calculations.
+- Use Int or Long if you only need a certain number of decimal places by scaling the values.
+- Use Double or Float when you need to store floating-point values and perform arithmetic calculations.
+- Use BigDecimal for high-precision calculations when dealing with monetary or other critical decimal values.

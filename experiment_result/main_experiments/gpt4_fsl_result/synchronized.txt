@@ -1,0 +1,77 @@
+# Synchronized API Knowledge Document
+
+## Functionality
+- The `synchronized` keyword in Kotlin is used to create a block of code that can be accessed by only one thread at a time, ensuring thread safety.
+- `synchronized` allows you to define critical sections of code where shared resources are accessed.
+- It is used primarily to prevent race conditions in multi-threaded environments by locking a monitor object.
+- The `synchronized` function takes an object as a parameter, which acts as the lock.
+- When a thread enters a synchronized block, it acquires the lock associated with the specified object and releases it upon exiting the block.
+
+## Concept
+- In Kotlin, `synchronized` is a function that mimics the behavior of Java's `synchronized` block, providing an easy way to achieve mutual exclusion.
+- The synchronization object (or monitor) is an instance of any class; common practice involves using `this` or a dedicated lock object.
+- Synchronization is necessary when multiple threads are accessing and modifying shared mutable data.
+- Deadlock risk occurs if two threads attempt to acquire the same locks in different orders. Proper lock ordering is essential to avoid deadlocks.
+- While `synchronized` in Kotlin simplifies locking, it's critical to understand that it can lead to contention, slowing down performance if overused.
+- A synchronized block guarantees visibility of changes to variables made by one thread to others after the lock is released.
+- Unlike in Java, Kotlin does not have a `synchronized` keyword but offers a `synchronized()` function, leveraging Java interoperability.
+- Synchronization works by associating each object with a lock, which can be held by only one thread at a time.
+
+## Performance
+- Using `synchronized` can introduce performance overhead due to context switching and contention when threads compete for the same lock.
+- Excessive use of synchronization may lead to reduced concurrency and can become a bottleneck if not managed properly.
+- Fine-grained locking (using different locks for different resource sets) can improve performance compared to coarse-grained locking (using a single lock for all resources).
+- The performance impact of `synchronized` is generally lower for smaller blocks of code, keeping critical sections short is a best-practice.
+  
+## Directive
+- Use `synchronized` judiciously to protect only those critical sections of code that require mutual exclusion.
+- Always lock on a private final object to prevent external classes from acquiring your lock and causing a deadlock.
+- Do not lock on objects that can be accessed outside the class, such as publicly accessible fields or objects returned from the class.
+- Be cautious of deadlocks: avoid acquiring multiple locks at once, and ensure consistent lock acquisition order.
+- Avoid long-running operations inside synchronized blocks to minimize lock contention and improve performance.
+  
+## Pattern
+- A common pattern involves using `synchronized` to guard access to lazy-initialized variables, ensuring thread-safe access in a multi-threaded environment.
+  ```kotlin
+  private var resource: Resource? = null
+  
+  fun getResource(): Resource {
+      return synchronized(this) {
+          if (resource == null) {
+              resource = Resource() // Lazy initialization
+          }
+          resource!!
+      }
+  }
+  ```
+- Use `synchronized` to protect increment and decrement operations on shared counters.
+  ```kotlin
+  private var counter = 0
+  
+  fun incrementCounter() {
+      synchronized(this) {
+          counter++
+      }
+  }
+  ```
+- Protect collections access using synchronized blocks to prevent concurrent modification exceptions.
+  ```kotlin
+  val list = mutableListOf<Int>()
+  
+  fun addToList(item: Int) {
+      synchronized(list) {
+          list.add(item)
+      }
+  }
+  ```
+
+## Environment
+- `synchronized` relies on JVM's intrinsic locks, making it specific to Kotlin/JVM and not available in Kotlin/Native or Kotlin/JS.
+- Ensure that the underlying JVM supports multi-threading features required for proper function of `synchronized`.
+- Running under a JVM version 1.6 or newer typically ensures compatibility with `synchronized` due to its reliance on Java's concurrency primitives.
+
+## Alternative
+- Consider using `ReentrantLock` from the `java.util.concurrent.locks` package for advanced locking mechanisms that provide more flexibility than `synchronized`.
+- Atomic classes like `AtomicInteger`, `AtomicBoolean`, etc., are alternatives to `synchronized` for scenarios involving simple atomic operations.
+- The `ConcurrentHashMap` and other collections from the `java.util.concurrent` package can be used to manage collections without explicit synchronization.
+- The `coroutines` library provides a high-level concurrency model in Kotlin, which can be an alternative to using `synchronized` for managing concurrent tasks.

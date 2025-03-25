@@ -1,0 +1,22 @@
+# URISyntaxException API Knowledge Document
+
+## Functionality
+- *(No functionality knowledge snippets were provided in the original context.)*
+
+## Concept
+- *(No concept knowledge snippets were provided in the original context.)*
+
+## Performance
+- *(No performance knowledge snippets were provided in the original context.)*
+
+## Directive
+- *(No directive knowledge snippets were provided in the original context.)*
+
+## Pattern
+- *(No pattern knowledge snippets were provided in the original context.)*
+
+## Environment
+- *(No environment knowledge snippets were provided in the original context.)*
+
+## Alternative
+- The post suggests using `UriUtils` and `UriComponentsBuilder` as alternatives to handling URL encoding issues, which could be considered as complementary options to `URISyntaxException`.

@@ -1,0 +1,81 @@
+### LinkedList API Document
+
+#### 1. Functionality
+
+- **Snippet 1**: `LinkedList.add(E element)` inserts the specified element at the end of the list.
+- **Snippet 2**: `LinkedList.remove(int index)` removes the element at the specified position in the list.
+- **Snippet 3**: `LinkedList.get(int index)` returns the element at the specified position in the list.
+- **Snippet 4**: `LinkedList.size()` returns the number of elements in the list.
+- **Snippet 5**: `LinkedList.contains(Object o)` checks if the list contains the specified element.
+  
+#### 2. Concept
+
+- **Snippet 6**: A linked list is a data structure consisting of nodes, where each node contains data and a reference to the next node. 
+- **Snippet 7**: In a doubly linked list, each node also contains a reference to the previous node, allowing for bidirectional traversal.
+- **Snippet 8**: `LinkedList` in Java implements the List, Deque, and Queue interfaces, providing flexibility in usage.
+- **Snippet 9**: The nodes in a `LinkedList` typically include an element and references to the next and optionally the previous node.
+- **Snippet 10**: Diagrams:  
+  ```  
+  Node {  
+    Object element;  
+    Node next;  
+    Node prev;  
+  }  
+  ```
+
+#### 3. Performance
+
+- **Snippet 11**: In `LinkedList`, adding elements to the start or end can be done in constant time, O(1).
+- **Snippet 12**: Removing elements from the start or end also performs in constant time, O(1).
+- **Snippet 13**: The `LinkedList` has O(n) time complexity for accessing an element by index due to traversal.
+- **Snippet 14**: Compared to `ArrayList`, `LinkedList` uses more memory due to storing two references (next and prev) in each node.
+  
+#### 4. Directive
+
+- **Snippet 15**: Use `LinkedList` when frequent insertions and deletions are needed, especially at the ends.
+- **Snippet 16**: Avoid using `LinkedList` if frequent accesses by index are necessary due to linear time complexity.
+- **Snippet 17**: Concurrent modifications can lead to `ConcurrentModificationException`; synchronize access if needed.
+- **Snippet 18**: Prefer `ArrayList` over `LinkedList` when random access is a priority.
+
+#### 5. Pattern
+
+- **Snippet 19**: Using a `LinkedList` as a Queue:  
+  ```java
+  LinkedList<Integer> queue = new LinkedList<>();
+  queue.addLast(1);  // Enqueue
+  int first = queue.removeFirst();  // Dequeue
+  ```
+
+- **Snippet 20**: Implementing a Stack using `LinkedList`:  
+  ```java
+  LinkedList<Integer> stack = new LinkedList<>();
+  stack.addFirst(1); // Push
+  int top = stack.removeFirst(); // Pop
+  ```
+
+- **Snippet 21**: Use `LinkedList` in scenarios where you require fast insertions and deletions with lesser concern for memory usage.
+
+- **Snippet 22**: Use `LinkedList` when implementing Least Recently Used (LRU) cache patterns requiring frequent removals.
+
+#### 6. Environment
+
+- **Snippet 23**: `LinkedList` is part of the Java Collections Framework since Java 1.2.
+- **Snippet 24**: To use `LinkedList`, ensure `java.util.LinkedList` is imported in your Java application.
+- **Snippet 25**: Compatible with all standard platforms supporting Java SDK version 1.2 or higher.
+
+#### 7. Alternative
+
+- **Snippet 26**: `ArrayList` is an alternative when random access is more important than insertion/removal at the ends.
+- **Snippet 27**: `ArrayDeque` can be more efficient than `LinkedList` for stacks and queues due to the contiguous block of memory use.
+- **Snippet 28**: Use `CopyOnWriteArrayList` if immutability in a list is a priority when multiple threads are involved.
+- **Snippet 29**: Comparison Table:  
+  ```
+  | Feature             | LinkedList | ArrayList   | ArrayDeque  |
+  |---------------------|------------|-------------|-------------|
+  | Access Time         | O(n)       | O(1)        | O(1)        |
+  | Insertion/Deletion  | O(1) at ends| O(n)       | O(1)        |
+  | Memory Usage        | High       | Lower       | Lower       |
+  | Use Case            | Frequent add/remove | Random Access | Stack/Queue   |
+  ```
+
+By following these structured snippets, users should gain a comprehensive understanding of the `LinkedList` API, including when and how to effectively use it.

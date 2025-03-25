@@ -1,0 +1,5 @@
+ulongArrayOf
+@ExperimentalUnsignedTypes
+inline fun ulongArrayOf(vararg elements: ULong): ULongArray(source)
+Since Kotlin
+1.3

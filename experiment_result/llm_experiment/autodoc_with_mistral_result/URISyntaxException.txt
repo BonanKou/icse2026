@@ -1,0 +1,31 @@
+ Functionality:
+1. The `URI::toURL()` method can create a URL from an absolute or relative URL.
+2. The `Path` and `URI` classes can be used together to construct a file-based URL.
+3. URISyntaxException might be thrown when constructing a URI using `UriBuilder` if the resulting URI does not conform to the expected syntax due to incorrect formatting or query parameter usage.
+4. URISyntaxException may be thrown when the provided URI syntax is incorrect or the format of credentials within the URI is not followed according to the URISyntax API rules.
+5. The URISyntax API can be used to validate and construct domain names as a part of uniform resource identifiers (URIs) in Java.
+6. URISyntaxException is a checked exception that is thrown when a URI is not valid according to the specified syntax rules.
+
+Concept:
+1. Namespaces: A mechanism for abbreviating URIs to short strings (prefixes) in RDF data.
+2. Base URIs: A generic parser/writer mechanism that allows resolving relative URIs in data.
+3. Relative URIs: Strings that are resolved against a defined base URI, resulting in a full URI.
+4. URI Templates and Path Style Parameter Expansion: A general-purpose way to describe a range of identifiers that include key-value pairs. In this context, a colon (:) serves as a placeholder for a key, while a semicolon (;) separates the key from the value.
+
+Directive:
+1. When constructing a URI using `UriBuilder`, make sure to use the `toTemplate()` method to construct a complete URI template that includes template and actual parameters.
+2. When embedding credentials in a URI using `URISyntaxException`, make sure to follow the correct format `"https://{username}:{password}@<base_URI>".`
+
+Pattern:
+1. UriBuilder is often used to construct URIs in Java APIs like WebTestClient.
+
+Environment:
+1. Necessary conditions for using URISyntaxException in Java:
+   - Java 4 or later (URI class introduced in Java 4)
+   - Using URI::toURL or Path::toURI to construct URLs instead of deprecated public constructors of java.net.URL.
+   - Using NIO.2 features for working with files in modern Java.
+
+Alternative:
+1. Alternatives to using URISyntaxException for URI construction and validation in Java include the use of `UriTemplate`.
+2. In other programming languages like Python, the `urlparse` module can be used for URI manipulation.
+3. In JavaScript, you can use the `URL` global class for URL manipulation.

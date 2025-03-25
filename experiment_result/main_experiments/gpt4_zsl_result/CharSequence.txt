@@ -1,0 +1,47 @@
+Here's a comprehensive API document for `CharSequence` from the Kotlin standard library, organized into seven sections with multiple knowledge snippets.
+
+### Functionality
+
+1. **Immutable Interface**: `CharSequence` is an interface that represents a readable sequence of `Char` values.
+2. **Access Characters by Index**: Use the `get(index: Int): Char` method to retrieve the character at a specific index.
+3. **Sub-sequence Extraction**: `subSequence(startIndex: Int, endIndex: Int): CharSequence` extracts a subsequence from the original sequence.
+4. **Length Retrieval**: `length: Int` provides the number of characters in the sequence.
+5. **Conversion to String**: `CharSequence` can be seamlessly converted to a `String` using the `toString()` function.
+
+### Concept
+
+1. **Interface Structure**: `CharSequence` is an abstract type, allowing different implementations like `String`, `StringBuilder`, and `StringBuffer`.
+2. **Read-Only Nature**: `CharSequence` is read-only and does not provide methods to modify the sequence.
+3. **Char vs CharSequence**: `Char` represents a single character, whereas `CharSequence` represents a sequence of characters.
+4. **Immutability and Flexibility**: While `CharSequence` itself is immutable, it allows mutable implementations such as `StringBuilder`.
+
+### Performance
+
+1. **Index Access Complexity**: Accessing a character using an index is an O(1) operation for most `CharSequence` implementations.
+2. **Memory Efficiency**: `CharSequence` is generally memory-efficient as it is an interface and its implementations manage memory.
+3. **SubSequence Performance**: Sub-sequencing operations may or may not be a constant-time operation depending on the implementation, but it often involves creating a new object.
+
+### Directive
+
+1. **Avoid Out-of-Bounds Access**: Ensure index arguments are within the valid range: `0` to `length - 1`.
+2. **Sub-sequence Validity**: Verify `startIndex` and `endIndex` when using `subSequence`; they must satisfy `0 <= startIndex <= endIndex <= length`.
+3. **Thread Safety**: Consider thread safety if `CharSequence` implementations are used in concurrent environments.
+
+### Pattern
+
+1. **String Manipulation**: Use `CharSequence` in functions that handle string manipulation to allow for flexible input types.
+2. **Input Validation**: Implement `CharSequence` as a parameter type in functions to validate input data without enforcing a specific string representation.
+3. **Logging Frameworks**: Pass `CharSequence` instead of `String` for efficient logging operations, minimizing unnecessary conversions.
+4. **Buffer Operations**: Utilize `StringBuilder` for buffer operations requiring frequent modifications while using `CharSequence` for reading.
+
+### Environment
+
+1. **Platform Support**: `CharSequence` is platform-agnostic and available on Java-based platforms, including Android.
+2. **Kotlin Standard Library**: Requires the Kotlin standard library as a dependency.
+3. **IDE Support**: Major IDEs like IntelliJ IDEA provide autocompletion and exhaustive `CharSequence` method documentation.
+
+### Alternative
+
+1. **String**: Use `String` when mutability is not a concern and additional `String`-specific methods are required.
+2. **StringBuilder**: Use `StringBuilder` for mutable sequences when performance of frequent modifications is a priority.
+3. **StringBuffer**: Consider `StringBuffer` as a synchronized alternative when thread safety is required.

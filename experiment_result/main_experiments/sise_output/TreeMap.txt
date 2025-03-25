@@ -1,0 +1,72 @@
+You need to pass in the Supplier mapFactory to specify the type of Map you wish to collect in (()-&gt;new TreeMap&lt;&gt;()).
+Object,V)" rel="nofollow noreferrer">getOrDefault():
+Item sausage = new Item(1, &quot;sausage&quot;);
+
+countByItem.put(sausage, countByItem.getOrDefault(sausage, 0)
+(It would, on the other hand, accept a Comparator&lt;Country&gt;.)
+If you want to sort entries based on both the key and the value, you can't do that built into the map; you must do it separately on the entrySet of a map.
+
+Integer key =
+        map.entrySet().stream().filter(e -&gt; e.getValue() == 0)
+                .findFirst().map(Entry::getKey).orElse(null);
+System.out.println(key);
+
+prints
+4
+
+Note:  
+Map&lt;knot, Boolean&gt; connect = new TreeMap&lt;&gt;(comparator);
+
+B) Implement Comparable
+public class knot implements Comparable&lt;knot&gt; {
+
+  ...
+
+  public int compareTo​(knot other) {
+   
+    // TODO: return a negative integer, zero, or a positive integer as this 
+    // object is less than, equal to, or greater than the other object.
+    
+the TreeMap expects that you've chosen variant B and tries to cast your key object to Comparable.
+If you really need a sorted map you have to define the ordering of your key objects.
+TreeMap maintains the order of entries based on its Keys, not on its Values.
+Therefore, you can't instruct it to store the entries in the way you need.
+As a workaround, you can use a LinkedHashMap which maintains the order of entries were added into the map.
+Note that if you update the map afterwards, the order might be disrupted.
+
+That's how map of items can be updated using Java 8 method merge(), which expects a key, a value and a function responsible for merging the old value and the new one:
+NavigableMap&lt;Item, Integer&gt; countByItem = new TreeMap&lt;&gt;(Comparator.comparingInt(Item::getId));
+        
+countByItem.merge(new Item(1, &quot;sausage&quot;),1, Integer::sum);
+countByItem.merge(new Item(1, &quot;sausage&quot;),1, Integer::sum);
+countByItem.merge(new Item(2, &quot;soup&quot;),1, Integer::sum);
+
+
+The model, in this case DefaultMutableTreeNode, doesn't do its own rendering.
+A TreeMap can only be sorted based on its keys, not on its entries.  
+Same in case of TreeSet
+    final TreeMap&lt;String, TreeMap&lt;String, TreeMap&lt;String, TreeSet&lt;String&gt;&gt;&gt;&gt; collect =
+        list.stream()
+            .collect(
+                groupingBy(
+                    Dto::getValidationType,
+                    TreeMap::new,
+                    groupingBy(
+                        Dto::getSource,
+                        TreeMap::new,
+                        groupingBy(
+                            Dto::getAddress,
+                            TreeMap::new,
+                            Collectors.mapping(
+                                Dto::getError,
+                                Collectors.collectingAndThen(
+                                    Collectors.toSet(),
+                                    TreeSet::new)
+                            )
+                        )
+                    )
+                )
+            );
+
+
+The advantage of a TreeMap is that it lends itself to get the key for subsequent retrievals without repeated iterations.

@@ -1,0 +1,22 @@
+# Manifest API Knowledge
+
+## Functionality
+*There are currently no snippets categorized under functionality.*
+
+## Concept
+*There are currently no snippets categorized under concept.*
+
+## Performance
+*There are currently no snippets categorized under performance.*
+
+## Directive
+- If you are using Android 11 (API level 30), you must include `<queries>` in your Manifest.xml file inside the `<manifest>` tag.
+
+## Pattern
+*There are currently no snippets categorized under pattern.*
+
+## Environment
+*There are currently no snippets categorized under environment.*
+
+## Alternative
+*There are currently no snippets categorized under alternative.*

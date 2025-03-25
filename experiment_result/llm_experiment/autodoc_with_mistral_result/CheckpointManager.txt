@@ -1,0 +1,57 @@
+ # CheckpointManager API Summary
+
+## Functionality
+
+1. Save the model's history during training and on_train_end using `joblib.dump()`.
+2. Load the saved checkpoint, including the model's history, using `joblib.load()`.
+3. Track the current epoch by setting and retrieving `model._current_epoch`.
+4. Override the original model's history during training by assigning a new value to `model.history.history`. This old value is then removed. The overriding is done in the `on_train_begin` function.
+5. CheckpointManager saves the best model during training, and when training concludes, it saves the final model regardless of the training result. To save the final model, add the following line of code after training: `model.save('my_model.h5')`.
+6. ModelCheckpoint (callback) is used to save the model weights or model periodically during training. It can be initialized with the path where to save the model, an option to save weights only (default: False), an option to save the best model only (default: False), and an option for verbosity.
+7. Utilizing Checkpoints: During testing, you can employ multiple saved checkpoints to select the model that performs well with your test data. This is relevant in real-time use cases.
+
+## Concept
+
+1. Checkpoint: Used to save either a single or group of trackable objects to a checkpoint file. Requires key-value pairs for custom function calls or objects that make up your model, such as a generator, discriminator, loss function, optimizer, etc.
+2. CheckpointManager: Manages multiple checkpoints, keeping some and deleting unneeded ones. Initialised with the CheckPoint object created, the directory where to save the checkpoint files, and the number of checkpoints to keep. Should be called at the end of each training epoch.
+3. ModelCheckpoint (callback): Used as a callback when you are not managing epoch iterations yourself, such as with a simple Sequential model and when using model.fit() to manage the training process for you. Saves the Keras model or model weights at some frequency.
+4. The CheckpointManager API allows for the "manual" saving of relevant data during training.
+5. Model states can be saved and loaded using the ModelCheckpoint callback, allowing for easy management of models during training.
+6. Validation Accuracy: An estimation to assess how the model generalizes on unseen data.
+7. Checkpoint Saving: The process of saving model weights (learned during training) with the best validation accuracy. These saved weights are obtained from the model with the highest validation accuracy.
+
+## Performance
+
+1. The use of `joblib.dump()` and `joblib.load()` to save and load data in a simple fashion may impact the speed and memory requirements, depending on the complexity of the data and the system's capabilities.
+2. Saving the last checkpoint as opposed to a specific one may be more time efficient due to fewer writes to the file system.
+3. Periodically saving the checkpoint and the history might impact the overall training speed, as there could be input/output overhead involved in saving and loading data.
+4. The removal of old `model.history.history` values after starting training could help in maintaining memory usage to some extent, by minimizing the amount of old data stored during the training process.
+
+## Directive
+
+1. Ensure that you save `model.history.history` whenever you save the checkpoint or on `on_train_end` using `joblib.dump()`.
+2. When starting the program, check if the checkpoint exists. If it does, load it and also check if `model.history.history` exists and load it. Store the loaded `model.history.history` in `model._history` since `model.history.history` is only created after training begins.
+3. Keep track of the last epoch by setting `model._current_epoch` to the length of the first key-value pair (assuming it is time-series data) in `model.history.history`.
+4. After starting training, assign the proper value of `model.history.history` and remove the old value.
+5. Inferred: After starting training, assign the proper value of `model.history.history` and remove the old value. This can be achieved with the following code:
+   ```python
+   def on_train_begin(self, logs=None):
+      if '_history' in self.model.__dict__:
+         self.model.history.history = self.model._history
+         del self.model._history
+   ```
+
+## Pattern
+
+1. Save model checkpoints during training that have the best validation accuracy. These saved checkpoints contain the learned weights, which can be used to predict results for unseen data.
+2. Utilizing these saved checkpoints for testing with test data in real-time use cases. The model that works well with the test data can be selected and deployed.
+
+## Environment
+
+1. Requires Python and TensorFlow libraries to be installed in the environment.
+2. The code is shown using TensorFlow 2.x, as implied by the presence of TensorFlow 2.x-specific classes and methods like `tf.keras.datasets.mnist`, `tf.keras.models.Sequential`, `tf.keras.layers`, `tf.keras.callbacks.TensorBoard`, `tf.keras.callbacks.ModelCheckpoint`, `tf.keras.models.load_model`, etc.
+
+## Alternative
+
+1. TensorFlow's `tf.train.Checkpoint` offers similar functionality for saving and loading model checkpoints.
+2. Other APIs that offer similar functionality include PyTorch's `torch.save`, `torch.nn.DataParallel`, Hugging Face's `Trainer` class, Fastai's `callback_early_stopping`, and Keras' `ModelSaver`.

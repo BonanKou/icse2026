@@ -1,0 +1,34 @@
+# MBeanServer API Knowledge Document
+
+## Functionality
+- MBeanServer can run a query with the ObjectName.
+
+## Concept
+- Get a reference to the MBeanServer then you can run a query with the ObjectName.
+- MBeanServer is used in conjunction with JMX to manage and monitor resources such as applications and services in a Java environment.
+- MBeans (Managed Beans) are Java objects that implement a specific interface to be managed by the MBeanServer.
+- The JMX interface allows for operations like retrieving the size of HttpSession through MBeans.
+- In the given code example, MBean `SessionMonitor` is used to interact with the session manager and retrieve session information using JMX.
+- The MBean `SessionMonitor` manages access to the `ManagerBase` object through a static field.
+- The `setSessionManager` method in the `SessionMonitor` class is used to initialize the static `sessionManager` field with a `Manager` object.
+- The `getMemoryConsumption` method in the `SessionMonitor` MBean calculates the memory usage of active HTTP sessions.
+- The `getNumberOfActiveHttpSession` method returns the number of active HTTP sessions.
+- ByteMan is a tool utilized to access and manipulate classes at runtime in order to facilitate the integration with JMX when direct access to some classes (like `ManagerBase`) is restricted.
+
+## Performance
+- No specific performance knowledge snippets were provided.
+
+## Directive
+- No specific directives were provided.
+
+## Pattern
+- Get a reference to the MBeanServer, then you can run a query with the ObjectName.
+- The post illustrates a use case for using MBeanServer to monitor the size and number of active HTTP sessions by integrating with JMX. This is achieved by:
+  1. Using ByteMan to modify the `ManagerBase` object and store it in a static field of an MBean, specifically `SessionMonitor`.
+  2. Implementing a JMX interface (`SessionMonitorMBean`) to expose methods such as `getMemoryConsumption()` and `getNumberOfActiveHttpSession()`.
+
+## Environment
+- To access WebLogic's MBeans, add the JVM property: `-Djavax.management.builder.initial=weblogic.management.jmx.mbeanserver.WLSMBeanServerBuilder`.
+
+## Alternative
+- No specific alternatives were provided.

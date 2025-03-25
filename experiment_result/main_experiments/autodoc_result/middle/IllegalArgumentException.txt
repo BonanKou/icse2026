@@ -1,0 +1,27 @@
+# API Document for IllegalArgumentException
+
+## Functionality
+- `IllegalArgumentException` is used to indicate that a method has been passed an illegal or inappropriate argument, specifically when a condition evaluated by the `require` function in Kotlin is false.
+- The `require(condition)` function throws `IllegalArgumentException` if the given condition is false, making it suitable for precondition checks.
+- You can provide a custom error message with `require`, e.g., `require(x > 0) { "x must be positive" }`, to make debugging easier.
+- `IllegalArgumentException` is part of Kotlin's standard library and aligns with Java's exception-handling conventions for invalid arguments.
+
+## Concept
+- IllegalArgumentException is thrown if a condition specified in a require function is false.
+
+## Performance
+- No specific performance-related knowledge snippets were provided.
+
+## Directive
+- No specific directives were provided.
+
+## Pattern
+- The `require` function in Kotlin is commonly used to apply constraints, and it throws an `IllegalArgumentException` if the specified condition is false.
+- It is typically used at the beginning of functions to validate input arguments and enforce preconditions.
+- `require` helps improve code safety and readability by clearly expressing assumptions about valid input values.
+
+## Environment
+- No specific environment-related knowledge snippets were provided.
+
+## Alternative
+- No specific alternatives were provided.

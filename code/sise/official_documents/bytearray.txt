@@ -1,0 +1,36 @@
+Class: ByteArray
+An array of bytes. When targeting the JVM, instances of this class are represented as byte[].
+
+See Kotlin language documentation for more information on arrays.
+
+Since Kotlin: 1.0
+
+Constructors
+ByteArray(size: Int)
+Creates a new array of the specified size.
+
+ByteArray(size: Int, init: (Int) -> Byte)
+Creates a new array of the specified size, where each element is calculated by calling the specified init function.
+
+Properties
+size: Int
+Returns the number of elements in the array.
+
+Since Kotlin: 1.0
+
+Functions
+get(index: Int): Byte
+Returns the array element at the given index.
+
+Since Kotlin: 1.0
+
+set(index: Int, value: Byte)
+Sets the array element at the given index to the given value.
+
+Since Kotlin: 1.0
+
+iterator(): ByteIterator
+Creates a specialized ByteIterator for iterating over the elements of the array.
+
+Since Kotlin: 1.0
+

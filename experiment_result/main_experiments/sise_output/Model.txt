@@ -1,0 +1,58 @@
+
+...in case where you input one image and one gender to the network.
+Now, if you use the fit method or call your model output_tensors = mymodel(input_tensors, training=True), or conversely if you use the predict method or use output_tensors = mymodel(input_tensors, training=False), the training flag will be set to True or False, (which is obvious if you call the model directly).
+
+What is to be done here is to load an existing model saved in model.json.
+
+const tf = require("@tensorflow/tfjs");
+const tfn = require("@tensorflow/tfjs-node");
+const handler = tfn.io.fileSystem("url-to-model.json");
+const model = await tf.loadModel(handler);
+
+
+With model.save(&quot;model.h5&quot;, save_format='tf'), you seem to be trying to use both formats at once, which does not look like it is working.
+The following model, for example, can only be saved when using model.save or model.save(&quot;test&quot;, save_format='tf'):
+import tensorflow as tf
+
+class SomeModel(tf.keras.Model):
+
+  def __init__(self):
+    super(SomeModel, self).__init__
+Either you simply save your model with the older Keras H5 format model.save(&quot;test&quot;, save_format='h5') or you use the Tensorflow SavedModel format by either explicitly setting model.save(&quot;test&quot;, save_format='tf') or simply model.save(&quot;test&quot;), since the tf format is used by default when you call model.save.
+x=base_model.output
+x=Dense(100, activation='relu'))(x)
+x=Dropout(0.5)(x)
+x=BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001)(x)
+output=Dense(2, activation='softmax')(x)
+model=Model(inputs=base_model.input, outputs=output)
+model.fit( train, epochs=100, batch_size=8, validation_data=val, callbacks=callbacks_list)
+
+your model is expecting to see an input for model.predict that has the same dimensions as it was trained on.
+The input to model.predict that you are generating is for the input to the VGG model.
+model.save(&quot;model&quot;)
+
+Calling model.save(&quot;test&quot;, save_format='h5') or model.save(&quot;test.h5&quot;) or even model.save(&quot;model.h5&quot;, save_format='tf') on this subclassed model will in result in an error.
+Checkpoints are especially useful when you need to interrupt the training or it crashes and you want to resume training your model from a saved state.
+The first &quot;1&quot; in the tensors means the first &quot;batch&quot; of samples, and so on.
+Dense(5, activation=tf.nn.softmax)
+
+  def call(self, inputs):
+    x = self.dense1(inputs)
+    return self.dense2(x)
+
+model = SomeModel()
+model.compute_output_shape(input_shape=(1,1))
+
+Model(inputs=inputs, outputs=outputs)
+
+
+Try taking out the last line in your model building function 
+
+self.g_Model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+
+and move it to your train function, once you have declared your model you can use the output of the model as your output layer and declare your input layer with something like 
+
+ input_size = CONFIG.g_keras_lstm_max_document_length
+ input_layer = tf.keras.layers.
+Go through your code and check this &quot;stage&quot; first and then go forward in your program.

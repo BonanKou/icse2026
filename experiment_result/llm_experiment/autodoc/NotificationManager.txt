@@ -1,0 +1,30 @@
+# NotificationManager API Document
+
+## Functionality
+- All notifications from an app are created by the app and handed to the OS via NotificationManager.
+
+## Concept
+- All notifications from an app are created by the app and handed to the OS via NotificationManager. The OS then applies system rules for how they should be handled, such as those configured by the user via the system Settings app.
+- From Android 8.0, if you want to show a notification, you should associate it with a Notification Channel. First, you should create a new notification channel, then show your notification.
+
+## Performance
+- No specific performance-related knowledge snippets are available for NotificationManager.
+
+## Directive
+- On Android TV OS, the NotificationManager should not be used for displaying notifications to users, as general app notifications do not appear in the system-level notification area.
+- Notifications should instead be displayed within the app's UI on Android TV OS. It is recommended to have a reserved space on the main screen of the app to show notifications so that users see them as soon as they open the app.
+- To determine if a user has interacted with a notification displayed in the app UI, use regular `View` methods such as adding code to the `OnClickListener`.
+- Synchronize notification states with a local database (like SQLite using Room) through a server endpoint to manage notifications within the app.
+- Check if the notification is already visible and show it only if it's not visible to avoid playing the notification sound on successive `startForegroundService()` calls.
+
+## Pattern
+- All notifications from an app are created by the app and handed to the OS via NotificationManager. The OS then applies system rules for how they should be handled, such as those configured by the user via the system Settings app.
+- Notifications must be assigned to channels in Android 8.0 (API level 26) and above.
+- You can check if a notification is already visible and show it only if it's not visible by using a reference to the notification's PendingIntent and notificationId.
+
+## Environment
+- Notifications on Android TV OS are limited to system-level notifications important for the user, and general app notifications do not show up using the regular NotificationManager. Instead, notifications must be displayed within the app UI itself.
+- NotificationManager requires that notifications be assigned to channels in Android 8.0 (API level 26) and above.
+
+## Alternative
+- No specific alternative-related knowledge snippets are available for NotificationManager.

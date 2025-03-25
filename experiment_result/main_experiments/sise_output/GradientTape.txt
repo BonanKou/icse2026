@@ -1,0 +1,14 @@
+You have 2 problems in your code which prevents you from getting the result you want.
+
+If you want to compute higher-order derivatives you have to create nested GradientTape objects
+GradientTape automatically track variables in its context, if you want to track tensors (as in your case, you want to track z and t)
++ u_zz - tf.cast(0.5, dtype=tf.float32)
+According to https://www.tensorflow.org/api_docs/python/tf/GradientTape:
+
+By default, the resources held by a GradientTape are released as soon
+as GradientTape.gradient() method is called.
+For that, you can follow the guide: Introduction to gradients and automatic differentiation.
+GradientTape is to record operations for automatic differentiation or for computing the gradient of an operation or computation with respect to its input variables.
+
+
+As far as I understood from my previous experience, Tensorflow needs to use GradientTape in order to record the activity of a certain variable and so to compute its gradients.

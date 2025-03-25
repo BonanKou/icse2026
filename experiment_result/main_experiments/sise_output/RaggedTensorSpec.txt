@@ -1,0 +1,54 @@
+output = tf.concat([emb_r, aug_r], 2)
+print(output)
+# &lt;tf.
+The key is to find the row_lengths of each batch in your ragged tensor, and then use this information to make your augmentation tensor ragged.
+Example:
+import tensorflow as tf
+
+
+# data
+emb = tf.constant([[[1, 2, 3], [4, 5, 6]],
+RaggedTensor as input.
+class FillOneLayer(tf.keras.layers.
+For example, an input batch may be
+[[(1, 0, 0), (0, 0, 1), (1, 1, 2)],
+ [(1, 0, 0), (1, 1, 2)]]
+
+and the desired output tensors would be
+[[0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+ [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0]]
+
+Since the samples can be of uneven sizes, the batch needs to be converted to tf.
+Every RaggedTensor has an associated to_tensor() method, call that.
+[[[1, 2, 3, 8], [4, 5, 6, 8]], [[1, 2, 3, 9]]]&gt;
+
+You can find the list of tensorflow methods that support ragged tensors here
+
+Check your input data transformations, that is where the RaggedTensor is getting created.
+Tensor(2, shape=(), dtype=int64)
+
+# repeat the augmented data `max_rl` number of times
+aug_t = tf.repeat(aug, repeats=max_rl, axis=1)
+
+print(aug_t)
+# tf.
+Model(inputs=[x],
+                              outputs=self.call(x, plot=True))
+   
+x_model = RagModel()
+
+Run
+data = next(iter(ds)); print(data.shape)
+x_model(data).shape 
+(8, None, 256, 256, 1)
+TensorShape([39, 1000])
+
+Plot
+tf.keras.utils.plot_model(x_model.build_graph(), 
+              show_shapes=True, show_layer_names=True)
+
+
+x_model.build_graph().summary()
+
+Model: &quot;model_1&quot;
+_________________________________________________________________

@@ -1,0 +1,83 @@
+# MediaRouter API Knowledge Document
+
+## Functionality
+- `MediaRouter` provides a framework for discovering and interacting with media routes.
+- `MediaRouter.addCallback()` registers a callback to discover and monitor available media routes.
+- `MediaRouter.selectRoute()` allows the selection of a specific media route for sending media content.
+- `MediaRouter.getSelectedRoute()` retrieves the currently selected media route.
+- `MediaRouter.getDefaultRoute()` gets the default route used for media delivery.
+- `MediaRouter.RouteInfo` offers detailed information about a specific media route, such as its name, type, and status.
+- `MediaRouter.removeCallback()` unregisters a previously added callback, stopping route discovery.
+- `MediaRouter.ControlRequestCallback` handles the result of a media control request, such as play or pause.
+- `MediaRouter.Callback` provides methods to handle changes in route availability and selection.
+
+## Concept
+- A "media route" represents a destination for media playback, such as a TV, audio receiver, or speaker.
+- `MediaRouter` is part of the Android media routing framework, allowing applications to control where their media is played.
+- The `RouteInfo` class contains properties such as the route's status, type (e.g., local, remote), and capabilities.
+- Media routing enables seamless playback transitions between devices, enhancing user experiences across varied environments.
+- `MediaRouteSelector` is used to specify the types of routes to discover, filtering route discovery to relevant devices.
+- The `MediaRouteProvider` interface allows third-party apps to provide custom media routes.
+- `MediaRouter.UserRouteInfo` allows developers to define custom routes outside the automated routing framework.
+- The `MediaRouter` framework supports both local and remote playback, adapting to different user scenarios.
+
+## Performance
+- Using `MediaRouter` can introduce latency during route discovery and selection, particularly in environments with numerous devices.
+- Frequent route updates can lead to increased memory usage and battery consumption, impacting overall application performance.
+
+## Directive
+- Always unregister callbacks with `removeCallback()` to prevent memory leaks and reduce unnecessary resource usage.
+- Use `MediaRouter.addCallback()` with a `MediaRouteSelector` to limit discovery to relevant media routes, optimizing performance.
+- Avoid selecting routes that are not compatible with the media content or application requirements.
+- Ensure that your application gracefully handles cases where no suitable media routes are available.
+- Implement `MediaRouter.Callback` methods to update the UI and application state in response to route changes.
+
+## Pattern
+- Use `MediaRouter.addCallback()` in the `onStart()` lifecycle method and `MediaRouter.removeCallback()` in `onStop()` to manage route discovery efficiently.
+- Implement `MediaRouter.Callback` to listen for route availability and selection changes, updating the user interface accordingly.
+- When integrating custom playback controls, use `MediaRouter.ControlRequestCallback` to handle control requests like play and pause.
+- Use `MediaRouteSelector` to specify and filter the types of devices that your app is interested in discovering.
+- Detect when the default route is active using `MediaRouter.getDefaultRoute()` and provide alternative content delivery methods if needed.
+
+## Environment
+- `MediaRouter` requires the application to target at least API level 16 (Jelly Bean).
+- Ensure the application has appropriate permissions to discover and control media routes, such as `android.permission.BLUETOOTH` and `android.permission.INTERNET`.
+- For remote playback scenarios, ensure network connectivity is available to communicate with devices like Chromecast.
+
+## Alternative
+- Consider using the `Cast SDK` for more robust management of media playback on Chromecast and similar devices.
+- The `AudioManager` API can be an alternative for simple audio routing tasks that don't require complex media route management.
+- `ExoPlayer` can be used for advanced media playback features, including handling of multiple audio and video formats.
+
+## Code Examples
+```kotlin
+// Register a callback for media route discovery
+val mediaRouter = MediaRouter.getInstance(context)
+val mediaRouteSelector = MediaRouteSelector.Builder()
+    .addControlCategory(MediaControlIntent.CATEGORY_LIVE_AUDIO)
+    .addControlCategory(MediaControlIntent.CATEGORY_LIVE_VIDEO)
+    .build()
+
+val callback = object : MediaRouter.Callback() {
+    override fun onRouteAdded(router: MediaRouter?, route: MediaRouter.RouteInfo?) {
+        super.onRouteAdded(router, route)
+        // Handle new route addition
+    }
+
+    override fun onRouteSelected(router: MediaRouter?, route: MediaRouter.RouteInfo?) {
+        super.onRouteSelected(router, route)
+        // Handle route selection
+    }
+}
+
+mediaRouter.addCallback(mediaRouteSelector, callback)
+
+// Select a specific media route
+val selectedRoute = mediaRouter.getSelectedRoute(mediaRouteSelector)
+if (selectedRoute != null) {
+    mediaRouter.selectRoute(selectedRoute)
+}
+
+// Remove the callback when no longer needed
+mediaRouter.removeCallback(callback)
+```

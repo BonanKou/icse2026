@@ -1,0 +1,61 @@
+val requestFile =RequestBody.create(&quot;multipart/form-data&quot;.toMediaTypeOrNull(),file)
+        val requestFile=RequestBody.create(MediaType.parse(&quot;image/*&quot;),file)
+        val body = MultipartBody.Part.createFormData(&quot;profile_picture&quot;, file.name, requestFile)
+        uploadImage(body)
+
+
+Kotlin does not use the new keyword.
+It makes it clear if the Array is Mutable or not.
+There are javascript and native libraries that will map the call to other implementations.
+
+
+Key {
+            ...
+        }
+    }
+}
+
+// Kotlin
+import Key.keyOf
+keyOf(...)
+
+// Java
+Key.of(...)
+
+If you *really keyOf() to be a top-level function in Kotlin, you can define functions for Kotlin-only and Java-only use separately.
+interface Key {
+    companion object {
+        @JvmStatic
+        @Deprecated(&quot;not for Kotlin&quot;, level = DeprecationLevel.HIDDEN)
+Api Interface
+@Multipart
+@POST(&quot;your_url&quot;)
+suspend fun uploadImage(
+    @Part file:MultipartBody.
+id: Int, private val color: String) {
+    fun meov() = println(&quot;$color
+In Kotlin, specify named parameters using = not :
+fun sayhello(greeting:String, itemstogreet:List&lt;String&gt;){
+    itemstogreet.forEach {itemtogreet -&gt;
+        println(&quot;$greeting
+interface Key {
+    companion object {
+        @JvmStatic
+        @JvmName(&quot;of&quot;)
+        fun keyOf(vararg content: Any?):
+It commonly is implemented to be executed in ascending order.
+https://stackoverflow.com/a/60124584/10012330 &lt;-- check here
+If you want to use the Kotlin Random class then use like this.
+This means you can simply call this from java like StringUtilsKt.getGreeting("fred") and it will result in the same output.
+
+
+Let me know If not
+private int getYears() {
+int year = 2008; // get from the year edittext
+int month = 9; // get from the month edittext
+int day = 23; // get from the date edittext
+Calendar c1 = Calendar.getInstance();
+c1.set(year, month - 1, day, 0, 0); // as MONTH in calender is 0 based.
+
+
+binding.textDescriptions.text = &quot;${it.

@@ -1,0 +1,64 @@
+# LinkedList API Knowledge Document
+
+## Functionality
+- `LinkedList` in Java is used to implement a doubly-linked list data structure, allowing for both forward and backward traversal.
+- The `add(E e)` method appends the specified element to the end of the list.
+- The `addFirst(E e)` method inserts the specified element at the beginning of the list.
+- The `addLast(E e)` method appends the specified element to the end of the list, similar to the `add` method.
+- The `remove()` method retrieves and removes the head (first element) of the list.
+- `removeFirst()` and `removeLast()` methods are used to remove and return the first and last elements from the list, respectively.
+- The `getFirst()` and `getLast()` methods retrieve, but do not remove, the first and last elements of the list, respectively.
+- `LinkedList` implements the `Deque` interface, allowing the use of methods like `offerFirst(E e)` and `offerLast(E e)` for efficient front and rear element operations.
+- The `size()` method returns the number of elements in the list.
+- The `clear()` method removes all elements from the list, effectively making it empty.
+
+## Concept
+- A `LinkedList` in Java is a part of the Java Collections Framework and implements both `List` and `Deque` interfaces.
+- Linked lists consist of nodes, where each node contains the data and a reference to the next and previous nodes.
+- `LinkedList` allows for constant-time insertions or removals using iterators, but only sequential access of elements.
+- The class is not synchronized, meaning if multiple threads access a list concurrently, it must be synchronized externally.
+- If a synchronized `LinkedList` is needed, it can be wrapped using `Collections.synchronizedList(new LinkedList(...))`.
+- Unlike `ArrayList`, a `LinkedList` does not require resizing, as it dynamically adjusts to the number of elements.
+- `LinkedList` is ideal for scenarios where frequent insertions and deletions are required over rapid access to elements.
+
+## Performance
+- Linked lists provide better performance than `ArrayLists` for insertion and deletion at both ends, O(1) for add/remove operations at the ends.
+- Random access time complexity is O(n) in `LinkedList`, making it less efficient for accessing elements by index compared to `ArrayList`.
+- Iterating over the elements of a `LinkedList` is slower than `ArrayList` due to the lack of cache locality.
+- Memory overhead is higher in `LinkedList` compared to `ArrayList` due to the storage of pointers for each node.
+
+## Directive
+- Use `LinkedList` when you need quick insertions and deletions.
+- Avoid using `LinkedList` for frequent random access or when memory usage is a concern.
+- When iterating through the list, prefer using an iterator to avoid concurrent modification exceptions.
+- If the list is accessed by multiple threads, synchronize the `LinkedList` externally or use a thread-safe variant.
+- For stack-like operations, use `push()` and `pop()` methods provided by `Deque` interface implemented in `LinkedList`.
+
+## Pattern
+- Implementing a queue using `LinkedList` is straightforward: 
+  ```java
+  Queue<String> queue = new LinkedList<>();
+  queue.add("Element1");
+  queue.remove();
+  ```
+- Implementing a stack:
+  ```java
+  Deque<String> stack = new LinkedList<>();
+  stack.push("Element1");
+  stack.pop();
+  ```
+- Utilizing `LinkedList` for constructing a list where elements are frequently added/removed from both ends.
+- Use `addFirst(E e)` and `addLast(E e)` for adding elements when operating in a deque manner.
+- Removing elements from the head and tail can be efficiently done using `pollFirst()` and `pollLast()`.
+
+## Environment
+- `LinkedList` requires Java SE 1.2 or later.
+- It resides in the `java.util` package, ensuring it is included in any standard Java environment.
+- It works across all major operating systems that support Java, making it highly portable.
+
+## Alternative
+- `ArrayList` can be used as an alternative when frequent random access of elements is required.
+- `CopyOnWriteArrayList` is a thread-safe alternative suitable for cases where more reading than writing occurs.
+- `ConcurrentLinkedDeque` can be used as a non-blocking queue for concurrent environments requiring deque operations.
+
+This LinkedList API documentation provides a comprehensive overview of its capabilities, concepts, and best practices for effective use.

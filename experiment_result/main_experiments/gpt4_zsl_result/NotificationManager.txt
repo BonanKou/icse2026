@@ -1,0 +1,88 @@
+### Functionality
+
+1. **Notification Display**: `NotificationManager` is used to notify users of events that happen in the background, such as a received message or a software update.
+
+2. **Notification Canceling**: `cancel(int id)` method is used to cancel a single notification using its notification ID.
+
+3. **Cancel All Notifications**: `cancelAll()` method removes all of the notifications previously shown by the calling application.
+
+4. **Notification Channel**: Starting from Android O, `NotificationManager` provides support for notification channels to manage notifications of different categories.
+
+5. **Notification Importance**: Supports different levels of importance for notifications like `IMPORTANCE_DEFAULT`, `IMPORTANCE_HIGH`, which influences how the notifications are presented.
+
+6. **Snackbar Notifications**: `NotificationManager` does not handle transient or UI notifications, like `Snackbar`; it is meant for system-level, persistent notifications.
+
+7. **Post Notifications**: Use `notify(int id, Notification notification)` method to post a new notification with a specific ID that allows updates or cancellation.
+
+### Concept
+
+1. **Notification Channels**: Essential for grouping and managing categories of notifications, each channel holds its own settings regarding sound, importance, etc.
+
+2. **Importance Levels**: Dictate the amount of interruption allowed; controls aspects like sound, vibration, and display priority.
+
+3. **Pending Intent**: Notifications often include actions that are executed through `PendingIntent`, representing an action to be performed in the future.
+
+4. **Status Bar**: Notifications appear in the status bar and can be expanded to reveal additional details.
+
+5. **System Service**: `NotificationManager` is accessed from the system service; retrieved via `Context.getSystemService(Context.NOTIFICATION_SERVICE)`.
+
+### Performance
+
+1. **Memory Efficiency**: Minimal memory impact for managing notifications since only metadata (e.g., importance, channels, etc.) is stored by the system.
+
+2. **Resource Use**: Properly managing notifications, like removing outdated ones with `cancelAll()`, generally maintains low resource use.
+
+3. **Channel Pre-Creation**: Creating and reusing pre-defined channels reduces setup resources and enhances performance.
+
+### Directive
+
+1. **Channel Creation**: Always create notification channels before posting any notifications for devices running Android Oreo and newer.
+
+2. **Avoid Overuse**: Excessive notifications can lead to user dissatisfaction and should be used prudently.
+
+3. **Update Rather than Duplicate**: When updating a notification, reuse the notification ID to update the existing one instead of creating a new one.
+
+4. **Testing Across Devices**: Test notifications on different devices and versions to ensure consistent behavior.
+
+5. **Channel Modification**: Once created, a notification channel cannot be updated for certain properties like its importance; plan channel configuration carefully.
+
+### Pattern
+
+1. **Progress Notifications**: Use the `setProgress` method to display ongoing progress of tasks like file downloads or installations.
+
+2. **Bundled Notifications**: Group related notifications using `NotificationCompat.Builder` to allow users to see a summary.
+
+3. **Actionable Notifications**: Enhance user interaction by attaching `PendingIntent` to notifications for quick actions.
+
+4. **Heads-Up Notification**: Use high-priority notifications for critical alerts to interrupt the current task with a pop-up over the application in use.
+
+```java
+NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
+        .setSmallIcon(R.drawable.notification_icon)
+        .setContentTitle("Title")
+        .setContentText("Message")
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+notificationManager.notify(notificationId, builder.build());
+```
+
+### Environment
+
+1. **Minimum SDK Requirement**: `NotificationManager` can be used from API level 1, but notification channels are required starting API level 26 (Android O).
+
+2. **Permissions**: Applications might require `android.permission.POST_NOTIFICATIONS` for targeting SDK 33 and higher.
+
+3. **Hardware Resources**: Notifications can utilize sound, vibration, and LED indicators if the hardware capabilities are present.
+
+### Alternative
+
+1. **Toast**: For non-critical, low-priority messages that do not require user interaction or persistence.
+
+2. **Snackbar**: For transient user alerts within the context of the application interface.
+
+3. **In-App Messaging**: Use libraries like Firebase In-App Messaging for rich and contextually aware notifications.
+
+4. **Shortcut Badges**: For providing numeric indicators on application icons rather than showing notifications.
+
+5. **Scheduled Jobs**: Use `JobScheduler` for background tasks that don’t require user interaction or notification.

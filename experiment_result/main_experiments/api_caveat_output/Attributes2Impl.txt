@@ -1,0 +1,25 @@
+The app namespace is not specific to a library, but it is used for all attributes defined in your app, whether by your code or by libraries you import, effectively making a single global namespace for custom attributes - i.e., attributes not defined by the android system.
+In your attires.xml you should define a theme reference attribute
+
+Then you should define attributes in your style
+
+After then, you have to direct this style to a reference in your theme.
+In your custom view's class, you need to define these attributes
+According to https://developer.android.com/develop/ui/views/layout/custom-views/create-view#addprop you can't programmatically set attributes, but instead you should define fields/getters/setters for your attributes.
+That namespace is pre-defined and consists of only the built in Android attributes.
+Please note that custom attributes must be defined in attrs.xml, you can't just make one up in the layout xml.
+You can define any others you want, but typically an app only uses these two.
+If you were to specify foo without a namespace, it would be impossible to know what foo to use.
+If you are able to add them from the xml file, you can add these attributes in your views (needed ones):
+
+
+Try to invalidate the cached and restart Android Studio, also make sure sure that you click on the views for the attributes to show in the design section.
+You will have to set the constraints on the attribute tab.
+Then, when you click on a view, there is a square that appears in the attribute window.
+You can also set the position of a view with reference to other views instead of the margins.
+You have to click on one of the left or right + signs and enter a number.
+When you apply a theme, every view in the app or activity applies each of the theme's attributes that it supports.
+If you notice that in manifest, your <activity> tag is a child of <application> tag, and yet the activity inherits the theme set in the <application> this way and cascade this inheritance all the way down.
+So, you need to use that namespace in the cardview attributes.
+That way should work.
+Create a themes.xml file inside your /res/values folder, if it doesn't exist already.

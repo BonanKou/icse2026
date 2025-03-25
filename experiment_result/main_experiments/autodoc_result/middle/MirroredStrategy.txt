@@ -1,0 +1,63 @@
+# MirroredStrategy API Knowledge Document
+
+## Functionality
+- `MirroredStrategy` is used for synchronous distributed training across multiple GPUs on a single server.
+- When using `MirroredStrategy`, the batch size refers to the global batch size.
+- For example, if using `MirroredStrategy` with 2 GPUs, each batch of size 10 will get divided among the 2 GPUs, with each receiving 5 input examples in each step.
+- To have each GPU process 32 samples per step, set the batch size as `32 * strategy.num_replicas_in_sync`.
+- Each GPU computes the forward and backward passes on different slices of the input data, and the computed gradients are aggregated across all devices using AllReduce, typically averaging them, before the optimizer updates the parameters to keep the devices in sync.
+- `MirroredStrategy` divides the global batch size equally among multiple GPUs.
+- For example, with a global batch size of 64 and 4 GPUs, each GPU would receive 16 input examples per step.
+- Switching to `MirroredStrategy()` is recommended for training models on multiple GPUs, as it avoids compatibility issues and is the preferred method moving forward.
+- `MirroredStrategy` uses collective operations to ensure synchronization of variables and gradients across devices.
+- It supports eager execution and works seamlessly with Keras `model.fit()`, `model.evaluate()`, and `model.predict()` APIs.
+- Variables created within the scope of the strategy are automatically mirrored across all participating devices.
+- To use `MirroredStrategy`, wrap model creation, compilation, and training code inside the strategy’s `scope()` context.
+- `MirroredStrategy` works best when all devices are identical in capability (e.g., same GPU models), to avoid performance bottlenecks.
+
+## Concept
+- MirroredStrategy in TensorFlow is used for synchronous distributed training and is designed to work across multiple GPUs on a single server.
+- Using MirroredStrategy ensures that a multi-GPU setup is utilized appropriately by creating copies of the model on each device for parallel computation.
+- It is beneficial for synchronous training, allowing all devices to work in parallel, updating weights simultaneously.
+- Mixed precision can be used alongside MirroredStrategy to free up memory by altering the float type of model parameters.
+- When using MirroredStrategy, the batch size refers to the global batch size, which is divided among the GPUs.
+- For example, with 2 GPUs, a batch size of 10 will be divided so that each GPU processes 5 input examples per step.
+- To ensure each GPU processes a specific number of samples per step, the batch size can be set to `32 * strategy.num_replicas_in_sync` for 32 samples per GPU.
+- Each GPU performs forward and backward passes on different slices of the input data.
+- The gradients computed by each GPU are aggregated and reduced using a process called AllReduce.
+- The optimizer updates the model parameters with these reduced gradients to keep the devices in sync.
+- MirroredStrategy divides the global batch size among the GPUs.
+- For data loading using `tf.data.Dataset` or Numpy arrays, each batch is divided equally among the replicas.
+- The `multi_gpu` function in TensorFlow is deprecated and should not be used for training models on multiple GPUs.
+- The recommended approach for training models on multiple GPUs is to use `tf.distribute.MirroredStrategy`.
+- `MirroredStrategy` is the advised method for multi-GPU training according to the official TensorFlow documentation.
+- The `MirroredStrategy` is part of the distributed training strategies in TensorFlow, supporting synchronous distributed training on multiple GPUs on a single machine.
+- The variables in the model are replicated and in sync on all GPUs when using MirroredStrategy.
+
+## Performance
+- No specific performance knowledge was identified.
+
+## Directive
+- Use `tf.distribute.MirroredStrategy` for synchronous distributed training across multiple GPUs on a single server.
+- Enclose the model building and compilation within `mirrored_strategy.scope()` to ensure the distribution strategy is correctly applied.
+- Use MirroredStrategy() instead of the deprecated multi_gpu function for training models on multiple GPUs, as it avoids compatibility issues and is the recommended approach by TensorFlow.
+- When using MirroredStrategy, the global batch size is divided among the available GPUs, meaning each GPU receives an equal portion of the batch for processing.
+- When using MirroredStrategy, the variables in the model are replicated and in sync on all GPUs.
+
+## Pattern
+- MirroredStrategy is used for synchronous distributed training across multiple GPUs on a single server.
+- When using MirroredStrategy, the batch size refers to the global batch size.
+- For example, if using MirroredStrategy with 2 GPUs, each batch of size 10 will get divided among the 2 GPUs, with each receiving 5 input examples in each step.
+- To have each GPU process 32 samples per step, set the batch size as `32 * strategy.num_replicas_in_sync`.
+- Each GPU computes the forward and backward passes on different slices of the input data, and the computed gradients are aggregated across all devices using AllReduce, typically averaging them, before the optimizer updates the parameters to keep the devices in sync.
+- MirroredStrategy divides the global batch size equally among multiple GPUs.
+- For example, with a global batch size of 64 and 4 GPUs, each GPU would receive 16 input examples per step.
+- Switching to `MirroredStrategy()` is recommended for training models on multiple GPUs, as it avoids compatibility issues and is the preferred method moving forward.
+
+## Environment
+- MirroredStrategy is used for synchronous distributed training across multiple GPUs on a single server.
+- MirroredStrategy requires TensorFlow 2.x and supports synchronous distributed training on multiple GPUs on one machine, creating one replica per GPU device.
+
+## Alternative
+- Alternatives to the deprecated `multi_gpu` function include `tf.distribute.MirroredStrategy`.
+- Alternatives to MirroredStrategy include tf.distribute.Strategy.

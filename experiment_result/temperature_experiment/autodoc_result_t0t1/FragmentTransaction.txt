@@ -1,0 +1,46 @@
+# FragmentTransaction API Knowledge
+
+## Functionality
+- FragmentTransaction is used to add a fragment to a specified container within an activity.
+- FragmentTransaction can add, remove, replace, and perform other actions with fragments in response to user interaction.
+
+## Concept
+- A `FragmentTransaction` is initiated using `beginTransaction()` on a `FragmentManager`.
+- Fragments are added to a container in the activity layout using the `add()` method of `FragmentTransaction`.
+- The `commit()` method is used to finalize the `FragmentTransaction`.
+- Fragments require a container in the activity layout, identified by an ID such as `android:id="@+id/fragment_container"`.
+- A fragment's layout is defined in a separate XML file, which is inflated in the `onCreateView()` method of the fragment.
+- A `Fragment` subclass must override the `onCreateView()` method to inflate its layout.
+- The `FragmentManager` is used to manage fragments within an activity.
+- A `FragmentTransaction` can be triggered by a user action, such as a button click, using a click listener.
+- FragmentTransaction can be initiated using `getSupportFragmentManager().beginTransaction()`.
+- The `setReorderingAllowed(true)` method can be used on a FragmentTransaction to allow reordering of fragment operations.
+- The `replace()` method of FragmentTransaction is used to replace the current fragment in a specified container with a new fragment.
+
+## Performance
+- No specific performance-related knowledge snippets were provided.
+
+## Directive
+1. When using FragmentTransaction, ensure you have a container in your activity layout with an ID, such as `android:id="+id/fragment_container"`, to hold the fragment.
+2. Create a layout XML file for your fragment and name it appropriately, for example, `fragment_page_3.xml`.
+3. Create a subclass of Fragment and override its `onCreateView()` method to inflate the fragment's layout.
+4. Use `FragmentManager` to load your fragment within a click listener by calling `beginTransaction()`, then `add()` with the container ID and fragment instance, and finally `commit()`.
+5. Avoid implementing FragmentTransaction in a way that does not account for multiple fragments or lacks a Callbacks interface implemented by the activity, as this is considered a wrong implementation.
+6. Consider changing the content of the UI for a better implementation approach.
+7. Use `FragmentContainerView` in your layout XML to manage fragments dynamically, as it is designed specifically for handling fragment transactions.
+8. In `FragmentTransaction`, use `setReorderingAllowed(true)` to optimize the order of operations within the transaction.
+9. Use `replace()` method in `FragmentTransaction` to replace the current fragment with a new one, specifying the container view ID and the fragment class.
+10. Always call `commit()` on a `FragmentTransaction` to apply the changes.
+
+## Pattern
+- FragmentTransaction is commonly used to dynamically add a fragment to a specified container within an activity when a button is clicked.
+- FragmentTransaction is commonly used to add fragments to a fragment container view within an activity, enabling dynamic UI changes.
+- FragmentTransaction is commonly used to dynamically replace fragments in response to user interactions, such as button clicks, within a FragmentContainerView in an activity.
+
+## Environment
+- FragmentTransaction requires the use of FragmentManager to perform actions such as adding, removing, and replacing fragments.
+- It is used in conjunction with FragmentContainerView, which is a customized layout designed specifically for handling fragment transactions.
+- The environment setup includes defining a FragmentContainerView in the activity's XML layout file and using FragmentManager within an activity to manage fragment transactions dynamically at runtime.
+
+## Alternative
+- No specific alternative-related knowledge snippets were provided.

@@ -1,0 +1,32 @@
+# CheckpointManager API Document
+
+## Functionality
+- **CheckpointManager** manages multiple checkpoints by keeping some and deleting unneeded ones. It is initialized with a Checkpoint object, the directory to save checkpoint files, and the number of checkpoints to keep.
+- **CheckpointManager** manages multiple checkpoints by storing them at a specified location and can be configured to keep a specified number of checkpoints.
+
+## Concept
+- **CheckpointManager** is useful when managing training loops manually.
+- Example initialization of **CheckpointManager**:
+  ```python
+  manager = CheckpointManager(ckpt, "training_checkpoints_wgan", max_to_keep=3)
+  ```
+- **CheckpointManager** is typically used by calling its `save()` method at the end of each training epoch.
+
+## Performance
+- No specific performance knowledge snippets were provided.
+
+## Directive
+1. When using CheckpointManager, initialize it with a Checkpoint object as the first argument.
+2. Specify the directory where checkpoint files will be saved during CheckpointManager initialization.
+3. Define the maximum number of checkpoints to keep using the `max_to_keep` parameter in CheckpointManager, especially for complex models.
+4. Call the `save()` method of CheckpointManager at the end of each training epoch to manage the checkpoints.
+
+## Pattern
+- **CheckpointManager** is useful when you are managing the training loops yourself.
+- It is typically used by calling `manager.save()` at the end of each training epoch to save the checkpoints.
+
+## Environment
+- No specific environment knowledge snippets were provided.
+
+## Alternative
+- Alternatives to **CheckpointManager** include **ModelCheckpoint (callback)** when you are not managing epoch iterations yourself and want to use a callback during model training.

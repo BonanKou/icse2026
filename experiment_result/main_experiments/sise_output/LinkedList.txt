@@ -1,0 +1,94 @@
+null for the last.
+
+Finally the list itself is simply 2 fields:
+I have modified your code based on your design premise.
+
+The only operation that the CPU can send to the memory controller is 'flush this ENTIRE page to main memory' (it cannot flush half of a page; a page size depends on your CPU, but think 64k or so), and 'replace this on-die cache by loading in this ENTIRE page from main memory'.
+Inside your LinkedList class you declare your Nodes &quot;first&quot; and &quot;last&quot; as static.
+But actually you put the linked list after the less and great
+If I understood correctly from the comments, you need the list to be
+
+grouped by profession,
+sorted by age
+collected into a LinkedHashMap
+
+If this is the case, you can try something like this:
+Map&lt;String, List&lt;Worker&gt;&gt; groupedByProfession = workers.stream()
+        .sorted(Comparator.comparingInt(Worker::getAge))
+        
+You wont be able to have a separate linked list if they remain static.
+
+The tracker object for the item after us in this list - it's 
+...&quot;
+
+
+Hence, when you are talking about a smallish arraylist, given that the JVM guarantees that arrays are 'contiguous in memory', as long as the entire list fits in a single page, then effectively all operations on it are instantaneous, and that whole O(n) thing sounds nice
+there?
+list.add(25, newItem) cannot magically skip around LinkedList's nearly fatal downside, which is: 
+it usually is nowhere near.
+LinkedList goes in the opposite direction - the nature of modern CPU design ('modern' in quotes here - on-die cache pages and no actual direct memory access by a CPU is at this point over a decade old) actually is bad news: Those extra trackers have a nasty tendency to not be contiguous, meaning a full traversal of a linked list causes a load of cache misses, and each cache miss comes with a free 500+ CPU cycles worth of thumb twiddling.
+According to your description, this is actually a small program that counts specific strings, and doesn't even need LinkedList
+I modified your code and now it should satisfy the two conditions you proposed
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        LinkedList&lt;String&gt; cointoss = new LinkedList&lt;String&gt;();
+        boolean head = true;
+        boolean tail = false;
+        boolean streak = true;
+        int streakcount = 0;
+
+        System.out.println(&quot;Welcome to the Program #2 &quot;);
+        // ask for the boolean value.
+This algorithm works even if the list has a few bazillion entries in it.
+The only way to get O(1) performance out of a LinkedList where ArrayList has O(n), is via those!
+You can use the ListIterator to iterate your way to the right position (this will be O(n), if you want to add in the middle), but from there you can add as much as you like, and each .add operation is indeed O(1), though the trackers you're making are likely in a different cache page, so you're negatively impacting any future performance of this list.
+That sucks.
+Now it doesn't matter how you got to any item in the list, once you have it, obtained however, you can do O(1) ops on the list.
+In other words, LinkedList's .add(idx, newItem) method is just as O(n) as ArrayList's is!
+If you leave O(n) land behind and get to pragmatics one might say that LinkedList has excellent performance when you add near the 'start' of the list, whereas ArrayList would be at its worst there (LinkedList needs to iterate only a few trackers to get to the right one, whereas ArrayList needs to move a gigantic chunk), but you don't want to do that - when we leave theoretic performance models (that is, O(n) notation) behind and get to actual performance, LinkedList's is truly deplorable - just about everything that isn't algorithmic that could go wrong, does go wrong with LinkedList.
+LinkedList's 'fast at the start' grows to perfection once we talk about 'add at the beginning', with a guaranteed O(1) behaviour.
+it would help if you elaborate what type of list u are comparing,
+linkedlist or arrays.
+this.embeddedKafkaBroker = new EmbeddedKafkaBroker(1, true, 2,&quot;demoTopic&quot;) 
+      .kafkaPorts(KAFKA_PORT) 
+      .zkPort(ZOOKEEPER_PORT) 
+      
+You are creating an instance of List here instead of creating an instance of  LinkedList.
+So better to use :
+LinkedList list = new LinkedList&lt;&gt;();
+
+
+System.out.println(&quot;Enter the boolean value (head=true, tail=false): &quot;);
+
+        for (int i = 0;
+This assumes you have @RequestMapping(&quot;/books&quot;) on the controller class and the page from which you are creating the link has access to a book in the model that has an id attribute.
+If you want a button instead of a link style the link accordingly.
+
+Instead, you have to utilize a very basic custom implementation of the Singly linked list data structure.
+If you choose the language level Java 8, then almost ready to go implementation will be provided for you.
+You only need to implement a single method that does precisely what required according to the challenge description, and nothing more:
+public static void printLinkedList(SinglyLinkedListNode head) {
+    SinglyLinkedListNode cur = head;
+    while (cur != null)
+The same process happens again and again every time element greater than 25 is found the next element is not going to be validated and will intern remain in the LinkedList even if it is greater than 25
+To solve the problem as state by @tricot you can either loop over the LinkedList starting from the end
+for (int i = list.size() - 1;
+Of course, if you do that, you may eventually run into that whole padLeft debacle thing, but then you're kinda signing up for that the moment you decide to use javascript in the first place.
+
+
+&quot;... I can only create lists with a single data type, in this instance being BufferedImages, but I want to be able to create one LinkedList for a BufferedImage and another for an int.
+i &lt; 18; i++) {
+            String next = input.next();
+            if (next.equals(&quot;true&quot;) || next.equals(&quot;head&quot;)) {
+                streakcount++;
+            }
+            cointoss.add(next);
+        }
+
+        if (streakcount &gt;= 10) {
+            System.out.println(&quot;Streak is found! &quot;);
+        } else {
+            System.out.println(&quot;Streak is broken! &quot;);
+        }
+    }
+

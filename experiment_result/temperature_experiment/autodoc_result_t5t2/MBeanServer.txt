@@ -1,0 +1,22 @@
+# MBeanServer API Knowledge
+
+## Functionality
+- Get a reference to the MBeanServer, then you can run a query with the ObjectName.
+
+## Concept
+- Get a reference to the MBeanServer, then you can run a query with the ObjectName.
+
+## Performance
+- No performance-related knowledge snippets were provided.
+
+## Directive
+- No directive-related knowledge snippets were provided.
+
+## Pattern
+- Get a reference to the MBeanServer, then you can run a query with the ObjectName.
+
+## Environment
+- Add the following JVM Property to your server instance to get access to WebLogic's mbeans: `-Djavax.management.builder.initial=weblogic.management.jmx.mbeanserver.WLSMBeanServerBuilder`.
+
+## Alternative
+- No alternative-related knowledge snippets were provided.

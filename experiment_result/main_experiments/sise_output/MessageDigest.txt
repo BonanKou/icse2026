@@ -1,0 +1,118 @@
+//This is where i don't understand why this does not print ?
+        }
+        System.out.println();
+    }
+}
+
+class Node
+{
+    private int val;
+
+    public Node(int val)
+    {
+        this.val = val;
+    }
+
+    public int getVal()
+    {
+        return this.val;
+    }
+
+    public void setVal(int newVal)
+    {
+        this.val = newVal;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        System.out.println(&quot;Inside equal of &quot; + this.val);
+        //i expect it will print out when i use set.contains()
+        if(this.hashCode() == ((Node)obj).hashCode())
+        {
+            return true;
+        }
+        return false;
+    }
+}
+
+Output:
+Without Hashcode override
+Node@4783da3f
+YES
+5
+5
+Node@4783da3f
+Still here
+
+With Hashcode override
+Node@1
+YES
+5
+5
+Node@5
+
+
+[0-15] , like an array of references, initially value= null.
+
+each slot of array is called as bin/bucket
+Java HashTable internally use Singly Linear LinkedList
+
+As a consequence the key order can be different if you run your tests on platforms with different versions of Java.  
+So in your code key VehicleKey must overwrite hashCode/equals methods.
+hashCode method example
+@Override
+public int hashCode() {
+    int result = vin4 !
+The HashMap implementation does not guarantee any particular order for the key set.
+The fact that the javadoc does not guarantee an order does NOT mean that the order cannot be predicted in some circumstances.
+As your observations bear out!
+
+person3.
+
+     peopleMap.put(person1, &quot;SomeValue2&quot;);
+
+3.invokes Hashcode one time =&gt; bucketId = 4.
+= stmt.executeQuery(&quot;select count from users1 where pword='&quot; + spword + &quot;' and uname='&quot;+suname+&quot;'&quot;);
+
+The code above is very susceptive to injection attacks.
+For sure that if's must can be simplify.
+
+the key order with 100% accuracy.
+Note that 2 and 3 are satisfied for Integer and String.  
+Since HashMap does not allow duplicate keys, during several insertions of the same key, only the latest key is the one that survives.
+What is the key in the Set's underlying HashMap: hash code or the
+object itself?
+
+The key in underlying HashMap would be the reference to the actual object which was inserted as a value to the HashSet.
+Therefore it fulfils the need that a HashSet contains only unique values.
+For all above insertions in a HashSet, the value that you insert in HashSet is inserted as a key in the HashMap.
+There are only 2^256 unique values which is a lot, but it only takes 256 bits (a mere 32 bytes) to uniquely represent this.
+you will get the same key set order repeatably.
+
+Then 'I hashed a letter and 2 came out' means that the input was C or Q.
+
+If you don't need any security guarantees then md5 truncated to 32 bits will likely meet your needs, but you may find one of the 32-bit hash algorithms in Guava Hashing to be simpler to use and better optimised for your use case.
+
+[everytime].
+
+
+     peopleMap.put(person3, &quot;SomeValue3&quot;);
+
+
+invokes Hashcode one time =&gt; bucketId = 4 is empty initially so JVM do NOT invokes equals() &amp; directly attach data (node)(in simple language).
+
+     peopleMap.put(person2, &quot;SomeValue1&quot;);
+
+
+invokes Hashcode one time =&gt; bucketId = 4.
+That is why you are seeing the same key order repeatably for those key types in your experiments.
+Note: you probably shouldn't make use of these properties in an application, since the javadocs don't actually guarantee them.
+
+1 - Or more precisely while it does not change.  
+In fact, for any input that has more than 2^32 unique values, this is as mathematically inevitable as 1 + 1 = 2.
+
+
+
+By this formula Aa and BB have the same hashCode, ie 2260 - see this answer
+In general terms a hashCode has a 2^32 (4294967296) likelihood of being unique.
+When you changed the value to 5, the hashcode is now 5 and calling s.contains(n1) will try to check for your node in bucket 5 which is empty (null).

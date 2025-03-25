@@ -1,0 +1,40 @@
+# MediaPlayer API Knowledge
+
+## Functionality
+1. MediaPlayer is used to play audio files.
+2. MediaPlayer can play audio and video files.
+3. MediaPlayer provides features such as seeking, looping, and volume control.
+4. MediaPlayer supports the use of an equalizer.
+5. The release() method of MediaPlayer should be called to release system resources when no longer using the playback engine.
+
+## Concept
+1. MediaPlayer accepts input as long as it is still encoded as an audio file.
+2. The MediaPlayer requests the playback engine of the Android system to play music.
+3. The MediaPlayer class in Android can play audio and video files.
+4. MediaPlayer provides features such as seeking, looping, and volume control.
+5. MediaPlayer supports the use of an equalizer.
+
+## Performance
+- No specific performance knowledge snippets were provided.
+
+## Directive
+1. When using `MediaPlayer`, after you are done with the playback engine of the Android system, call the `release()` method to release system resources.
+2. Always check the state of the `MediaPlayer` before calling `release()` to avoid IllegalStateException.
+3. It's recommended to call `release()` inside the `onDestroy()` method of an activity or fragment.
+4. Avoid calling `release()` multiple times, as this can cause unexpected behavior or crashes.
+5. If you intend to reuse the `MediaPlayer`, consider calling `reset()` instead of `release()`.
+
+## Pattern
+1. The `release()` method of `MediaPlayer` is commonly used to release system resources when the playback engine of the Android system is no longer in use.
+2. `MediaPlayer` is commonly used to play audio and video files, with features such as seeking, looping, and volume control.
+3. `MediaPlayer` is frequently used in background services for media playback.
+4. Developers often use `MediaPlayer.setDataSource()` to load media from local or remote sources.
+5. `MediaPlayer.setOnCompletionListener()` is used to handle actions after playback finishes, such as cleaning up or starting the next track.
+
+## Environment
+- No specific environment knowledge snippets were provided.
+
+## Alternative
+1. `AVPlayer` from the AVFoundation framework on iOS can be considered as an alternative to `MediaPlayer` on Android for playing audio and video files.
+2. On Android, `ExoPlayer` is a popular alternative to `MediaPlayer`, offering more flexibility, better streaming support, and modern API design.
+3. For lightweight audio playback needs, `SoundPool` can be used as an alternative to `MediaPlayer`, especially when low latency is required (e.g., for UI sounds or games).

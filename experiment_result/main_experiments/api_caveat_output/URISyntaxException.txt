@@ -1,0 +1,33 @@
+To quote:
+
+JDK 20 will deprecate all public constructors of java.net.URL.
+See also the issue-tracker page, JDK-8294241 Deprecate URL public constructors.
+To construct a file: based URL, Path::toURI should be used prior to URI::toURL.
+… To construct a URL, the URI::toURL alternative should instead be preferred.
+Quality Outreach Heads-up - JDK 20: Deprecate URL Public Constructors.
+Note that this has nothing to do with namespaces.
+To get what you want, you need to make sure that your Model object has the full URIs, and that, instead of trying add a namespace to the writer, you set its base URI when creating the writer.
+
+...or more succinctly:
+
+If you don't like having to write the full URI every time when creating your model, that's where namespaces can come in handy, for example:
+If you have a base URI applied as here then the .uri(URI uri) will not be applied to the base URI but takes its place instead.
+So in order to fix it you must use the overloaded .uri(String uri) method.
+You can only use it with domain names (so the same as your URI, but without the protocol), like you pointed out with google.com.
+You are giving a complete URI with protocol (https://) while only the domain is requested.
+If you need to split the URI, you can use the split function, or do as explained here : Java URL Without Protocol
+For your examples, you would get almost the same result with a slightly different spelling
+
+which would produce your first example if expanded with [banana], and your second example with [banana, mango], except replacing your colon with a semi-colon.
+Part of the legacy of matrix URLs is that we have URI Templates using Path Style Parameter Expansion -- which is to say that we have a general purpose way of describing a range of identifiers that include key value pairs like
+
+Which would produce the matrix sample if expanded with a suitable map of values.
+Note that this doesn't tell us anything about meaning; it's a purely mechanical way to expand/extract information in resource identifiers (provided you are willing to abide the spelling constraints).
+You may find query parameters more convenient when: you expect to use HTML forms to capture the values that are going to be copied into the URI.
+You may find path segments more convenient when: you want to use relative references to link to nearby identifiers in the same identifier hierarchy.
+Check this answer on why a URL should not contain a literal space.
+For instance, given a partially encoded URLs it isn't trivial to tell if a character such as '&' is part of a query parameter (and thus should be encoded) or acting as a separator (and thus shouldn't be encoded):
+
+To add salt to the injury, Java's URI implementation deviates from RFC 3986 and RFC 3987 due to historical / backwards compatibility reasons.
+Nevertheless, as someone that went down this rabbit hole before, I can tell you that once you know that you are dealing with incorrectly encoded URLs outside of your control there simply isn't a perfect solution.
+This leads to ambiguity because certain characters can have different meanings when encoded vs unencoded.

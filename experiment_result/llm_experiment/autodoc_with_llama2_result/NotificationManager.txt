@@ -1,0 +1,36 @@
+ Sure, I can summarize the knowledge snippets regarding NotificationManager into a comprehensive and accurate list. Here is a list of seven types of knowledge regarding NotificationManager:
+
+Functionality:
+
+* NotificationManager API is used to create and display custom notifications in Android applications.
+* NotificationManager API allows developers to use NotificationChannels in Android 8.0 (API level 26) and assign notifications to these channels.
+* NotificationManager API provides functionality for creating and associating Notification Channels with notifications in Android applications.
+* NotificationManager API's `addNotificationReceivedListener` function is used to track when the user clicks on a notification.
+
+Concept:
+
+* NotificationManager API covers foundational ideas and terminologies for understanding and effectively utilizing an API.
+* Tensor is essentially a high-dimensional array.
+* Notification priority does not affect visibility of notifications on Android TV OS and should not be used.
+
+Performance:
+
+* NotificationManager API has overhead when used on large tensors.
+
+Directive:
+
+* When using NotificationManager, ensure indices are within the shape of the input tensor.
+* To show a notification in Android 8.0 and above, a Notification Channel needs to be associated with the notification.
+* The creation of a new notification Channel is a prerequisite for showing notifications in Android.
+
+Pattern:
+
+* tf.gather is commonly used in embedding lookup operations.
+
+Environment:
+
+* tf.gather requires TensorFlow installed and supports both CPU and GPU execution.
+
+Alternative:
+
+* Alternatives to tf.gather include tf.scatter_nd and tf.index_select.

@@ -1,0 +1,28 @@
+According to
+https://developer.android.com/guide/topics/media-apps/working-with-a-media-session
+We would need to use Media Session to tell the System that there is a media session happening in your app and each time you tell the system that your player is active or playing then your application would have priority over the media controllers on the remote and no other application can access it unless you state that your media session is no longer active.
+Well, Android has this library/class called MediaPlayer:
+https://developer.android.com/guide/topics/media/mediaplayer
+The MediaPlayer is what you use when you play audio,
+the MediaPlayer takes the input(the file) as long as it is still encoded as an audio file.
+When you no longer use the playback engine of the android system, you should call the release() method of the media player to release system resources.
+When you use media player to play music, the media player does not directly play the music, but requests the playback engine of the android system to play the music.
+About using the Equalizer you can check that if the MediaPlayer and AVFoundation support the equalizer.
+If you have an existing Media1 implementation using MediaSession (preferably using ExoPlayer with MediaSessionConnector), and have no need for the permission controls in Media2, you can either stick with Media1 or upgrade to Media3.
+If for whatever reason you cannot use androidx.media3, my recommendation is to stick with androidx.media instead of androidx.media2 due to the latter not being supported by other media integrations, such as Cast Connect.
+I Think,change your mediaRecorder?.setoutFormat to
+
+Or
+
+prepare your MediaPlayer mediaPlayer?.prepare() before starting of your recording
+And, play your Background music (with volume as you want) and start the recorder .
+So, you need to decode your source audio track into raw PCM before feeding it into the AudioTrack.
+Factory
+
+If all you want is to play a media item or create a playlist then you probably only need to use MediaItem - there are some good examples in the latest CodeLabs: https://developer.android.com/codelabs/exoplayer-intro#0
+To determine which MediaController is currently playing when there are multiple active sessions, you can use the MediaController.getPlaybackState() method to get the current playback state of each MediaController.
+According to https://developer.android.com/guide/topics/media-apps/mediabuttons#restarting-inactive-mediasessions
+
+If Android can identify the last active media session, it tries to restart the session by sending an ACTION_MEDIA_BUTTON Intent to a manifest-registered component (such as a service or BroadcastReceiver).
+Try debugging your application by switching to other Media applications (then connect BT) and then check whether the System starts your service or not.
+In Android Developer, they don't say that clearly how to implement MediaBrowserServiceCompat and MediaBrowserCompat in the Audio app overview article(if you are following this article).

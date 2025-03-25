@@ -1,0 +1,43 @@
+# ByteArray API Knowledge Document
+
+## Functionality
+1. `ByteArray` is used to create a new array of the specified size, with all elements initialized to zero.
+2. `File("aaa").readBytes()` reads the whole file into a `ByteArray`.
+3. `ByteArray` can be created via `ByteArray(100)`, where `100` is the size of the array.
+4. `ByteArray` can be used to read a file by chunks using a loop with `input.read(buff)` to fill the buffer and process the data.
+5. The function `String.hexToByteArray()` is used to convert a hexadecimal string into a `ByteArray`.
+6. The `byteArrayOf()` function is used to create a `ByteArray` in Kotlin, either empty or with specified contents.
+7. `InputStream.readBytes()` is used to read all bytes of an InputStream into a `ByteArray`.
+
+## Concept
+1. `ByteArray` in Kotlin is an array of bytes.
+2. When targeting the JVM, instances of `ByteArray` are represented as `byte[]`.
+3. The constructor for `ByteArray` creates a new array of the specified size, with all elements initialized to zero.
+4. The size of a `ByteArray` can be accessed using the `size` property, which returns an `int`.
+5. If you need to assign the size of a `ByteArray` to a variable of type `long`, you can convert it using `.toLong()`.
+6. In Kotlin/JVM, `ByteArray` compiles down to a simple primitive array, equivalent to `byte[]` in Java.
+7. The JVM descriptor for `ByteArray` is `[B`.
+8. Kotlin 1.9 introduced an experimental function `fun String.hexToByteArray(): ByteArray`.
+
+## Performance
+1. Reading a whole file into a `ByteArray` requires careful consideration of available RAM in the heap, as it can be memory-intensive.
+2. Using `ByteArray(100)` creates a byte array of size 100, which implies that the size of the byte array directly affects memory usage.
+3. Reading a file by chunks into a `ByteArray` (e.g., using a buffer) can be more memory-efficient than reading the entire file at once, as it allows processing smaller parts of the file sequentially.
+
+## Directive
+1. When using `ByteArray` in Kotlin, if you need to assign its size to a variable or property that requires a `long` value, convert the size from `int` to `long` using `.toLong()`.
+2. When reading a file into a `ByteArray` using `File("aaa").readBytes()`, ensure you have enough RAM in the heap to accommodate the entire file.
+3. When using `RandomAccessFile`, it is advisable to use the `readFully` function to read exactly the requested amount of bytes.
+
+## Pattern
+1. `ByteArray` is commonly used to store and manipulate raw byte data, which can be decoded into primitive data types using `ByteBuffer`.
+2. `File("aaa").readBytes()` reads the entire file into a `ByteArray`, but it requires sufficient RAM in the heap.
+3. A `ByteArray` can be created with a specified size using `ByteArray(100)`, where `100` is the size.
+4. For `RandomAccessFile`, using the `readFully` function is recommended to read an exact amount of bytes.
+5. A common approach to read a file is by chunks using a `ByteArray` buffer, which allows processing of the file in parts rather than loading it entirely into memory.
+
+## Environment
+- No specific environment knowledge snippets were provided.
+
+## Alternative
+- No specific alternative knowledge snippets were provided.

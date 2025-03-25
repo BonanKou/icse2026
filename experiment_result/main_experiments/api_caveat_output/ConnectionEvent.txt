@@ -1,0 +1,28 @@
+You are receiving that error as you were calling Health Connect Read APIs from a non-UI/background thread.
+This is cited on our documentation here : https://developer.android.com/guide/health-and-fitness/health-connect/platform-overview/developer-functionality#reading_with_health_connect
+Please make sure that whenever reading records on HC, the calls should be made with your app on the foreground.
+After a few months working on this case I now know that:
+
+Android documentation is not really correct about the old connection API not working when you target Android 10.
+I use this new peer-to-peer API, and it takes much longer to connect, the system popup is always in English, and there are some connection (eg.
+It seems that Google gave as a new solution that is not really stable (some issues are fixed only in Android 11) and force us to use it.
+So if you target API 29 and above, you have to write two separate logics for Andoid <10 and >=10...
+in terms of using streams, reconnecting, or video streaming) issues when you connect from the app vs when you connect from settings.
+If you want to trigger socket connectionevery time the app comes to the foreground, you should consider placing it in the onResume() method.
+Based on the android app lifecycle that should work.
+Keep your number of connections low or expect errors when you try to connect too many devices.
+If you need to use an earlier version of Android you could just retry to connect until it works.
+This answer suggest to use a different version of the connectGatt method which would look like this for you:
+
+This would require you to use Android 6.0 (API 23) or newer but should eliminate your problem.
+You need to move the connection logic in to its own thread
+Here is a link to the documentation that will help you
+https://developer.android.com/guide/components/processes-and-threads#Threads
+try this for main activity
+According to
+https://developer.android.com/guide/topics/media-apps/working-with-a-media-session
+We would need to use Media Session to tell the System that there is a media session happening in your app and each time you tell the system that your player is active or playing then your application would have priority over the media controllers on the remote and no other application can access it unless you state that your media session is no longer active.
+Then use the function with an if statment to display or not
+
+Official docs: https://developer.android.com/training/monitoring-device-state/connectivity-status-type
+In case if you want to validate your development features or driver changes on network connectivity part of stack (Bluetooth, Cellular and Wi-Fi), the Android Connectivity Testing Suite (ACTS)  can help for verification of functionality and stability.

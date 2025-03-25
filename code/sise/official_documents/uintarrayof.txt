@@ -1,0 +1,5 @@
+uintArrayOf
+@ExperimentalUnsignedTypes
+inline fun uintArrayOf(vararg elements: UInt): UIntArray(source)
+Since Kotlin
+1.3

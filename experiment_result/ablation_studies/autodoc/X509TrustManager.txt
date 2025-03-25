@@ -1,0 +1,22 @@
+# X509TrustManager API Document
+
+## Functionality
+*(No entries for this section yet)*
+
+## Concept
+- A custom X509TrustManager can be created to trust only a specified certificate by overriding the `checkServerTrusted` method to compare the server certificate with a trusted certificate.
+
+## Performance
+*(No entries for this section yet)*
+
+## Directive
+- When using X509TrustManager, ensure that the `checkServerTrusted` method verifies the server's certificate against a specified certificate, throwing a `CertificateException` if the server certificate is not trusted.
+
+## Pattern
+*(No entries for this section yet)*
+
+## Environment
+*(No entries for this section yet)*
+
+## Alternative
+*(No entries for this section yet)*

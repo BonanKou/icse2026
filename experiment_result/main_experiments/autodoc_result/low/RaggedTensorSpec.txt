@@ -1,0 +1,28 @@
+# RaggedTensorSpec API Document
+
+## Functionality
+- `RaggedTensorSpec` is used to define the shape and data type of a `RaggedTensor`, allowing it to be used in TensorFlow datasets and models.
+
+## Concept
+- RaggedTensorSpec is used to define the shape and dtype of ragged tensors in a TensorFlow dataset, accommodating variable-length sequences.
+
+## Performance
+- No specific performance-related information available for `RaggedTensorSpec`.
+
+## Directive
+1. When using `RaggedTensorSpec`, ensure compatibility with models like ResNet, which may not directly accept `ragged_tensor` inputs. It might be necessary to convert the ragged tensor to a regular tensor before feeding it into such models.
+2. When defining an input for a model using `tf.keras.Input`, the `type_spec` can be set to `tf.RaggedTensorSpec` to specify the expected shape and type of ragged tensor inputs.
+3. In defining a `tf.data.Dataset` from a generator that yields ragged tensors, use `tf.RaggedTensorSpec` in the `output_signature` to specify the shape and data type of the ragged tensors produced by the dataset.
+4. When building a model that processes ragged tensors, you can use a `tf.keras.layers.Lambda` layer to handle operations like merging dimensions or converting ragged tensors to regular tensors before proceeding with further layers like ResNet.
+5. A ragged tensor can be converted to a regular tensor using the `to_tensor()` method, which is useful when a subsequent layer or model does not accept ragged tensors.
+6. To inspect and visualize the structure of a model that uses ragged tensors, you can use `tf.keras.utils.plot_model` with the `show_shapes` and `show_layer_names` options.
+
+## Pattern
+- `RaggedTensorSpec` is used in TensorFlow to define the structure of datasets with variable-length data.
+- It is particularly useful when working with ragged tensors in a data pipeline.
+
+## Environment
+- No specific environment-related information available for `RaggedTensorSpec`.
+
+## Alternative
+- No specific alternatives provided for `RaggedTensorSpec`.

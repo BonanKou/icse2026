@@ -1,0 +1,45 @@
+# ActionBar API Document
+
+## Functionality
+
+- ActionBar makes important actions accessible in a predictable way, such as Search.
+- ActionBar supports consistent navigation and view switching within apps.
+- ActionBar reduces clutter by providing an action overflow for rarely used actions.
+- ActionBar provides a dedicated space for giving your app an identity.
+- ActionBar.setTitle is used to set the title of the ActionBar.
+
+## Concept
+
+- ActionBar is the element present at the top of the activity screen and is a salient feature of a mobile application that has a consistent presence over all its activities.
+- The app bar, also known as the action bar, is a crucial design element in app activities for providing a consistent navigation experience across Android applications. It offers a visual structure and interactive elements familiar to users.
+- Replacing ActionBar with Toolbar offers flexibility, such as adding background images and animations, as Toolbar is a View included in a layout like any other View.
+
+## Performance
+
+- Default UI elements like the ActionBar might work better with the operating system in terms of performance, such as cache and CPU usage.
+
+## Directive
+
+- When design is synchronized with ActionBar, it is better to use ActionBar for a consistent navigation experience and when implementing a navigation component.
+- Consider replacing ActionBar with Toolbar if you need a flexible header, such as adding a background image or animations. Do not replace ActionBar with Toolbar if you do not need the flexible header options provided by Toolbar.
+- When setting a title for the ActionBar, use the `getSupportActionBar()` method to obtain the ActionBar object and then call `setTitle("ACTIONBAR TITLE")` on it.
+- Avoid trying to set both the ActionBar title and the Toolbar title simultaneously as this approach will not work.
+- Remember that the ActionBar provides a consistent presence across all activities in a mobile application, while the Toolbar is a View that can be positioned, animated, and controlled like any other View, allowing for multiple distinct Toolbars within a single activity.
+
+## Pattern
+
+- ActionBar is used when design requirements are in sync with the ActionBar itself, rather than requiring a custom implementation.
+- Developers often choose ActionBar because it makes important actions, such as Search, accessible in a predictable way.
+- ActionBar supports consistent navigation and view switching within apps, especially when using the navigation component, making it simple to implement.
+- ActionBar reduces clutter by providing an action overflow for rarely used actions.
+- ActionBar provides a dedicated space for giving an app its identity.
+- To set the title of an ActionBar, use the `getSupportActionBar()` method to get the ActionBar instance and then call `setTitle()` with the desired title string.
+- The ActionBar is commonly used to provide a consistent and familiar navigation bar across Android applications, which helps users quickly understand and operate the app. It serves as a dedicated space for app identity and user location indication, offers access to important actions like search, and supports navigation and view switching with tabs or drop-down lists.
+
+## Environment
+
+- Not explicitly mentioned in the provided snippets.
+
+## Alternative
+
+- Alternatives to ActionBar include custom Toolbar, which can be used as a regular View and offers more flexibility in terms of positioning, animation, and control.

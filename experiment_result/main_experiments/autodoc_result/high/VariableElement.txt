@@ -1,0 +1,23 @@
+# VariableElement API Knowledge Document
+
+## Functionality
+- `VariableElement` represents a program element that corresponds to a variable element in the source code, such as a field, enum constant, parameter, or local variable.
+
+## Concept
+- `VariableElement` is part of the Java Annotation Processing API, which provides a framework to process annotations in Java source files.
+- A `VariableElement` is an element that represents a field, enum constant, method or constructor parameter, or a local variable.
+
+## Performance
+- There are no specific performance-related snippets provided for `VariableElement`.
+
+## Directive
+- When working with `VariableElement`, ensure that you handle the different kinds of variables it can represent, such as fields, parameters, and local variables, appropriately within the context of annotation processing.
+
+## Pattern
+- A common pattern when using `VariableElement` is to retrieve the variable's type or modifiers during annotation processing to perform checks or transformations based on these properties.
+
+## Environment
+- `VariableElement` requires a Java development environment with support for the Java Annotation Processing API, which is typically available in JDK versions that support annotations.
+
+## Alternative
+- There are no specific alternative APIs mentioned for `VariableElement`. However, other elements within the Java Annotation Processing API such as `ExecutableElement` and `TypeElement` can be used in conjunction with `VariableElement` to access different parts of a Java program's structure.

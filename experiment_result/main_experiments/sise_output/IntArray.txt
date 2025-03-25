@@ -1,0 +1,10 @@
+I currently have no official doc or source to back this claim up though.
+
+Based on the description of your problem I assume you have one method that takes a variable number of integers – let's call it fun foo(vararg n
+in Kotlin to map to the proper type in Java
+There are a number of other Primitive array types such as:
+ByteArray, ShortArray, IntArray
+Reference:
+https://kotlinlang.org/docs/arrays.html#primitive-type-arrays
+
+In order to call that method with an IntArray

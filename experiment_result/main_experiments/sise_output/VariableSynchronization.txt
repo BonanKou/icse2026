@@ -1,0 +1,29 @@
+If you use tf.Variable() inside your training function and then decorate it with &quot;@tf.function&quot; or apply &quot;tf.function(my_train_fcn)&quot; to obtain a graph function (i.e. for improved performance), the execution will rise an error.
+
+APIs.
+Addressing the list of operations needing to be in a with ...scope() block:
+
+Optimizer creation:
+Model):
+    def __init__(self):
+        super(CustomModel, self).__init__()
+        self.constant = tf.Variable(initial_value=0.1, dtype=tf.float32, trainable=True)
+
+    def call(self, x, **kwargs):
+        x = self.constant * x
+        return x
+
+
+model = CustomModel()
+
+Now just compile and train the model:
+model.compile(loss='mae')
+
+history = model.fit(x, y, epochs=25, verbose=0)
+
+If you define your constant as a tf.Variable, it will be ajusted via backpropagation.
+Let's say we have a dataset wi X, and y which is y = X
+You can find more info on this in the tensorflow help page.
+
+Variable list)
+    

@@ -1,0 +1,7 @@
+:required=&quot;false&quot; for every &quot;uses-feature&quot; line you add in the manifest - if the app can work without that feature as well.
+
+This may be because you have  set the hardware acceleration to false on the manifest(application level) or on the activity level ,if this is the case then add this piece of code to your manifest's application tag
+&lt;application android:hardwareAccelerated=&quot;true&quot; ...&gt;
+or in your activity level (in the manifest)
+&lt;application android:hardwareAccelerated=&quot;true&quot;&gt;
+&lt;activity ...

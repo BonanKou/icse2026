@@ -1,0 +1,27 @@
+It is a salient feature of a mobile application that has a consistent presence over all its activities.
+Toolbar is a View included in a layout like any other View.
+As written in the google documentation https://developer.android.com/training/appbar
+&quot;The app bar, also known as the action bar, is one of the most important design elements in your app's activities because it provides a visual structure and interactive elements that are familiar to users.
+SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+String username = pref.getString(&quot;mDateSelVM&quot;, &quot;default value&quot;); 
+Boolean yourLocked = prefs.getBoolean(&quot;swDispo&quot;, false);
+
+how to exactly activities work can be found here
+https://developer.android.com/guide/components/activities/activity-lifecycle
+
+When your second activity goes to foreground, its onResume() method is called.
+When this happens, your first activity's onPause() is called.
+Check the official documentation to get a better understanding of activity's lifecyle on Android:
+https://developer.android.com/guide/components/activities/activity-lifecycle
+
+For the purposes of starting activities, an app running a foreground service is still considered to be &quot;in the background&quot;
+
+Alternatives to display activity
+
+ActionBar actionBar = getSupportActionBar();
+ actionBar.setTitle(&quot;ACTIONBAR TITLE&quot;);
+
+
+That is why its not working.
+Solution:
+If you want to set title to your Actionbar

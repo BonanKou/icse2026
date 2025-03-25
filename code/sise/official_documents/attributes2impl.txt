@@ -1,0 +1,214 @@
+Attributes2Impl
+
+bookmark_border
+open class Attributes2Impl : AttributesImpl, Attributes2
+kotlin.Any
+   ↳	org.xml.sax.helpers.AttributesImpl
+   ↳	org.xml.sax.ext.Attributes2Impl
+SAX2 extension helper for additional Attributes information, implementing the Attributes2 interface. This module, both source code and documentation, is in the Public Domain, and comes with NO WARRANTY.
+
+This is not part of core-only SAX2 distributions.
+
+The specified flag for each attribute will always be true, unless it has been set to false in the copy constructor or using setSpecified. Similarly, the declared flag for each attribute will always be false, except for defaulted attributes (specified is false), non-CDATA attributes, or when it is set to true using setDeclared. If you change an attribute's type by hand, you may need to modify its declared flag to match.
+
+Summary
+Public constructors
+Attributes2Impl()
+Construct a new, empty Attributes2Impl object.
+
+Attributes2Impl(atts: Attributes!)
+Copy an existing Attributes or Attributes2 object.
+
+Public methods
+open Unit	
+addAttribute(uri: String!, localName: String!, qName: String!, type: String!, value: String!)
+Add an attribute to the end of the list, setting its "specified" flag to true.
+
+open Boolean	
+isDeclared(index: Int)
+open Boolean	
+isDeclared(qName: String!)
+open Boolean	
+isDeclared(uri: String!, localName: String!)
+open Boolean	
+isSpecified(index: Int)
+Returns the current value of an attribute's "specified" flag.
+
+open Boolean	
+isSpecified(qName: String!)
+Returns the current value of an attribute's "specified" flag.
+
+open Boolean	
+isSpecified(uri: String!, localName: String!)
+Returns the current value of an attribute's "specified" flag.
+
+open Unit	
+removeAttribute(index: Int)
+open Unit	
+setAttributes(atts: Attributes!)
+Copy an entire Attributes object.
+
+open Unit	
+setDeclared(index: Int, value: Boolean)
+Assign a value to the "declared" flag of a specific attribute.
+
+open Unit	
+setSpecified(index: Int, value: Boolean)
+Assign a value to the "specified" flag of a specific attribute.
+
+Inherited functions
+From class AttributesImpl
+Public constructors
+Attributes2Impl
+Added in API level 1
+Attributes2Impl()
+Construct a new, empty Attributes2Impl object.
+
+Attributes2Impl
+Added in API level 1
+Attributes2Impl(atts: Attributes!)
+Copy an existing Attributes or Attributes2 object. If the object implements Attributes2, values of the specified and declared flags for each attribute are copied. Otherwise the flag values are defaulted to assume no DTD was used, unless there is evidence to the contrary (such as attributes with type other than CDATA, which must have been declared).
+
+This constructor is especially useful inside a startElement event.
+
+Parameters
+atts	Attributes!: The existing Attributes object.
+Public methods
+addAttribute
+Added in API level 1
+open fun addAttribute(
+    uri: String!, 
+    localName: String!, 
+    qName: String!, 
+    type: String!, 
+    value: String!
+): Unit
+Add an attribute to the end of the list, setting its "specified" flag to true. To set that flag's value to false, use setSpecified.
+
+Unless the attribute type is CDATA, this attribute is marked as being declared in the DTD. To set that flag's value to true for CDATA attributes, use setDeclared.
+
+Parameters
+uri	String!: The Namespace URI, or the empty string if none is available or Namespace processing is not being performed.
+localName	String!: The local name, or the empty string if Namespace processing is not being performed.
+qName	String!: The qualified (prefixed) name, or the empty string if qualified names are not available.
+type	String!: The attribute type as a string.
+value	String!: The attribute value.
+See Also
+
+org.xml.sax.helpers.AttributesImpl#addAttribute
+isDeclared
+Added in API level 1
+
+open fun isDeclared(index: Int): Boolean
+Parameters
+index	Int: The attribute index (zero-based).
+Return
+Boolean	true if the attribute was declared in the DTD, false otherwise.
+isDeclared
+Added in API level 1
+
+open fun isDeclared(qName: String!): Boolean
+Parameters
+qName	String!: The XML qualified (prefixed) name.
+Return
+Boolean	true if the attribute was declared in the DTD, false otherwise.
+isDeclared
+Added in API level 1
+
+open fun isDeclared(
+    uri: String!, 
+    localName: String!
+): Boolean
+Parameters
+uri	String!: The Namespace URI, or the empty string if the name has no Namespace URI.
+localName	String!: The attribute's local name.
+Return
+Boolean	true if the attribute was declared in the DTD, false otherwise.
+isSpecified
+Added in API level 1
+
+open fun isSpecified(index: Int): Boolean
+Returns the current value of an attribute's "specified" flag.
+
+Parameters
+index	Int: The attribute index (zero-based).
+Return
+Boolean	current flag value
+Exceptions
+java.lang.ArrayIndexOutOfBoundsException	When the supplied index does not identify an attribute.
+isSpecified
+Added in API level 1
+
+open fun isSpecified(qName: String!): Boolean
+Returns the current value of an attribute's "specified" flag.
+
+Parameters
+qName	String!: The XML qualified (prefixed) name.
+Return
+Boolean	current flag value
+Exceptions
+java.lang.IllegalArgumentException	When the supplied name does not identify an attribute.
+isSpecified
+Added in API level 1
+
+open fun isSpecified(
+    uri: String!, 
+    localName: String!
+): Boolean
+Returns the current value of an attribute's "specified" flag.
+
+Parameters
+uri	String!: The Namespace URI, or the empty string if the name has no Namespace URI.
+localName	String!: The attribute's local name.
+Return
+Boolean	current flag value
+Exceptions
+java.lang.IllegalArgumentException	When the supplied names do not identify an attribute.
+removeAttribute
+Added in API level 1
+
+open fun removeAttribute(index: Int): Unit
+Parameters
+index	Int: The index of the attribute (zero-based).
+setAttributes
+Added in API level 1
+
+open fun setAttributes(atts: Attributes!): Unit
+Copy an entire Attributes object. The "specified" flags are assigned as true, and "declared" flags as false (except when an attribute's type is not CDATA), unless the object is an Attributes2 object. In that case those flag values are all copied.
+
+Parameters
+atts	Attributes!: The attributes to copy.
+See Also
+
+org.xml.sax.helpers.AttributesImpl#setAttributes
+setDeclared
+Added in API level 1
+
+open fun setDeclared(
+    index: Int, 
+    value: Boolean
+): Unit
+Assign a value to the "declared" flag of a specific attribute. This is normally needed only for attributes of type CDATA, including attributes whose type is changed to or from CDATA.
+
+Parameters
+index	Int: The index of the attribute (zero-based).
+value	Boolean: The desired flag value.
+Exceptions
+java.lang.ArrayIndexOutOfBoundsException	When the supplied index does not identify an attribute.
+See Also
+
+#setType
+setSpecified
+Added in API level 1
+
+open fun setSpecified(
+    index: Int, 
+    value: Boolean
+): Unit
+Assign a value to the "specified" flag of a specific attribute. This is the only way this flag can be cleared, except clearing by initialization with the copy constructor.
+
+Parameters
+index	Int: The index of the attribute (zero-based).
+value	Boolean: The desired flag value.
+Exceptions
+java.lang.ArrayIndexOutOfBoundsException	When the supplied index does not identify an attribute.

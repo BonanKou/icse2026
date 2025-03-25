@@ -1,0 +1,37 @@
+CharSequence
+CommonJSJVMNative
+expect interface CharSequence(source)
+Represents a readable sequence of Char values.
+
+Since Kotlin
+1.0
+Inheritors
+StringBuilder
+String
+
+
+
+MembersMembers & Extensions
+Properties
+length
+CommonJSJVMNative
+expect abstract val length: Int
+Returns the length of this character sequence.
+
+Since Kotlin 1.0
+Functions
+get
+CommonJSJVMNative
+expect abstract operator fun get(index: Int): Char
+Returns the character at the specified index in this character sequence.
+
+Since Kotlin 1.0
+subSequence
+CommonJSJVMNative
+expect abstract fun subSequence(
+    startIndex: Int, 
+    endIndex: Int
+): CharSequence
+Returns a new character sequence that is a subsequence of this character sequence, starting at the specified startIndex and ending right before the specified endIndex.
+
+Since Kotlin 1.0

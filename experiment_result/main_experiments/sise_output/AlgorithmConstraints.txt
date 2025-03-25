@@ -1,0 +1,6 @@
+In your code example, the input size is constant 3x3, so if this never changes, then you can just say the algorithm has constant time complexity, O(1).
+If the input can change, then it is up to you to decide how it can change, and how it makes sense to define it.
+In this case, it is clear that the running time depends only on the size of the input, not on its content.
+It is also perfectly correct to define n as the total number of elements in your array.
+In your case, your input size n = high - low which is exactly the number of iterations your algorithm is executing.
+So it is up to you to define a variable that describes your input size.

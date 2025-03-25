@@ -1,0 +1,25 @@
+If you were to specify foo without a namespace, it would be impossible to know what foo to use.  
+There is a way to set them in the xml code.
+So, using &quot;android:background&quot; it works.
+
+Please note that custom attributes must be defined in attrs.xml, you can't just make one up in the layout xml.
+
+I answer myself, platform attributes works, but they start with &quot;android:...&quot;.
+
+AppTheme.pairingCard&quot; parent=&quot;&quot;&gt;
+     &lt;item name=&quot;strokeColor&quot;&gt;?attr/colorOnSurface&lt;/item&gt;
+     .....
+&lt;/style&gt;
+
+After then, you have to direct this style to a reference in your theme.
+&lt;style name=&quot;Theme.
+NoActionBar&quot;&gt;
+     &lt;item name = &quot;pairingCardStyle&quot;&gt;@style/Widget.
+In your attires.xml you should define a theme reference attribute
+&lt;declare-styleable name=&quot;AppTheme&quot;&gt;
+     &lt;attr name = &quot;pairingCardStyle&quot; format = &quot;reference&quot;/&gt;
+&lt;/declare-styleable&gt;
+
+
+Both define an attribute &quot;foo&quot;.  
+http://schemas.android.com/apk/res/android is the Android SDK's built in definitions.  &quot;http://schemas.android.com/apk/res-auto&quot; is the list of attribute defined by your application (including libraries you depend on).

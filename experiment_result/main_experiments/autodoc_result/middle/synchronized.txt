@@ -1,0 +1,55 @@
+## Functionality
+- The `synchronized` API is used to claim a lock, either belonging to a given object or, if none is provided, the 'this' object, to ensure exclusive access by one thread at a time.
+- `synchronized` allows you to control access to certain code by limiting it to one thread at a time.
+
+## Concept
+- In the JVM, every object has a lock which can be used to control access to something.
+- The `synchronized` keyword is used to claim a lock, either belonging to a given object or 'this' object.
+- Holding a lock prevents other threads from holding the lock but does not prevent anything else.
+- Threading and synchronization are complex and require caution to avoid issues like race conditions.
+- Classes can ideally be documented regarding their interaction with multithreading, such as being 'immutable', 'thread-safe', 'conditionally thread-safe', 'thread-compatible', or 'thread-hostile'.
+- Many Java and Kotlin collection classes are thread-compatible, meaning they require external synchronization to be safely accessed from multiple threads.
+- Synchronizing every possible access to shared resources is essential to prevent race conditions and maintain consistency.
+- Synchronization allows you to control access to certain resources by restricting it to one thread at a time.
+- Each object in Java (and by extension, Kotlin) has an intrinsic lock or monitor that can be used to ensure only one thread can acquire it at a time.
+- Using a `synchronized` method or statement with `this` uses the object's lock for controlling access to the code within that method or block.
+- Threads can still access non-synchronized code within an object, such as other methods or code outside of a `synchronized` block.
+- Using a single lock for multiple synchronized blocks within an object can be limiting, as it unnecessarily serializes tasks that could safely run concurrently.
+- Separate lock objects can be used for different tasks to achieve more granular synchronization, allowing concurrent task execution without interference.
+- If tasks are interdependent and involve calling each other, using separate locks can lead to deadlocks; in such cases, a shared lock should be used.
+- A separate locking object can be shared between different instances of a class or even different classes if their operations could interfere with each other.
+- A companion object in Kotlin acts as a singleton or static-like object and could be used as a lock for shared locking purposes.
+- A private lock object restricts its use to within the class, preventing other classes from using it as a lock.
+- Explicitly creating locking objects encourages the programmer to think carefully about the locking strategy and what is being locked.
+
+## Performance
+- No performance knowledge was provided.
+
+## Directive
+1. Exercise caution when using `synchronized` as it is a low-level and tricky construct.
+2. Consider using higher-level concurrency constructs like work queues, executors, map/reduce, or actors, if they fulfill your needs, for easier management of concurrency.
+3. The `synchronized` function in Kotlin is used to claim a lock on a given object or the current object (`this`), preventing other threads from acquiring the same lock until released.
+4. Holding a lock only prevents other threads from holding the same lock; it does not prevent other actions by threads.
+5. Ensure every possible access to shared mutable state (like a list) is synchronized to prevent race conditions and inconsistent states.
+6. Be aware that improper synchronization can lead to issues such as race conditions, inconsistent states, or deadlocks, potentially causing significant application problems like infinite loops or high CPU usage.
+7. Relying on a single lock for all synchronized code in an object instance can be limiting and inefficient, as separate blocks that could run concurrently are unnecessarily held up.
+8. Using separate lock objects for different synchronized blocks can make synchronization more granular and efficient.
+9. Care must be taken to avoid deadlocks when tasks involve calling each other's synchronized code; such tasks should use a shared lock.
+10. A separate locking object can be shared between different instances of a class or different classes to prevent interference.
+11. Using a private lock object ensures it's used only internally, improving encapsulation and preventing other classes from using it as a lock.
+12. The choice of locking on a specific object (e.g., `LOCK` vs. `Companion`) may be influenced by readability, planning for future granular locks, or habits of explicitly creating locking objects for better conceptual clarity.
+
+## Pattern
+- The `synchronized` function is used to claim a lock on a given object or the `this` object if none is specified, allowing only one thread to access the block of code at a time.
+- To ensure thread safety using the `synchronized` block in Kotlin (and Java), you must synchronize every possible access to the shared resource (e.g., a list) to prevent race conditions and ensure consistent state.
+- The `synchronized` block provides a low-level mechanism for synchronization by using locks, and it's recommended to consider higher-level constructions (like work queues, executors, map/reduce, actors, or using immutable objects) when possible for easier multithreading management.
+- The lock is automatically released when the synchronized block exits, whether normally or via an exception.
+- Nesting `synchronized` blocks can lead to deadlocks if not carefully managed, especially when locking multiple objects.
+- Synchronizing on publicly accessible objects (e.g., method parameters or global objects) is discouraged as it can introduce unintentional lock contention.
+- Using `synchronized` with lazy-initialized resources is a common pattern to ensure safe, single-time initialization in concurrent environments.
+
+## Environment
+- No environment knowledge was provided.
+
+## Alternative
+- Alternatives to `synchronized` include higher-level constructions such as work queues, executors, map/reduce, actors, and using immutable objects.

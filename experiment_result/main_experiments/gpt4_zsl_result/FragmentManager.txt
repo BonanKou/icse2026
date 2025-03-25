@@ -1,0 +1,90 @@
+# FragmentManager API Documentation
+
+## Functionality
+1. **Fragment Transactions**: The `FragmentManager` is used to perform fragment transactions, including adding, removing, replacing, and attaching fragments.
+
+2. **Back Stack Management**: It allows you to manage the fragment back stack, including adding transactions to the back stack and popping states from the back stack.
+
+3. **Fragment Instantiation**: `FragmentManager` is responsible for creating new fragment instances and ensuring they are properly attached to the activity.
+
+4. **Fragment Lifecycle Management**: It coordinates the lifecycle of fragments, ensuring they are properly started, resumed, paused, and stopped alongside the host activity.
+
+5. **Fragment Communication**: Allows communication between fragments through interfaces and shared ViewModels, facilitating the sharing of data.
+
+6. **Fragment Retention**: Supports retaining fragments across configuration changes using `setRetainInstance(true)`.
+
+## Concept
+1. **Fragment**: A fragment is a reusable portion of your application's UI that can be combined with other fragments to create an activity.
+
+2. **FragmentTransaction**: Represents a set of operations to perform on fragments, akin to a database transaction. You can commit transactions synchronously or asynchronously.
+
+3. **Back Stack**: A feature that maintains a list of fragment transactions for managing navigation within an application.
+
+4. **Fragment Lifecycle**: Similar to activity lifecycle, fragments have lifecycle states such as `onCreate`, `onStart`, and `onDestroy`.
+
+5. **Dynamic vs. Static Fragments**: Static fragments are declared in XML and can't change at runtime, whereas dynamic fragments are added programmatically during runtime using `FragmentManager`.
+
+## Performance
+1. **Efficiency in Transactions**: Batch multiple fragment operations in a single `FragmentTransaction` to improve performance by minimizing the rendering work and overhead.
+
+2. **Memory Management**: Be cautious with the memory footprint when retaining fragments and when maintaining their state across configuration changes.
+
+## Directive
+1. **Avoiding Memory Leaks**: Always ensure fragment transactions finish and fragments are properly detached to avoid memory leaks.
+
+2. **Fragment Transaction Commit**: Always check if `FragmentManager` state is saved before committing a transaction to avoid illegal state exceptions.
+
+3. **Back Stack Entries**: Use back stack entries judiciously to manage navigation without clutter and confusion.
+
+4. **Design for Reusability**: Structure fragments to be reusable across different activities or views.
+
+5. **State Management**: Use `ViewModel` or saved instance states to manage and persist fragment states across lifecycle changes properly.
+
+6. **Executing Transactions**: Always perform fragment transactions on the main thread. Use `runOnUiThread` if necessary.
+
+7. **Fragment Factory**: Use `FragmentFactory` for fragment instantiation to ensure dependency injection and testability.
+
+## Pattern
+1. **Master-Detail Interface**: Use `FragmentManager` to implement a master-detail layout using a fragment for the selectable list and another for detailed content.
+
+2. **ViewPager Integration**: Combine `ViewPager` and `FragmentManager` to swipe through different fragments efficiently.
+
+3. **DialogFragment Usage**: Use `FragmentManager` in combination with `DialogFragment` to manage dialog lifecycles and display.
+
+4. **Nested Fragments**: Employ nested fragments for encapsulating sophisticated child fragment relationships within parent fragments.
+
+5. **Fragment Navigation**: Leverage `FragmentManager` for single-activity navigation, managing fragments as composable UI blocks rather than switching activities.
+
+## Environment
+1. **Android SDK Version**: Ensure compatibility by using `FragmentManager` with devices running Android 3.0 (API level 11) and higher.
+
+2. **Activity Requirement**: `FragmentManager` requires a hosting activity or `FragmentActivity` to manage fragment operations.
+
+3. **Lifecycle-aware Components**: Fragments should use lifecycle-aware components provided by Android Jetpack to manage resource cleanup efficiently.
+
+## Alternative
+1. **Navigation Component**: Consider using Android's Navigation Component as an alternative for managing complex navigation scenarios and back stack handling.
+
+2. **Activity vs. Fragment**: For simple interfaces, using a full activity might be preferred over fragments, especially if not sharing UI components.
+
+3. **Coordinator Layout**: Instead of manual fragment transitions, use `CoordinatorLayout` for easier view hierarchy management and animations.
+
+4. **Custom Views**: For UI elements that do not require a full fragment, consider using custom views which might be simpler and more efficient.
+
+5. **Single-Activity Architecture**: Reevaluate the need for multiple fragments and activities, considering a single-activity model might simplify navigation significantly.
+
+## Code Examples
+1. **Adding a Fragment**:
+    ```java
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    transaction.add(R.id.fragment_container, new ExampleFragment());
+    transaction.commit();
+    ```
+
+2. **Replacing a Fragment**:
+    ```java
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    transaction.replace(R.id.fragment_container, new ExampleFragment());
+    transaction.addToBackStack(null);
+    transaction.commit();
+    ```

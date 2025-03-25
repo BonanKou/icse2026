@@ -1,0 +1,18 @@
+In TF 2.0, you do not pass the distribution strategy to the compile method.
+Dense(10, activation=tf.nn.relu, input_shape=(len(numeric_headers),)),  # input shape required
+  tf.keras.layers.
+This approach works as is in TensorFlow 2.0 too as mentioned in your title.
+Adam(learning_rate=0.01), loss=negloglik)
+  return model
+
+
+model = get_df_model()
+model.summary()
+model.fit(df, target, epochs=10)
+
+Model: &quot;model&quot;
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to                     
+==================================================================================================
+ input_1 (InputLayer)           
+Note that the call to model.fit(...) should not be inside the distribution strategy scope.

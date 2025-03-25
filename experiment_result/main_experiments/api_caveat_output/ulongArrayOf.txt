@@ -1,0 +1,22 @@
+See https://github.com/Kotlin/kotlinx.serialization/blob/master/CHANGELOG.md#experimental-support-for-inline-classes-ir-only
+TLDR: If you need the sequential execution, because you have some state that changes see bottom.
+It makes it clear if the Array is Mutable or not.
+Let me know If not
+
+}
+So a very simple method that when called in kotlin like "fred".greeting will return hello fred.
+If you check the kotlin byte code and decompile it in the IDE, you can see that the result is something similar to:
+
+A static method in a class StringUtilsKt.
+So, you should have a separate method for other case.
+To understand, you need to see how your kotlin code is converted into Java byte code.
+Only the parameterless constructor is deprecated, it is now preferred that you specify the Looper in the constructor via the Looper.getMainLooper() method.
+https://stackoverflow.com/a/60124584/10012330 <-- check here
+If you want to use the Kotlin Random class then use like this.
+This example will run directly in Intellij or from the command line if you have kotlin installed.
+From the example you've provided it's hard to tell if there is a logic problem in your code.
+Binary     -> 1 Kilobyte = 1024 Byte
+Non-Binary -> 1 Kilobyte = 1000 Byte
+
+Native kotlin method below, if your API level is less than or equal to 24(Nougat), it uses binary format.
+If greater, it uses non-binary format.

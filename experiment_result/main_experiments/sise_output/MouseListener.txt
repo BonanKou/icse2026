@@ -1,0 +1,161 @@
+InputProcessor {
+    private static final boolean
+So now you call
+node.setTranslateX(1);
+node.setTranslateY(1);
+
+which moves the node back almost to its original position (just moved by one pixel right and down).
+The function mousePressed itself doesn't check if the mouse is actually pressed.
+* Also sets the key value to &quot;&quot; to avoid the key value being the same as a key that was pressed
+     * but is not anymore.
+     
+[] justLetGoKeys = new boolean[255];
+
+    private static String keyValue;
+
+    private static Integer keycodeOfKeyDown;
+    private static Integer keycodeOfKeyUp = -1;
+
+    private static boolean isKeyUp = false;
+    private static boolean isKeyDown = false;
+
+    private static Integer keycodeOfButtonDown;
+    private static Integer
+Stage;
+
+public class HelloApplication extends Application {
+    @Override
+    public void start(Stage stage) {
+        VBox root = new VBox();
+        root.setPadding(new Insets(20));
+        root.setAlignment(Pos.CENTER);
+
+        Label label = new Label(&quot;Label&quot;);
+        label.setPadding(new Insets(5));
+        label.setBackground(Background.fill(Color.LIMEGREEN));
+        root.getChildren().add(label);
+
+        makeNodeDraggable(label);
+
+        Scene scene = new Scene(root, 400, 400);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void makeNodeDraggable(Node node) {
+        var mouseDownLocation = new Object() { double x, y; };
+        
+        double originalTranslateX = node.getTranslateX();
+        double originalTranslateY = node.getTranslateY();
+
+        node.setOnMousePressed(e -&gt; {
+            mouseDownLocation.x = e.getX();
+            mouseDownLocation.y = e.getY();
+        });
+
+        node.setOnMouseDragged(e -&gt; {
+            double deltaX = e.getX() - mouseDownLocation.x;
+            node.setTranslateX(node.getTranslateX() + deltaX);
+            double deltaY = e.getY() - mouseDownLocation.y;
+            node.setTranslateY(node.getTranslateY() + deltaY);
+        });
+
+        // return to original position on release:
+        node.setOnMouseReleased(e -&gt; {
+            node.setTranslateX(originalTranslateX);
+            node.setTranslateY(originalTranslateY);
+        });
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
+}
+
+
+= false;
+    private static boolean justTouched;
+    private static boolean justLetGo;
+    private static boolean justPressed;
+    private static boolean justUp;
+
+    /**
+     * @return String: the value which was typed i.e. for the key Input.
+*/
+    public static boolean isButtonDown() {
+        return isButtonDown;
+    }
+
+    /**
+     * @return boolean: whether any key is not up (must have been pressed to be able to be up)
+     */
+    public static boolean isKeyUp() {
+        return isKeyUp;
+    }
+
+    /**
+     * @return boolean: whether any button is not up (must have been pressed to be able to be up)
+     */
+    public static boolean isButtonUp() {
+        return isButtonUp;
+    }
+
+    /**
+     * @return boolean: whether a specific key is pressed.
+     
+*/
+    public static boolean isButtonJustDown(int button) {
+        return justPressedButtons[button];
+    }
+
+    /**
+     * @return boolean: whether a specific key is just up (must have been pressed to be able to be up)
+     */
+    public static boolean isKeyJustUp(int keycode) {
+        return justLetGoKeys[keycode];
+    }
+
+    /**
+     * @return boolean: whether a specific button is just up (must have been pressed to be able to be up)
+     */
+    public static boolean isButtonJustUp(int button) {
+        return justLetGoButtons[button];
+    }
+
+    public static void update() {
+        if(justTouched) {
+            justTouched = false;
+            for(int
+[] justPressedButtons = new boolean[5];
+    private static final boolean[] justLetGoButtons = new boolean[5];
+    private static final boolean[] justPressedKeys = new boolean[255];
+    private static final boolean
+So on the next drag event, the mouse has moved one pixel right and down relative to the node, and so getX() and getY() both return 1 again, so you move the node back almost to its original position.
+
+**
+     * Used to get the keycode of the key pressed without knowing which key it was.
+     
+You then call
+node.setTranslateX(13);
+node.setTranslateY(10);
+
+which again moves the origin of the node to the position of the mouse.
+So you call
+node.setTranslateX(12);
+node.setTranslateY(9);
+
+which, as described above, moves the node so its top left is at the mouse cursor.
+keycodeOfButtonUp = -1;
+
+    private static boolean isButtonUp = false;
+    private static boolean isButtonDown = false;
+
+    private static boolean isKeyJustDown
+*/
+    public static boolean isButtonDown(int button) {
+        return isButtonDown &amp;&amp; getButtonPressed() == button;
+    }
+
+    /**
+     * @return boolean: whether a specific key is not up (must have been pressed to be able to be up)
+     

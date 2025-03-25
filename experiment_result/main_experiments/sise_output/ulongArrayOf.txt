@@ -1,0 +1,62 @@
+Well first, that is not how to define a list in Kotlin.
+
+Kotlin does not use the new keyword.
+It makes it clear if the Array is Mutable or not.
+There are javascript and native libraries that will map the call to other implementations.
+
+
+id: Int, private val color: String) {
+    fun meov() = println(&quot;$color
+Since there are no list literals in Kotlin.
+
+In Kotlin, specify named parameters using = not :
+fun sayhello(greeting:String, itemstogreet:List&lt;String&gt;){
+    itemstogreet.forEach {itemtogreet -&gt;
+        println(&quot;$greeting
+It commonly is implemented to be executed in ascending order.
+I currently have no official doc or source to back this claim up though.
+
+This means you can simply call this from java like StringUtilsKt.getGreeting("fred") and it will result in the same output.
+
+
+/api/latest/jvm/stdlib/kotlin.text/to-byte-array.html" rel="noreferrer">toByteArray returns a ByteArray which (for Kotlin/JVM) is actually the same type as byte[].
+
+Let me know If not
+private int getYears() {
+int year = 2008; // get from the year edittext
+int month = 9; // get from the month edittext
+int day = 23; // get from the date edittext
+Calendar c1 = Calendar.getInstance();
+c1.set(year, month - 1, day, 0, 0); // as MONTH in calender is 0 based.
+
+
+https://stackoverflow.com/a/60124584/10012330 &lt;-- check here
+If you want to use the Kotlin Random class then use like this.
+UnknownHostException
+
+val cache = Cache(File(&quot;/tmp/tmpcache.2&quot;), 100 * 1024 * 1024)
+
+
+[raw.github.com/185.199.109.133, raw.github.com/185.199.110.133, raw.github.com/185.199.111.133, raw.github.com/185.199.108.133]
+[73 ms] connectStart: raw.github.com/185.199.109.133:443 DIRECT
+[105 ms] secureConnectStart
+[293 ms] secureConnectEnd: Handshake{tlsVersion=TLS_1_3 cipherSuite=TLS_AES_256_GCM_SHA384 peerCertificates=[CN=www.github.com, O=&quot;GitHub, Inc.&quot;, L=San Francisco, ST=California, C=US, CN=DigiCert SHA2 High Assurance Server CA, OU=www.digicert.com, O=DigiCert Inc, C=US, CN=DigiCert High Assurance EV Root CA, OU=www.digicert.com, O=DigiCert Inc, C=US] localCertificates=
+String = &quot;defValue&quot;) {
+    }
+}
+
+Now becomes following in Java
+public final class MyViewModel {
+    @JvmOverloads
+    public final void doSomething() {
+        doSomething$default(this, (String) null, 1, (Object) null);
+    }
+
+    @JvmOverloads
+    public final void doSomething(@NotNull String myVar) {
+        Intrinsics.checkParameterIsNotNull(myVar, &quot;myVar&quot;);
+    }
+
+    // $FF: synthetic method
+    public static void doSomething$default(MyViewModel var0, String var1, int var2, Object var3) {
+        if ((var2 &amp; 1) !

@@ -1,0 +1,219 @@
+= -1) {
+                int firstCommaIndex = -1;
+                int secondCommaIndex = -1;
+                boolean firstInvCommaFound = false;
+
+                for (int i = valueIndex; i &lt; subXml.length(); i++) {
+                    if (subXml.charAt(i) == '\&quot;')
++ uri + &quot;, localName: &quot; + localName + &quot;, qName: &quot; + qName);
+
+            m_outputBuilder.append('&lt;');
+            m_outputBuilder.append('/');
+            
+[] ch, int start, int length) throws SAXException {
+            System.out.println(&quot;ignorableWhitespace: '&quot;
+Match the streaming XML parser against the set of xpaths
+    Map&lt;String, String&gt; map = match(xmlInput, xpaths);
+
+    //
+Create a stack to keep track of the current path
+    Stack&lt;String&gt; stack = new Stack&lt;&gt;();
+
+    // Create a SAXParser and a DefaultHandler to parse the XML input
+    SAXParserFactory factory = SAXParserFactory.newInstance();
+    SAXParser parser = factory.newSAXParser();
+    DefaultHandler handler = new DefaultHandler() {
+
+      // A flag to indicate if the value should be extracted
+      boolean extract = false;
+
+      //
+{
+          // If the xpath has an attribute, extract the attribute name and value
+          String attrName = &quot;&quot;;
+          String attrValue = &quot;&quot;;
+          if (xpath.contains(&quot;[@&quot;)) {
+            int start = xpath.indexOf(&quot;[@&quot;)
+Parse the XML input
+    parser.parse(xmlInput, handler);
+
+    //
+Print the results
+    for (String xpath : map.keySet()) {
+      System.out.println(xpath + &quot;
+We also need to handle the cases where the node value spans across multiple character events, or where the node has multiple occurrences in the document.
+Example
+Suppose we have the following XML input:
+&lt;bookstore&gt;
+  &lt;book lang=&quot;en&quot;&gt;
+    &lt;title&gt;Harry Potter and the Philosopher's Stone&lt;/title&gt;
+    &lt;author&gt;J. K. Rowling&lt;/author&gt;
+    &lt;price&gt;10.99&lt;/price&gt;
+  &lt;/book&gt;
+  &lt;book lang=&quot;fr&quot;&gt;
+    &lt;title&gt;Le Petit Prince&lt;/title&gt;
+    &lt;author&gt;Antoine de Saint-Exupéry&lt;/author&gt;
+    &lt;price&gt;8.50&lt;/price&gt;
+  &lt;/book&gt;
+&lt;/bookstore&gt;
+
+And the following set of simple xpaths:
+
+/bookstore/book/title
+/bookstore/book/author
+/bookstore/book[@lang='fr']/price
+
+
++= &quot;/&quot; + qName;
+
+        // Check if the current path matches any of the xpaths in the map
+        for (String xpath : map.keySet())
+cts.documentQuery(cts.uriMatch(&quot;/directory/*/folder/*.xml&quot;))
+Is this what you are expecting?
+It's a bit awkward but it seems to do the first part of what I need to do which is get the reflection data
+    managedChannel = ManagedChannelBuilder.forAddress(&quot;localhost&quot;, 50000).usePlaintext().build();
+    final var serverReflectionBlockingStub = ServerReflectionGrpc.newStub(managedChannel);
+
+    final var serviceListLatch = new CountDownLatch(1);
+    final Set&lt;String&gt; serviceNames = new HashSet&lt;&gt;();
+    final var
+For example, /bookstore/book[@lang='en']/title selects the title element of the book element that has an attribute lang with value en.
+To match a streaming XML parser against a set of simple xpaths, we need to keep track of the current path of the XML elements as we parse the input, and compare it with the xpaths in the set.
+Ideally you should use a library like SAX parser to Deserialize an input stream like XML.
+
+I added this class
+@Configuration
+public class SpringBootVoodoo {
+
+    @Autowired
+    private ApplicationContext context;
+
+    @Bean(name=&quot;entityManagerFactory&quot;)
+    public EntityManagerFactory sessionFactory() {
+        return (EntityManagerFactory) context.getBean(&quot;firstEMF&quot;);
+    }
+}
+
+It now starts up just fine.
+Why did I even try this?
+A variable to store the current path
+      String currentPath = &quot;&quot;;
+
+      //
+A variable to store the matching xpath
+      String matchingXPath = &quot;&quot;;
+
+      @Override
+      public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+        // Push the element name to the stack and append it to the current path
+        stack.push(qName);
+        currentPath
+Check if the flag is set
+        if (extract) {
+          //
+DefaultHandler;
+
+public class TestFixMaxLength {
+    public static void main(String[] args) throws Exception {
+        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema schema = schemaFactory.newSchema(new StreamSource(TestFixMaxLength.class.getResourceAsStream(&quot;schema.xsd&quot;)));
+
+        // validation on original input should fail
+        // schema.newValidator().validate(new StreamSource(TestFixMaxLength.class.getResourceAsStream(&quot;input.xml&quot;)));
+
+        CustomContentHandler customContentHandler = new CustomContentHandler();
+        ValidatorHandler validatorHandler = schema.newValidatorHandler();
+        validatorHandler.setContentHandler(customContentHandler);
+        validatorHandler.setErrorHandler(customContentHandler);
+
+        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        saxParserFactory.setNamespaceAware(true);
+        SAXParser saxParser = saxParserFactory.newSAXParser();
+
+        XMLReader
+[] ch, int start, int length) throws SAXException {
+            System.out.println(
+                    &quot;characters: '&quot;
+xmlReader = saxParser.getXMLReader();
+        xmlReader.setContentHandler(validatorHandler);
+        xmlReader.parse(new InputSource(TestFixMaxLength.class.getResourceAsStream(&quot;input.xml&quot;)));
+        // not: saxParser.parse(TestFixMaxLength.class.getResourceAsStream(&quot;input.xml&quot;), ???);
+
+        System.out.println();
+        System.out.println();
+        System.out.println(customContentHandler.m_outputBuilder.toString());
+
+        // validation on corrected input should pass
+        schema.newValidator().validate(new StreamSource(new StringReader(customContentHandler.m_outputBuilder.toString())));
+    }
+
+    /****************************************************************************************************************************************/
+    private static class CustomContentHandler extends DefaultHandler {
+        private StringBuilder m_outputBuilder = new StringBuilder();
+        private SortedMap&lt;String, String&gt; m_prefixMappings = new TreeMap&lt;&gt;();
+        private int m_lastValueLength = 0;
+        private Matcher m_matcher = Pattern.compile(
+                &quot;cvc-maxLength-valid: Value '(.+?)'
+= new FileInputStream(&quot;bookstore.xml&quot;);
+
+    // Create a set of simple xpaths
+    Set&lt;String&gt; xpaths = new HashSet&lt;&gt;();
+    xpaths.add(&quot;/bookstore/book/title&quot;);
+    xpaths.add(&quot;/bookstore/book/author&quot;);
+    xpaths.add(&quot;/bookstore/book[@lang='fr']/price&quot;);
+
+    //
+I can't find how to do that in XML.
+Initialize the values to null.
+Create a Stack&lt;String&gt; to keep track of the current path of the XML elements.
+Create a SAXParser and a DefaultHandler to parse the XML input.
+In the startElement method of the handler, push the element name to the stack and append it to the current path.
+If we find a match, we need to extract the value of the node and store it in a map.
+for type '(.+?)'.&quot;,
+                Pattern.CASE_INSENSITIVE
+qName
+                    + &quot;, attributes: &quot;
+= new AtomicReference&lt;Throwable&gt;();
+    final var serviceListObserver =
+        serverReflectionBlockingStub.serverReflectionInfo(
+            new StreamObserver&lt;&gt;() {
+              @Override
+              public void onNext(ServerReflectionResponse value) {
+
+                value.getListServicesResponse().getServiceList().stream()
+                    .map(ServiceResponse::getName)
+                    .forEach(serviceNames::add);
+              }
+
+              @Override
+              public void onError(Throwable t) {
+
+                errorRef.set(t);
+                serviceListLatch.countDown();
+              }
+
+              @Override
+              public void onCompleted() {
+
+                serviceListLatch.countDown();
+              }
+            });
+    serviceListObserver.onNext(ServerReflectionRequest.newBuilder().setListServices(&quot;*&quot;).build());
+    serviceListObserver.onCompleted();
+    serviceListLatch.await();
+    if (errorRef.get() !
+Sadly, I know of no XML parser where you can say &quot;start parsing XML here and stop when you get to the end of the document&quot;.
+= -1) {
+            String subXml = xml.substring(csfrIndex);
+
+            int valueIndex = subXml.indexOf(&quot;value&quot;);
+
+            if (valueIndex !
+Then, reset the flag to indicate that the value should not be extracted.
+In the characters method of the handler, check if the flag is set.
+If yes, set a flag to indicate that the value should be extracted.
+In the endElement method of the handler, pop the element name from the stack and remove it from the current path.
+Where the DOM operates on the document as a whole—building the full abstract syntax tree of an XML document for convenience of the user—SAX parsers operate on each piece of the XML document sequentially, issuing parsing events while making a single pass[clarification needed] through the input stream.
+
+
+The follow up question would be given that I have this info, how do I make the call building from JSON input that is to be parsed to a format used by the GRPC

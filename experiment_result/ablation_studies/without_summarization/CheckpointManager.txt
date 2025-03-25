@@ -1,0 +1,18 @@
+CheckpointManager manages multiple checkpoints by keeping some and deleting unneeded ones. It is initialized with a Checkpoint object, the directory to save checkpoint files, and the number of checkpoints to keep. You call the `manager.save()` method at the end of each training epoch to save the checkpoints.. Knowledge type: functionality
+- **CheckpointManager** is useful when managing training loops manually.
+- **CheckpointManager** manages multiple checkpoints by storing them at a specified location and can be configured to keep a specified number of checkpoints.
+- To initialize a **CheckpointManager**, you need to:
+  - Provide a `Checkpoint` object as the first argument.
+  - Specify the directory where checkpoint files will be saved.
+  - Optionally, define how many checkpoints to keep, particularly useful for managing complex models.
+- Example initialization of **CheckpointManager**:
+  ```python
+  manager = CheckpointManager(ckpt, "training_checkpoints_wgan", max_to_keep=3)
+  ```
+- **CheckpointManager** is typically used by calling its `save()` method at the end of each training epoch.. Knowledge type: concept
+1. When using CheckpointManager, initialize it with a Checkpoint object as the first argument.
+2. Specify the directory where checkpoint files will be saved during CheckpointManager initialization.
+3. Define the maximum number of checkpoints to keep using the `max_to_keep` parameter in CheckpointManager, especially for complex models.
+4. Call the `save()` method of CheckpointManager at the end of each training epoch to manage the checkpoints.. Knowledge type: directive
+CheckpointManager is useful when you are managing the training loops yourself. It manages multiple checkpoints by keeping some and deleting unneeded ones. You initialize it with a Checkpoint object, specify the directory where to save the checkpoint files, and define how many checkpoints to keep. It is typically used by calling `manager.save()` at the end of each training epoch.. Knowledge type: pattern
+Alternatives to CheckpointManager include ModelCheckpoint (callback) when you are not managing epoch iterations yourself and want to use a callback during model training.. Knowledge type: alternative

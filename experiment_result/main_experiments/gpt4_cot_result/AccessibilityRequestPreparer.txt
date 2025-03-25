@@ -1,0 +1,91 @@
+# AccessibilityRequestPreparer API Documentation
+
+## 1. Functionality
+
+- **Identify Core Functions**:  
+  AccessibilityRequestPreparer is used to prepare accessibility requests to help assistive technologies like screen readers understand and interpret user interface elements within an Android application.
+
+- **Code Example**:  
+  ```kotlin
+  class MyAccessibilityRequestPreparer : AccessibilityRequestPreparer {
+      constructor(view: View, accessibilityType: Int) : super(view, accessibilityType)
+
+      override fun onPrepareRequest(accessibilityRequestType: Int): Boolean {
+          // Prepare the request by handling the type and conditions required
+          // Return true if prepared successfully, false otherwise
+          return true
+      }
+  }
+  ```
+
+## 2. Concept
+
+- **Clarify Terminology**:  
+  - **Accessibility Request**: A call to gather or prepare data in such a way that it becomes accessible to assistive technologies.
+  - **Preparer**: A class or interface that implements methods to facilitate preparation steps for requests related to accessibility.
+
+- **Explain Underlying Mechanisms**:  
+  AccessibilityRequestPreparer integrates into the Android accessibility infrastructure by acting as a bridge, enabling interactions between view elements and accessibility services. It aids in configuring how information is presented or collected by accessibility services.
+
+## 3. Performance
+
+- **Analyze Efficiency**:  
+  AccessibilityRequestPreparer is designed to be lightweight with minimal overhead, ensuring that adding it to an application doesn't significantly impact performance.
+
+- **Benchmark Comparison**:  
+  Current data doesn't show clear performance benchmarks as it relies heavily on the specific implementation and use case scenario. However, its lightweight nature ensures low performance hits.
+
+## 4. Directive
+
+- **Best Practices**:  
+  Ensure that AccessibilityRequestPreparer is implemented with a clear understanding of the specific accessibility requirements of your application. Keep request handling logic minimal and efficient.
+
+- **Common Mistakes**:  
+  One common error is failing to handle all necessary preparation types which could lead to inconsistencies for assistive technologies.
+
+- **Security Considerations**:  
+  Ensure sensitive data is not inadvertently exposed through accessibility requests. Always validate and sanitize data before preparing it for requests.
+
+## 5. Pattern
+
+- **Common Use Scenarios**:  
+  - Implementing custom views that need to provide additional context to screen readers.
+  - Extending existing views where default accessibility behavior isn’t sufficient.
+
+- **Integrative Examples**:  
+  ```kotlin
+  class AdvancedView(context: Context) : View(context) {
+      init {
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+              accessibilityRequestPreparer = MyAccessibilityRequestPreparer(this, ACTION_CLICK)
+          }
+      }
+  }
+  ```
+
+  In this example, the custom view integrates AccessibilityRequestPreparer to indicate an action.
+
+## 6. Environment
+
+- **System Requirements**:  
+  AccessibilityRequestPreparer requires a minimum of Android SDK level 23 (Marshmallow) due to API-specific calls and infrastructure.
+
+- **Versioning**:  
+  Ensure your Android library version specifically supports AccessibilityRequestPreparer, primarily present in Android API 23 and above. Avoid using older versions that lack the necessary API support.
+
+## 7. Alternative
+
+- **List Similar APIs**:  
+  - **View.AccessibilityDelegate**: An older method to customize accessibility actions and properties.
+  - **AccessibilityNodeProvider**: Used for complex views that provide a collection of independent elements.
+
+- **Comparison Chart**:  
+
+  | Feature/Functionality           | AccessibilityRequestPreparer | View.AccessibilityDelegate | AccessibilityNodeProvider |
+  |---------------------------------|------------------------------|-----------------------------|---------------------------|
+  | API Level Support               | 23 and above                 | 14 and above                | 16 and above              |
+  | Use-case Complexity             | Simple to Moderate           | Simple                      | Complex                   |
+  | Best for Custom Views           | Yes                          | Limited                     | Yes                       |
+  | Performance Overheads           | Low                          | Low                         | Moderate                  |
+
+Apply this structured framework when preparing to use various APIs, adapting best practices and understanding core functionalities tailored to mobile application needs.

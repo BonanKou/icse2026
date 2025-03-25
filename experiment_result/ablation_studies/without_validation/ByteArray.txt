@@ -1,0 +1,49 @@
+# ByteArray API Knowledge
+
+## Functionality
+1. `ByteArray(size)` creates a new array of the specified size with all elements initialized to zero.
+2. The `size` property of `ByteArray` returns the number of elements in the array.
+3. `ByteArray` can be created via `ByteArray(size)` call, where `size` is the number of bytes in the array.
+4. ByteArray can be created using the `byteArrayOf()` function, which allows for the creation of both empty and pre-populated ByteArrays.
+5. ByteArray can be created by reading all bytes from an InputStream using the extension method `InputStream.readBytes()`.
+
+## Concept
+1. In Kotlin, a `ByteArray` is an array of bytes.
+2. When targeting the JVM, `ByteArray` instances are represented as `byte[]`.
+3. A `ByteArray` can be created with a specified size, and all elements are initialized to zero.
+4. The size of a `ByteArray` can be accessed using the `size` property, which returns an `int`.
+5. If a `long` value is needed, the `size` can be converted using `.toLong()`.
+6. The `ByteArray` in Kotlin can be used to store data read from files.
+7. `ByteArray` in Kotlin compiles down to a simple primitive array, similar to `byte[]` in Java.
+8. In the JVM, the descriptor for a ByteArray is `[B`.
+9. The `toString()` method on a `ByteArray` instance starts with `[B`, indicating its JVM descriptor.
+10. `java.lang.Byte` is a primitive wrapper class in Java used for boxing bytes, different from ByteArray.
+11. Kotlin 1.9 introduced the experimental function `fun String.hexToByteArray(): ByteArray` which converts a hex string to a ByteArray.
+
+## Performance
+1. Reading an entire file into a `ByteArray` using `File("aaa").readBytes()` requires having enough RAM in the heap, indicating a potential memory efficiency concern when dealing with large files.
+2. Using `ByteArray(100)` specifies the size of the array, which can help manage memory usage by defining how much space is allocated.
+3. Reading a file by chunks into a `ByteArray` (as demonstrated with the `buff` array) can be more memory efficient than reading the entire file at once, as it processes manageable portions at a time.
+
+## Directive
+1. When using ByteArray in Kotlin, if a value of type `int` (such as `byteArray.size`) needs to be assigned to a variable requiring a `long`, use `.toLong()` to convert the `int` to `long`.
+2. When using `File("aaa").readBytes()`, ensure you have enough RAM in the heap to read the whole file into a `ByteArray`.
+3. A `ByteArray` can be created with a specified size using the `ByteArray(100)` call, where `100` is the size of the array.
+4. For `RandomAccessFile`, it is better to use the `readFully` function to read exactly the requested amount of bytes.
+5. A classic approach to reading a file is by chunks using a loop with a `ByteArray` as a buffer, ensuring efficient memory usage and processing each chunk as it's read.
+
+## Pattern
+1. ByteArray is commonly used alongside ByteBuffer to decode bytes into primitives by wrapping a specific portion of the ByteArray.
+2. Reading an entire file into a ByteArray can be done using `File("aaa").readBytes()`, but sufficient RAM in the heap is needed for large files.
+3. A ByteArray can be initialized with a specific size using `ByteArray(100)`, where `100` specifies the number of bytes.
+4. For reading files with `RandomAccessFile`, using the `readFully` function is recommended to ensure the exact number of bytes requested is read.
+5. Reading a file in chunks using ByteArray is a classic approach, involving creating a buffer like `val buff = ByteArray(1230)` and processing the data in a loop until the file is fully read.
+6. The ByteArray API is used to convert a hexadecimal string to a ByteArray in Kotlin 1.9 using the `hexToByteArray()` function.
+7. The `byteArrayOf()` function in Kotlin is commonly used to create a `ByteArray`, whether it is empty or initialized with known contents.
+8. InputStream.readBytes() is commonly used to read all bytes of an InputStream into a ByteArray in Kotlin.
+
+## Environment
+No environment-specific knowledge is available for ByteArray.
+
+## Alternative
+No alternative APIs were suggested for ByteArray.

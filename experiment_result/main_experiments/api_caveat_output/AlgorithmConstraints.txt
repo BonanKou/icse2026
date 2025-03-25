@@ -1,0 +1,24 @@
+You will need to change your domain; from Cost, I can see you require the Jobs to be ordered, but Job does not have any problem properties (i.e. non-planning variable fields) that can be used to determine the order (for example, a datetime field).
+Normally teams use karate.callSingle() for this kind of use-case: https://stackoverflow.com/a/56853597/143475
+If you insist on using Java, use a singleton as described here: https://stackoverflow.com/a/54571844/143475
+Please note that tests that depend on each other is not a good practice and not supported by Karate: https://stackoverflow.com/a/46080568/143475
+As for your second question, yes if you apply this for a board m times, then your complexity would be O(m n2) or O(m n), depending on your chosen definition.
+If the input can change, then it is up to you to decide how it can change, and how it makes sense to define it.
+In your code example, the input size is constant 3x3, so if this never changes, then you can just say the algorithm has constant time complexity, O(1).
+In this case, it is clear that the running time depends only on the size of the input, not on its content.
+When it comes to APIs I'm pretty sure you can't control transactions, because you are at an outer layer of the architecture.
+When you GET data, you can filter by the data you are interested in either by the API parameters, or you can do it in Karate (typically a match contains when arrays are involved).
+You can integrate any Java code into Karate, so if you really want you can go direct to JDBC.
+I do not see one in your problem description.
+If that answer is capacity multiplied by price, then there should be a constraint that takes it into account.
+Although the order of insertion is significant as that is generally the order in which OptaPlanner will iterate over the facts and entities, it should have no impact on the quality of the solution.
+Part of optimization is knowing when to quit.
+When optimizing code first analyze the code and determine where the bottleneck is, then address the bottleneck.
+If virtual method lookups really are your bottleneck, then congratulations, you have a super fast program.
+2 main lessons:
+
+Measure before performance tuning so you can make an informed decision about whether it's worthwhile, don't make assumptions.
+Think of what a hassle it would be to add another subclass in the if-test version, how you would have to search for all the if checks and add another case.
+The benefit of polymorphism is that the flow of the program doesnt have to care about details of subclasses, which stay out of the way, unlike your if-tests which are mixed into the logic flow.
+At some point optimizing won't be cost effective and won't yield significant benefits, it is overwhelmingly likely you will hit that point way before virtual methods become an issue.
+The only exception I can think of are built in functions, for which every language may have their own time complexity

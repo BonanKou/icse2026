@@ -1,0 +1,73 @@
+You may use your function simply like this:
+
+x.test().length
+
+
+Otherwise  you can check for null by following inline function and then perform any functions directly on the variable.
+As I have understood, your errors are generating from this code block:
+val userEmail = document.get(&quot;userEmail&quot;) as String
+val noteTitle = document.get(&quot;noteTitle&quot;) as String
+val yourNote = document.get(&quot;yourNote&quot;) as String
+val downloadUrl = document.get(&quot;downloadUrl&quot;) as String
+
+Here one of the variables from document is coming as null which cannot be cast to non-nullable String type in kotlin.
+If you are not sure of the fields which can come null, write code like this:
+val userEmail : String?
+= document.get(&quot;userEmail&quot;) as?
+The expected event sequence is:
+
+argument matcher is called and registered on stack
+mocked method call is intercepted and MockMethodAdvice.handleStatic is called
+this calls ArgumentMatcherStorageImpl.pullLocalizedMatchers and clears the matchers stack.
+
+See: How do Mockito matchers work?
+Unfortunately, Intrinsics.checkNotNullExpressionValue throws a NullPointerExeption, as ArgumentMatchers.any() returnes null.
+
+String
+
+For more clarity please check Safe(nullable)-Cast operator in kotlin docs
+
+
+A simple fix would be just to use:
+(activity as MainActivity?)!!.enableButtons(buttonState)
+
+or just remove ? after MainActivity
+(more on .? and !! you can find here: What&#39;s the difference between !!
+@Test
+    fun test() {
+        // Given
+        val id = &quot;mockative/mockative&quot;
+        val mockative = Repository(id = id, name = &quot;Mockative&quot;)
+        given(api).invocation { fetchRepository(id) }
+            .thenReturn(mockative)
+
+        //
+= document.get(&quot;yourNote&quot;) as?
+.thenReturn(&quot;hello&quot;);
+    Intrinsics.checkNotNullExpressionValue(parcel, &quot;parcel&quot;);
+    Assertions.assertEquals(&quot;hello&quot;, TextUtilsWrapper.createFromParcel(parcel));
+  }
+  
+  private static final void testWrapperStatic$lambda$0() {
+    Intrinsics.checkNotNullExpressionValue(ArgumentMatchers.any(), &quot;any()&quot;);
+    TextUtilsWrapper.createFromParcel((Parcel)ArgumentMatchers.any());
+  }
+}
+
+
+Second code sample doesn't invoke print() in the case of null.
+But general answer is: yes, this is for conciseness.
+First, your code samples aren't the same.
+
+
+if you visit the SharedPreferences code, you can see the following code:
+
+@Nullable
+String getString(String key, @Nullable String defValue);
+
+
+which is give us a probability to use null as defValue parameter.
+= document.get(&quot;downloadUrl&quot;) as?
+= document.get(&quot;noteTitle&quot;) as?
+This is mentioned in the documentation about the null safety:
+

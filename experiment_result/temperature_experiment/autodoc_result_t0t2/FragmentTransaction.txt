@@ -1,0 +1,46 @@
+# FragmentTransaction API Knowledge
+
+## Functionality
+- FragmentTransaction is used to add a fragment to a specified container within an activity.
+- FragmentTransaction can add, remove, replace, and perform other actions with fragments in response to user interaction.
+- FragmentTransaction is used to perform actions such as adding, removing, and replacing fragments within an activity.
+
+## Concept
+- A `FragmentTransaction` is initiated using `beginTransaction()` on a `FragmentManager`.
+- Fragments can be added to a container in an activity layout using the `add()` method of `FragmentTransaction`.
+- The `commit()` method is used to finalize a `FragmentTransaction`.
+- Fragments require a container in the activity layout, identified by an ID, to be added dynamically.
+- A fragment's layout is typically defined in a separate XML file and inflated in the `onCreateView()` method of the fragment.
+- A `FragmentTransaction` can be triggered by an event, such as a button click, using a click listener.
+- It is suggested to implement a Callbacks interface in the activity when dealing with multiple fragments.
+- FragmentContainerView is a customized layout designed specifically for handling fragments and can reliably manage Fragment Transactions.
+- FragmentManager is responsible for adding, removing, replacing, and performing other actions with fragments at runtime in response to user interactions.
+- In the provided example, a FragmentTransaction is initiated using `getSupportFragmentManager().beginTransaction()`.
+- The `setReorderingAllowed(true)` method is used in a FragmentTransaction to allow reordering of fragment operations.
+- The `replace` method of FragmentTransaction is used to replace the current fragment in a specified container with a new fragment.
+- The `commit` method is used to finalize the transaction and apply the changes.
+- A fragment container view is needed in an activity to proceed with a fragment transaction.
+- The `FragmentContainerView` is used in the layout XML to define where fragments will be placed.
+- The `supportFragmentManager.commit` method is used to perform a fragment transaction, such as adding a fragment.
+- The `add` method is used within a fragment transaction to add a fragment to the specified container.
+
+## Performance
+- No specific performance-related knowledge snippets were provided.
+
+## Directive
+1. When using FragmentTransaction, ensure you have a container in your activity layout with an ID, such as `android:id="+id/fragment_container"`, to hold the fragment.
+2. Create a layout XML file for your fragment and name it appropriately, for example, `fragment_page_3.xml`.
+3. Create a subclass of Fragment and override its `onCreateView()` method to inflate the fragment's layout.
+4. Use `FragmentManager` to load your fragment within a click listener by calling `beginTransaction()`, then `add()` with the container ID and fragment instance, and finally `commit()`.
+5. Avoid implementing FragmentTransaction in a way that does not account for multiple fragments or lacks a Callbacks interface implemented by the activity, as this is considered a wrong implementation.
+6. Consider changing the content of the UI for a better implementation approach.
+
+## Pattern
+- FragmentTransaction is commonly used to dynamically add a fragment to a specified container within an activity's layout, typically in response to a user action such as a button click.
+- FragmentTransaction is commonly used to add fragments to a fragment container view within an activity.
+
+## Environment
+- FragmentTransaction requires the use of FragmentManager to perform actions such as adding, removing, and replacing fragments. It is used in conjunction with FragmentContainerView, which is a customized layout designed specifically for handling fragment transactions. The environment setup includes defining a FragmentContainerView in the activity's XML layout file and using FragmentManager within an activity to manage fragment transactions dynamically at runtime. Additionally, the transaction.setReorderingAllowed(true) method is used to optimize the reordering of fragment operations.
+
+## Alternative
+- No specific alternative-related knowledge snippets were provided.

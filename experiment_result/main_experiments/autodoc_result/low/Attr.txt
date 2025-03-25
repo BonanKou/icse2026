@@ -1,0 +1,37 @@
+## Functionality
+- `TypedArray` can be obtained from `getContext().obtainStyledAttributes(attrs, R.styleable.customView);` where `attrs` is passed as an argument to include the attribute set.
+
+## Concept
+- The index of an attribute in `attrs` is different from its index in `TypedArray` because `attrs` includes both custom and standard Android attributes.
+- The index of each attribute in `attrs` can be checked using a loop:
+  ```java
+  for (int i = 0; i < attrs.getAttributeCount(); i++) {
+      Log.d("ATTRS", i + ": " + attrs.getAttributeName(i) + "");
+  }
+  ```
+- The `attrs.xml` file is used to define custom attributes for styling in Android applications.
+- An attribute in `attrs.xml` can be defined with a name and format, for example, `<attr name="searchBarBgColor" format="reference" />`.
+- Custom attributes can be applied in theme styles, allowing for dynamic changes in appearance based on themes, such as dark mode.
+- In a theme style, an attribute is set using the `<item>` tag, where the attribute name is specified, and a color value or reference is assigned.
+- An attribute set in a theme can be referenced in layout XML using `?attr/attributeName`, for example, `android:textColor="?attr/searchBarBgColor"`.
+- Themes can be programmatically applied or switched in an Android activity using `Resources.Theme` and `applyStyle()` method.
+- Conditional logic, like checking for a dark mode flag, can be used to apply different themes dynamically.
+
+## Performance
+- No specific performance-related knowledge snippets were provided.
+
+## Directive
+- No specific directive-related knowledge snippets were provided.
+
+## Pattern
+- The Attr API is commonly used to define custom attributes for a custom View, allowing for flexible styling and configuration via XML attributes in Android.
+- The Attr API is used to define configurable properties for custom views in Android applications by creating an `attrs.xml` file inside the `values` folder.
+- The Attr API allows developers to declare styleable attributes using `<declare-styleable>` and `<attr>` tags, specifying the name and format for each attribute.
+- Using the Attr API, custom views can be initialized with attributes defined in XML layouts by accessing these attributes through `TypedArray` and applying them to view components.
+- Developers can create methods to set attributes programmatically in custom views, allowing dynamic updates based on user interaction or application logic.
+
+## Environment
+- No specific environment-related knowledge snippets were provided.
+
+## Alternative
+- If `TypedArray` methods fail, attribute values can be directly retrieved from `attrs` using `attrs.getValue(int index)`.

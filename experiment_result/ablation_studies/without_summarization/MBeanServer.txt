@@ -1,0 +1,4 @@
+Get a reference to the MBeanServer then you can run a query with the ObjectName.. Knowledge type: functionality
+Get a reference to the MBeanServer then you can run a query with the ObjectName.. Knowledge type: concept
+Get a reference to the MBeanServer then you can run a query with the ObjectName.. Knowledge type: pattern
+Add the following JVM Property to your server instance to get access to WebLogic's mbeans: `-Djavax.management.builder.initial=weblogic.management.jmx.mbeanserver.WLSMBeanServerBuilder`.. Knowledge type: environment

@@ -1,0 +1,31 @@
+That namespace is pre-defined and consists of only the built in Android attributes.
+Please note that custom attributes must be defined in attrs.xml, you can't just make one up in the layout xml.
+like the example below
+
+
+similarly in themes we need to define certain attributes that can be used inside the theme for example if we create 2 themes and want to define a different primary color that will be used by the app when using either theme.
+attr is used when make custom view with custom attribute.
+If you define attr, you can use it in xml file.
+PS: You need to additional code for use custom attr in YourCustomView class file.
+If your custom view needs dividerColor attribute, you can't use it android:dividerColor as following.
+The app namespace is not specific to a library, but it is used for all attributes defined in your app, whether by your code or by libraries you import, effectively making a single global namespace for custom attributes - i.e., attributes not defined by the android system.
+Alternatively I also found out that if the TypedArray ever failed me again it is possible to get values directly from attrs, with:
+
+It must be noted that the index of the attribute in the attribute set is different than the index in the typed array, as it includes also standard android attributes.
+After some tinkering I replaced the line:
+
+with
+
+and the problem was solved.
+You need to create AnalyticsListener.
+Google now has a new version of the Measurement API that should be used for GA4 properties.
+You can create a user with your UI, but your UI doesn't dictate when the User is online, that is dictated by an outside source of information which could be represented in your database, and through that chain is then represented in your UI.
+You can use sharedpreferences to store data and later you can get data from this sharedpreferences in order to check on which level user should be.
+You should get Context at first   
+
+Interface to global information about an application environment.
+I now do not "include" a layout file but just use the custom view in the "host" xml like an i.e. TextView.
+Solution:
+If you are receiving this error, check that the values provided in
+
+are valid for aapt2.

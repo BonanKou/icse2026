@@ -1,0 +1,30 @@
+They are exactly designed for your situation: Where you need to generate unique identifiers without depending on a central registration authority, and without coordinating between the parties generating them.
+This way, you can always control the value of the identifier used.
+The point of UUIDs is that it doesn't matter who generates them and there is no state you need to worry about (i.e. the chance that 2 separate systems both generating random UUIDs happen to generate identical UUIDs, rounds down to zero).
+Moreover, you might consider authenticating the request as well if you do not want unauthorised users to access the resources.
+You'll have to implement a custom ID generator and your entity will have an ID of String as it's no longer going to be a valid UUID.
+If not, you can generate a UUID in Java.
+When you write rows in other tables that belong to a particular user, include a column for their UUID.
+When creating an account for a user, create a row in that table.
+When a user logs in, look up their credentials in this table, retrieving their previously assigned UUID.
+If you had used the usual auto-incrementing IDs, you would have to re-index every blog post of the databases and update every foreign key that might point to them.
+When you use UUIDs, you can't say how many records were created before.
+If you use Autoincrement IDs, a bad guy could create an account in your system, create a company, check the Network tab in the Chrome browser and see that his ID is 136.
+Hackers will need eternity to guess it even if you will have millions of secret links.
+Ultimately, this is your project, and you should decide which strategy fits your project the best.
+But if you had used UUID as primary keys… No work to do!
+Hacking into a system to retrieve information is way more difficult if you don't see what you're looking for or where to look.
+He now knows that your system has only 135 companies ever created by other clients.
+If you change your key, all existing data will get corrupted.
+If it is not the case & you are fine with exposing you ids outside, you can think of BASE-64 encoding your ids & use them in third party API.
+You will just have to store a secret using which you can encrypt/decrypt the id.
+If you don't change, you have compromised all your data outside.
+You would be able to do this if UUID class was written in Kotlin and had public companion object, so that your extension function would have been on UUID.Companion, but in this case it's impossible.
+Your extension is on the UUID instance, that's why it's not working when called as a static method (but, for example, UUID.randomUUID().fromDatabase(...) would work)
+Your system could detect users/IP addresses, etc. that attempt to remove UUIDs that do not exist and block them.
+Then your action can search for the entity by UUID, see FindByUUID() using Spring Data's JPA Repository
+make further validations, as of whether the action is valid to be issued by the user with the UUID passed and if so, remove it.
+Now, if you have, say, a user with an id of 1234, then a hacker will likely know that there must have been valid ids preceding your id, like 1233, 1232, etc.
+So, if you have UUID, randomly generated for all users and ensuring that it's unique, then a hacker would have no information what UUIDs are valid and which are not, so his efforts would mostly be in vain as the requests he would spend his resources upon would try to remove items that do not even exist.
+If you want to determine the UID of your users, you can implement your own provider.
+Note that this will include writing code that runs in a trusted environment, such as a server that you control, or Cloud Functions/Cloud Run.

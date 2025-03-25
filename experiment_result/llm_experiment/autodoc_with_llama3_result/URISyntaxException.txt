@@ -1,0 +1,26 @@
+
+
+Here is the comprehensive and accurate list of knowledge snippets regarding `URISyntaxException` categorized by the seven types of knowledge:
+
+**Functionality**
+
+1. Using the `URI::toURL` method is recommended over the deprecated `java.net.URL` constructor to avoid `URISyntaxException`.
+2. Violating the RFC 2396 escaping mechanism when constructing URIs could result in `URISyntaxException`.
+3. The `UriBuilder.toTemplate()` method is used to create a URI template with both actual and template parameters.
+4. `UriBuilder` is used for constructing URIs, possibly to avoid `URISyntaxException` by providing consistent syntax.
+5. `URISyntaxException` can be triggered when an incorrect syntax is provided for a URI while trying to embed credentials within it.
+6. The `URISyntaxException` API provides ways to construct and validate uniform resource identifiers (URIs).
+7. `URISyntaxException` is triggered when the function is given a complete URI with a protocol (e.g., https://) while only the domain is requested.
+8. The `URISyntax` API does not have a predefined meaning for the colon (:) in a REST URL.
+9. To use the `URISyntaxAPI` correctly in the context of Spring Web Test Client, it's essential to understand the behavior of the `.uri(URI uri)` method and know the available alternative `.uri(String uri)` method.
+
+**Concept**
+
+1. `URISyntaxException` is a checked exception that can be thrown when there is a syntax error in a URI (Uniform Resource Identifier) during its parsing or expansion.
+2. `UriBuilder` is an API used for constructing URIs, and it's suggested to use `UriBuilder` instead of directly constructing URIs to handle differences in various implementations more effectively.
+3. The `URI` class came later in Java, in Java 4, and is recommended over `java.net.URL` for constructing and encoding/decoding URLs according to the RFC 2396 escaping mechanism.
+4. Namespace: A mechanism to provide abbreviations for URIs. It defines a prefix that replaces the first part of a full URI with a short string, making it easier to represent URIs in RDF data.
+5. Base URI: A generic parser/writer mechanism that allows resolving relative URIs in data.
+6. RDF (Resource Description Framework): A standard data model for representing and exchanging information on the web.
+7. The URI can contain authentication credentials (username and password) enclosed within the URI string, separated by the "@" character.
+8

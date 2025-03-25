@@ -1,0 +1,169 @@
+Block block : firebaseVisionText.getBlocks()){
+
+                imgText = block.getText().toString();
+                tts.speak(&quot;The text in the image is as follows : &quot; + imgText, TextToSpeech.QUEUE_FLUSH, null, null);
+                ET_ShowRecognized.setText(&quot;The text in the image is as follows : &quot;
+WRITE_EXTERNAL_STORAGE;
+
+
+
+public class MainActivity extends AppCompatActivity {
+
+
+    private static final String TAG = &quot;MainActivity&quot;;
+    private Button btnRecognize;
+    private SpeechRecognizer speechRecognizer;
+    static EditText ET_ShowRecognized;
+    String locality;
+    private Intent intent;
+    private String ET_ShowRecognizedText;
+    private String ProcessingText;
+    //private FusedLocationProviderClient fusedLocationProviderClient;
+    //Geocoder
+Nice to meet you.&quot;, TextToSpeech.QUEUE_FLUSH, null, null);
+
+        }
+        else if(ProcessingText.contains(&quot;your name&quot;)){
+
+            tts.speak(&quot;My name is assistant.&quot;, TextToSpeech.QUEUE_FLUSH, null, null);
+
+        }
+        else if(ProcessingText.contains(&quot;recognise text&quot;)){
+
+            tts.speak(&quot;Opening Camera.&quot;, TextToSpeech.QUEUE_FLUSH, null, null);
+            dispatchTakePictureIntent();
+
+        }
+        else if(ProcessingText.contains(&quot;bye&quot;)){
+
+            finish();
+            System.exit(0);
+
+        }
+        else if(ProcessingText.contains(&quot;current temperature&quot;)){
+
+            sendTemp();
+            recieve_data();
+
+        }else {
+
+            tts.speak(ProcessingText, TextToSpeech.QUEUE_FLUSH, null, null);
+
+        }
+
+
+    }
+
+    private void dispatchTakePictureIntent() {
+        CameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            startActivityForResult(CameraIntent, REQUEST_IMAGE_CAPTURE);
+        } catch (ActivityNotFoundException e) {
+            // display error state to the user
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE &amp;&amp; resultCode == RESULT_OK) {
+
+            Bundle extras = data.getExtras();
+            imageBitmap = (Bitmap) extras.get(&quot;data&quot;);
+            //imageView.setImageBitmap(imageBitmap);
+            detectTextFromImage();
+        }
+
+    }
+
+    private void detectTextFromImage() {
+
+        firebaseVisionImage = FirebaseVisionImage.fromBitmap(imageBitmap);
+        
+= new SimpleDateFormat(&quot;dd-MM-yyyy&quot;, Locale.getDefault()).format(new Date());
+        //currentTime
+py = Python.getInstance();
+        pyobj = py.getModule(&quot;WolframAlpha&quot;);
+        obj = pyobj.callAttr(&quot;main&quot;, locality);*/
+
+        tts = new TextToSpeech(MainActivity.this, new TextToSpeech.
+It has an onConnected() method specifically for this purpose, and you can use it to process any logic whenever your app initiates that connection
+
+Keep your number of connections low or expect errors when you try to connect too many devices.
+
+You most likely have a media browser service set up for your Android Auto implementation.
+ET_ShowRecognized.setText(text[0]);
+        }
+    }
+
+    class BackgroundTask extends AsyncTask&lt;String, Void, Void&gt;{
+
+        @Override
+        protected Void doInBackground(String... voids) {
+            try{
+
+                String message = voids[0];
+                socket = new Socket(&quot;192.168.43.203&quot;, 24224);
+                writer = new PrintWriter(socket.getOutputStream());
+                writer.write(message);
+                writer.flush();
+                writer.close();
+                socket.close();
+
+
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+
+
+        super.onResume();
+    }
+}
+
+
+
+Create a function to check for network connectivity and then use it in displaying.
+
+fun Context.isConnectedToNetwork(): Boolean {
+  val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+  return connectivityManager?.activeNetworkInfo?.isConnectedOrConnecting() ?
+Block&gt; blockList = firebaseVisionText.getBlocks();
+        if(blockList.size() == 0) {
+
+            tts.speak(&quot;I think this image contains no text.&quot;, TextToSpeech.QUEUE_FLUSH, null, null);
+            ET_ShowRecognized.setText(&quot;I think this image contains no text.&quot;);
+
+        }else{
+
+            for(FirebaseVisionText.
+= new SimpleDateFormat(&quot;HH:mm:ss&quot;, Locale.getDefault()).format(new Date());
+        //textToSpeech.speak(&quot;Hi!
+Please try again later or try with another image.&quot;, TextToSpeech.QUEUE_FLUSH, null, null);
+                ET_ShowRecognized.setText(&quot;Something went wrong.
+= null &amp;&amp;
+                      activeNetwork.isConnected();
+
+
+For more information please check the android Developer guide here 
+
+Today date is something something &quot;, TextToSpeech.QUEUE_FLUSH, null, null);
+        //Speak(&quot;Today's weather forecast for the current location is &quot; + obj.toString());
+
+
+        intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.

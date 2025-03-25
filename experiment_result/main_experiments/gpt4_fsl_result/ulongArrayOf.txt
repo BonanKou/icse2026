@@ -1,0 +1,59 @@
+# ulongArrayOf API Knowledge Document
+
+## Functionality
+- `ulongArrayOf` creates an array of `ULong` (unsigned long) values in Kotlin.
+- Allows initialization of a `ULongArray` with specific `ULong` values.
+- It provides a way to work with unsigned 64-bit integers in a similar fashion to arrays of other numeric types.
+- You can iterate over a `ULongArray` using standard Kotlin collection methods like `forEach` or `map`.
+- Supports element access and manipulation using indexing, similar to other array types in Kotlin.
+- `ULongArray` provides methods such as `sum()`, `average()`, and `max()` to perform aggregate operations.
+
+## Concept
+- `ULongArray` is a specialized array in Kotlin for storing unsigned 64-bit integers.
+- Kotlin does not have native unsigned types on the JVM; `ULongArray` is part of Kotlin's standard library to simulate unsigned behavior.
+- Elements of `ULongArray` are of type `ULong`, representing unsigned long integers.
+- The `ulongArrayOf()` function is used to create and initialize a `ULongArray` with specific values.
+- Compared to `Array<ULong>`, `ULongArray` is more memory-efficient because it uses a primitive array under the hood.
+- The size of a `ULongArray` can be accessed through the `size` property, returning an `Int`.
+- `ULong` in Kotlin can hold values from 0 to 2^64-1.
+
+## Performance
+- `ULongArray` offers better performance than `Array<ULong>` due to its use of primitive arrays, minimizing boxing overhead.
+- Operations on `ULongArray` are more efficient compared to boxed array alternatives, particularly in tight loops or large datasets.
+- Memory footprint is reduced because `ULongArray` uses a continuous block of memory for storage.
+
+## Directive
+- Use `ulongArrayOf` when you need to work with large collections of unsigned long values efficiently.
+- Ensure that your use of `ULongArray` is necessary, as signed numbers (`LongArray`) can sometimes suffice, simplifying interoperability.
+- When using `ULongArray`, remember that Kotlin's unsigned types are not interoperable with Java's standard library directly.
+- Prefer `ULongArray` over `Array<ULong>` for performance-sensitive tasks, especially when memory and performance are critical.
+- Avoid using `ULongArray` if interoperability with Java is a primary concern, as Java does not support unsigned types.
+- Convert `ULongArray` to lists or other collection types if you need to use Kotlin’s higher-order functions that are not directly available on arrays.
+
+## Pattern
+- Commonly used in scenarios where large numeric ranges are required without negative values, such as bit manipulation or certain cryptographic operations.
+- `ULongArray` is suitable for use cases involving precise storage of large numeric identifiers, where negative values are invalid.
+- It can be used in algorithms requiring high-performance unsigned arithmetic operations.
+- `ULongArray` is often used in mathematical computations that require unsigned 64-bit precision.
+
+```kotlin
+val numbers = ulongArrayOf(123456789UL, 987654321UL, 112233445566778899UL)
+numbers.forEach { println(it) }
+```
+
+- Summing the elements of a `ULongArray` can be done using the `sum()` function:
+
+```kotlin
+val total = numbers.sum()
+println("Sum of numbers: $total")
+```
+
+## Environment
+- `ULongArray` is available in Kotlin 1.3 and above, requiring an appropriate Kotlin runtime.
+- Requires Kotlin's standard library that supports unsigned types, particularly when targeting JavaScript or native platforms.
+
+## Alternative
+- Consider using `LongArray` if negative numbers do not need to be strictly avoided, which offers better interoperability with Java.
+- Use `Array<ULong>` if you need to capitalize on Kotlin's collection infrastructure while still working with `ULong`.
+- For operations limited by 32-bit unsigned integers, `UIntArray` might be a more suitable alternative.
+- For higher precision or larger ranges, consider using a `BigInteger` in conjunction with standard arrays if unsigned semantics are not strictly required.

@@ -1,0 +1,80 @@
+# FragmentManager API Knowledge
+
+## Functionality
+1. FragmentManager can register FragmentLifecycleCallbacks to listen for fragment lifecycle events.
+2. FragmentManager can be used to load a fragment using the `beginTransaction()` method, followed by `add()` to add a fragment to a specified container, and `commit()` to finalize the transaction.
+3. At runtime, a FragmentManager can add, remove, replace, and perform other actions with fragments in response to user interaction.
+4. You must call FragmentActivity.getSupportFragmentManager() to get the FragmentManager.
+5. `Activity.getSupportFragmentManager()` is used to manage fragments in the activity view hierarchy.
+6. `Fragment.getChildFragmentManager` is used to manage fragments within another fragment's hierarchy.
+7. `Activity.getSupportFragmentManager()` is used to manage fragments in a `RecyclerView` row, whether the `RecyclerView` is in a `Fragment` or an `Activity`.
+
+## Concept
+1. To use a Fragment in an Android application, you first need to specify a container for the Fragment in your activity layout, typically by assigning it an ID like `android:id="+id/fragment_container"`.
+2. You must create a layout XML file for the Fragment, such as `fragment_page_3.xml`.
+3. A subclass of Fragment should be created, overriding the `onCreateView()` method to inflate the Fragment's layout.
+4. The FragmentManager can be used to add a Fragment to the activity, specifically by beginning a transaction, adding the Fragment to the container, and then committing the transaction.
+5. It is important to implement a Callbacks interface in the activity if multiple fragments are used, rather than loading them directly as shown in the provided code.
+6. `FragmentManager` is used for managing fragment transactions, such as adding or replacing fragments within a `FragmentContainerView`.
+7. `FragmentTransaction` is used in conjunction with `FragmentManager` to execute operations like `replace` on fragments, and can be configured with options like `setReorderingAllowed(true)`.
+8. `FragmentContainerView` is a specialized layout designed for handling fragment transactions and coordinating fragment behavior.
+9. The `getSupportFragmentManager()` method is used to obtain the `FragmentManager` within an activity for managing fragment operations.
+10. Your activity must extend `androidx.fragment.app.FragmentActivity` to use support-based Fragments.
+11. FragmentManager should not be manually manipulated when using the Navigation library; the library is designed to handle navigation between fragments.
+12. The message "Ignoring navigate() call: FragmentManager has already saved its state" indicates that the FragmentManager's state has been saved by the Activity, which usually happens when the Activity enters the onStop state.
+13. After leaving the current Activity, operations on the FragmentManager should be avoided.
+14. It is possible to use `androidx.fragment.app.FragmentTransaction#commitAllowingStateLoss` to bypass the state-saving warning, but the fragment state will not be restored if the Activity is recreated.
+
+## Performance
+- No such knowledge.
+
+## Directive
+1. When using `FragmentManager.FragmentLifecycleCallbacks`, you can cast the fragment to your particular implementation and set callbacks after its (re)creation, avoiding the need to pass arguments through the fragment's constructor or creating Bundles.
+2. If you can avoid passing something to the Fragment's constructor while using `FragmentStateAdapter`, avoid it. The most proper solution is to use a `FragmentFactory`.
+3. FragmentManager can be used to register `FragmentLifecycleCallbacks`, which allows you to perform actions on fragments during their lifecycle events.
+4. When using FragmentManager to load a fragment, ensure you have a container in your activity layout with a specified ID, like `android:id="+id/fragment_container"`.
+5. Create a layout XML file for your fragment and name it appropriately, such as `fragment_page_3.xml`.
+6. Subclass `Fragment` and override its `onCreateView()` method to inflate your fragment's layout.
+7. Use `FragmentManager` to load your fragment within a click listener by calling `beginTransaction()`, followed by `add()` and `commit()` methods.
+8. Avoid the implementation provided as it might not be suitable for your app if you require several fragments; instead, consider implementing a Callbacks interface in your activity.
+9. It's suggested to modify your UI content as a better approach.
+10. For further guidance, refer to the official Android Developers documentation on fragments.
+11. Use `FragmentTransaction` to manage fragment changes, such as replacing one fragment with another.
+12. When beginning a fragment transaction using `FragmentManager`, set `setReorderingAllowed(true)` to optimize the execution order of the transactions.
+13. Use the `replace` method in `FragmentTransaction` to switch the current fragment with a new one by specifying the container view ID and the new fragment class.
+14. Always commit the transaction using `transaction.commit()` to ensure the changes are applied.
+15. In your XML layout, define a `FragmentContainerView` to host fragments, allowing for dynamic fragment management.
+16. When using the Navigation library, do not manually manipulate the FragmentManager; let the Navigation library manage fragment transactions.
+17. Do not operate the FragmentManager after the Activity has saved its state, typically when the Activity is in the onStop state.
+18. Avoid using FragmentTransaction#commitAllowingStateLoss unless you are okay with the possibility that the state will not be restored when the Activity is recreated.
+19. You must call FragmentActivity.getSupportFragmentManager() to get the FragmentManager.
+20. When adding fragments within the activity view hierarchy, use `Activity.getSupportFragmentManager()`.
+21. When adding fragments within another fragment's hierarchy, use `Fragment.getChildFragmentManager`.
+22. When adding fragments within a `RecyclerView` row, use `Activity.getSupportFragmentManager()`, regardless of whether the `RecyclerView` is in a `Fragment` or an `Activity`.
+
+## Pattern
+1. The post illustrates that `FragmentManager.FragmentLifecycleCallbacks` can be used to handle fragment (re)creation scenarios without passing data through the fragment's constructor, providing a way to set callbacks or perform actions on fragments using `FragmentManager`.
+2. `FragmentManager` is commonly used in click listeners to load fragments into a specified container within an activity.
+3. The `beginTransaction()` method is used in conjunction with `add()` and `commit()` to add a fragment to the specified container.
+4. At runtime, a `FragmentManager` can add, remove, replace, and perform other actions with fragments in response to user interaction.
+5. `FragmentManager` is commonly used to manage fragments in an activity's view hierarchy via `Activity.getSupportFragmentManager()`.
+6. For managing fragments within another fragment's hierarchy, `Fragment.getChildFragmentManager` is typically used.
+7. In the context of a `RecyclerView` row, where the `RecyclerView` is part of a `Fragment` or an `Activity`, `Activity.getSupportFragmentManager()` is used, which may be surprising because it doesn't matter whether the `RecyclerView` is part of a `Fragment` or an `Activity`.
+8. You can register `FragmentLifecycleCallbacks` with a `FragmentManager` to monitor lifecycle events for all fragments managed by it.
+9. `FragmentManager` transactions can be added to the back stack using `addToBackStack()`, allowing the user to reverse them via the back button.
+10. `FragmentManager` supports nested fragments, allowing each fragment to manage its own set of child fragments independently.
+11. Proper handling of `FragmentManager` operations is essential to prevent issues like fragment overlapping or transaction state loss, especially during configuration changes.
+
+## Environment
+1. Your activity must extend `androidx.fragment.app.FragmentActivity` in order to use FragmentManager. You must call `FragmentActivity.getSupportFragmentManager()` to get the FragmentManager.
+2. The Fragment state is saved by the Activity, usually when the Activity goes into the onStop state.
+3. When using the Navigation library, you should let it manage navigation between fragments and not interact with the FragmentManager directly.
+4. FragmentManager should not be operated on after the current Activity has left, to avoid issues with its state being saved.
+5. You can use `androidx.fragment.app.FragmentTransaction#commitAllowingStateLoss` to bypass warnings, but this means the state will not be restored if the Activity is recreated.
+6. Fragments in the activity view hierarchy require the use of `Activity.getSupportFragmentManager()`.
+7. Fragments in another fragment's hierarchy require the use of `Fragment.getChildFragmentManager`.
+8. For fragments within a `RecyclerView` row, where the `RecyclerView` is within either a `Fragment` or an `Activity`, the `Activity.getSupportFragmentManager()` is used, suggesting it uses the highest-level fragment manager from the activity due to `FragmentContainerView` not being attached to a parent when initialized.
+9. This behavior implies that fragment inflation in complex view hierarchies (like `RecyclerView` rows) may not respect local fragment scopes unless explicitly handled using `Fragment.getChildFragmentManager()`.
+
+## Alternative
+- No such knowledge.

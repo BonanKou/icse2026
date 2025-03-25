@@ -1,0 +1,45 @@
+Disclaimer: I have never used Android Studio or the Android SDK.
+The Activity hosting the layout must then implement the corresponding method.
+The value for this attribute must be the name of the method you want to call in response to a click event.
+You might consider setting itemView.checkBox.isClickable = false right after setting the listener so your whole list item will show the ripple effect even if you tap over the CheckBox.
+Side note: Don't forget to set the initial state of the CheckBox in onBindView:
+
+It will have an unpredictable state when it scrolls onto the screen, otherwise!
+The CheckBox component inherits from a Button View so you can use the android:background attribute to change the checkbox state with a drawable state selector instead of android:button.
+The final code should look like this:
+Supposing that you named your drawable file checkbox_selector, the file should look like this:
+
+Then you need to remove the default box to apply the selector above as a drawable resource.
+For that:
+
+Right after that, you need to call android:drawableStart to use the drawable you just created, and set the padding as you would like.
+If by auto-checked you mean by default selected, then that can be done in two ways
+
+In layout xml, set android:checked="true"
+Programmatically set checkBox.setChecked(true);
+However, it only automatically preserves the things that can be changed through the UI, so if you programmatically changed the text of a CheckBox, that is not automatically preserved.
+The checked state of a CheckBox and text in an EditText will be automatically preserved if you make sure they have the same id in both layouts.
+Ideally, those methods should update a UI state object.
+Right now you only check the state of your checkbox when the order runs.
+Google's opinionated recommendation is that the state of your UI should be determined by UI state data classes.
+In your activity, add this new method:
+
+Reference: https://developer.android.com/guide/topics/ui/controls/checkbox#java
+Opinion on Android app code structure
+You should have separate methods which react to UI events like clicking buttons and toggeling checkboxes.
+If you want to isntantly react to the checkbox being checked / unchecked, you need to specify a listener.
+A simple way:
+Add android:buttonTint="@null" to your CheckBox
+Another way:
+Your custom drawable selector custom_checkbox.xml:
+
+Your color selector: (place it on res/color folder) custom_checkbox_color_selector.xml:
+
+Your CheckBox:
+if it clicked, you will set checked for checkbox = true, else is false.
+This code just fine when you click one checkbox, if you clickmore, you will need a list clickedPosition, or a object with check field
+when isChecked is true, then you add the sum of its calorie to an integer, if not you remove it:
+Android: checkbox listener
+First you need to add the checkBox to your ViewHolder
+It will be triggered automatically when the checkbox state changes.
+Instead of clickListener, you can use CheckChangeListener.

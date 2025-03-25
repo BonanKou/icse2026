@@ -1,0 +1,51 @@
+NO if you don not need those flexible header.
+And finaly Should you replace ActionBar with ToolBar?
+This is related to our design , I think when design is sync with Action bar then it is better to use it
+but if we have flexible design we have to use custom Toolbar.
+YES if you want the flexible header that comes with the Toolbar,
+Some of benefits of an Action bar that cause developers select it at first :
+-Makes important actions accessible in a predictable way (such as Search).
+-Supports consistent navigation and view switching within apps.(If you use navigation component is very simple to use Action bar)
+-Reduces clutter by providing an action overflow for rarely used actions.
+Solution:
+If you want to set title to your Actionbar this is how you can do it:
+
+Now if you want to set title to Custom toolbar that you have created you can do it like this:
+
+Remember:
+ActionBar is the element present at the top of the activity screen.
+Let me know if it you any doubts.
+To achieve it you need to:
+
+Get the navigation direction (NavDirections)
+If you have used this API, in the AndroidManifest.xml file, when the theme of the starting activity is set at position 2, the ActionBar will be displayed.
+When this happens, your first activity's onPause() is called.
+When your second activity goes to foreground, its onResume() method is called.
+While creating the menu item make sure that you select showAsAction="always" this way your icon is always visible.
+here is a link for the reference
+3.ActionBar Theme: If you're using the action bar theme then you can create a menu file with one item like in Option 2 and then override the onCreateOptionsMenu and inflate then inflate your menu in it.
+ActionBar Theme: If you're not using any ActionBar or toolbar in your activity then you can create a View(ImageView or Button) in your Activity's layout file with Height and Width as same as the notification icon which is around 28dp and then position it at the top right corner of the screen.
+They have to again familiarize themselves to the new design so that they could remember it and navigate through the user interface faster.
+As you saw in the documentation
+
+Familiarity to users
+Consistency in design
+
+Users are not comfortable with design changes as in general, because
+
+Most of them do not even care about the design they just have to do what they have to do.
+Also If you are showing menu icons in Toolbar, then you need to define a Toolbar in the Activity's UI to show these menu items else it doesn't matter what you inflate it won't be visible on screen.
+The pending intent of the notification should look like this:
+if you only want to launch an activity from your own app you can use the technique details here: https://developer.android.com/develop/ui/views/notifications/navigation.
+This worked for me:
+Create a style resource file with v27 configuration for the activities you want in fullscreen and without cutout:
+
+And assign the style to your activity in the manifest:
+
+Link: https://developer.android.com/guide/topics/display-cutout
+If you have an action/app bar, you'll have to add the toolbar to your activity and not use the default one.
+Android 10 (API level 29) and higher place restrictions on when apps can start activities when the app is running in the background.
+For the purposes of starting activities, an app running a foreground service is still considered to be "in the background"
+
+Alternatives to display activity
+Apps that are in the background should display time-sensitive notifications to provide urgent information to the user instead of directly starting an activity.

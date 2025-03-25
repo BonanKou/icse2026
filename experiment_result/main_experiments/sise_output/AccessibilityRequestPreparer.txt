@@ -1,0 +1,52 @@
+0&quot;
+
+  INST_DN=&quot;sendevent $INPUT_DEVICE 1 $VOLUME_DOWN 1 &amp;&amp; $BLANK_EVENT &amp;&amp; sendevent $INPUT_DEVICE 1 $VOLUME_UP 1 &amp;&amp; $BLANK_EVENT&quot;
+  INST_UP=&quot;sendevent $INPUT_DEVICE 1 $VOLUME_DOWN 0 &amp;&amp; $BLANK_EVENT &amp;&amp; sendevent $INPUT_DEVICE 1 $VOLUME_UP 0 &amp;&amp; $BLANK_EVENT&quot;
+  adb shell &quot;$INST_DN&quot;
+  sleep 3
+  adb shell &quot;$INST_UP&quot;
+
+I already have a script for toggling accessibility on/off, so I just tacked this on top of that and I get my service running every time.
+EDIT 2
+
+This is problematic as the gestures can be modified and then my system will not behave as expected.
+This has to be done manually each time accessibility is toggled or through accessibility shortcuts - of which there can be only one.
+In onAccessibilityEvent you can capture this event as following
+if(accessibilityEvent.getEventType() == AccessibilityEvent.TYPE_ANNOUNCEMENT) {
+accessibilityEvent.getContentDescription()//to get content description and then you can parse data out of this string to perform some specific action based on that data}
+
+
+accessibility focus has to be determined by the accessibility service, and just like announcements this creates an inconsistency in experience.
+Instead I should be able to call the particular action I want to do NAVIGATE TO NEXT ELEMENT or NAVIGATE TO PREVIOUS ELEMENT as opposed to &quot;SWIPE RIGHT&quot; and &quot;SWIPE LEFT&quot; - having read the WCAG guidelines I do not believe that this is violating the principles.
+
+note that Google is filtering apps which have such big privileges and won't let your app to Play Store if it will be using AccessibilityService to such &quot;trivial&quot; operation (isn't very helpful, for sure isn't accessibility-kind-of)
+
+You can show a popup using window manager that shows the credentials suggestions list, user can select one and you can write the same in the selected field through accessibility power.
+
+You will need to write an Android app that has an AccessibilityService and bulk install it on the devices (via adb or any other means).
+Pros
+
+In service_config.xml:
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;accessibility-service
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:description=&quot;@string/accessibility_service_description&quot;
+    android:accessibilityEventTypes=&quot;typeAllMask&quot;
+    android:accessibilityFlags=&quot;flagReportViewIds|flagDefault|flagRequestFilterKeyEvents|flagRetrieveInteractiveWindows|flagEnableAccessibilityVolume&quot;
+    android:canRetrieveWindowContent=&quot;true&quot;
+    android:canRequestTouchExplorationMode=&quot;true&quot;
+    android:accessibilityFeedbackType=&quot;feedbackGeneric&quot;
+    android:canPerformGestures=&quot;true&quot;
+    android:canRequestFilterKeyEvents=&quot;true&quot;
+    android:notificationTimeout=&quot;0&quot;
+    /&gt;
+
+Now the Accessibility Service is set up, and can be called whenever we want to get the view hierarchy.
+method is automatically called, so we can call our service from it instance and get the views like:
+BasicAccessibilityService.getInstance().getRootInActiveWindow()
+
+
+You can change the code [MetaData(&quot;android.accessibilityservice.AccessibilityService&quot;, Resource = &quot;@xml/accessibility_service_config&quot;)] to the [MetaData(&quot;android.accessibilityservice&quot;, Resource = &quot;@xml/accessibility_service_config&quot;)].
+My full code is available on GitHub.
+As far as I am aware, a developer cannot perform an accessibility action via ADB, they would have to create an Accessibility service in order to act on behalf of an Accessibility user and create a Broadcast Receiver so that it can take input via the ADB.
+I later figured out that the better way of implementing what I'm trying to accomplish is to use AccessibilityService.

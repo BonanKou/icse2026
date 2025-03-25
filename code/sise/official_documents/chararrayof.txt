@@ -1,0 +1,12 @@
+charArrayOf
+CommonJSJVMNativeWasm-JSWasm-WASI
+
+
+fun charArrayOf(vararg elements: Char): CharArray(source)
+Returns an array containing the specified characters.
+
+Since Kotlin
+1.0
+
+
+

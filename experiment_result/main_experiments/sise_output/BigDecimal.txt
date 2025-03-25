@@ -1,0 +1,51 @@
+Decimal division versus Integer division are very likely to have large swings in output values.
+
+However, just as you can't store 1/3 as a decimal fraction (it's 0.3333333333…, but any finite number of digits will only be an approximation), so you can't store 1/10 as a binary fraction (it's 0.000110011001100…).  
+For example, if you only ever need two decimal places (i.e. the number of paise), then simply store the number of paise as an integer.  
+That uses decimal fractions internally to represent any decimal number exactly, to any precision you need, and you can easily do calculations and other manipulations.
+
+Int division   : 9 / 5 = 1
+Double division: 9 / 5 = 1.8
+
+Integers never store any concept of decimals, in Kotlin the design decision was to use Integer based division following the choices of Java.
+There is no exact double-precision floating point representation for 8875.87 so the rounding has already occurred before you call toBigDecimal.
+To keep the precision, you need to pass the values to the BigDecimal constructor as a string:
+val a = BigDecimal(&quot;8875.87&quot;)
+val b = BigDecimal(&quot;778.55&quot;)
+println(&quot;${a*b}&quot;)
+
+
+This specifically works by outright dropping the decimal rather than applying any rounding
+Would round up:
+Int   : 11 / 4 = 2
+Double: 11 / 4 = 2.75
+
+Would round down:
+
+For example:
+
+decimalFormatter.format(new BigDecimal("9999999999999999"))
+
+
+A double precision floating point number has only around 15-16 decimal digits of precision.
+Throws an exception if this value is not in the range 0..9.
+
+
+If this value is in 0..9, the decimal digit Char with code '0'.code + this is returned.
+
+Example
+println(5.digitToChar())
+The best alternative is usually BigDecimal which can store and calculate decimal fractions to an arbitrary precision.  
+There is no double precision floating point number exactly equal to 9999999999999999, so it is rounded to the closest one - which happens to be 1016.
+
+As a note, Double is limited to 16 significant digits for precision
+
+You can use the editor suggestion for larger based numbers
+
+Most of the questions about floating-point on this site seem to be for the latter cases, unfortunately…)
+Kotlin has lots of extensions making it almost as easy to handle BigDecimals as the native types. 
+The code is here:
+https://github.com/kendy/Kotlin-Native-BigDecimal/
+Please see the README.md on how to build it, and how to use it.
+It has the same API as the Java BigDecimal, so you can use the expect/
+we see that the max decimal digits of a floating point, 32 bit number is 7 digits.

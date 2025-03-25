@@ -1,0 +1,36 @@
+If an app also has its own concept of "internal notification settings", that would control when the app actually invokes NotificationManager.
+The OS then applies system rules for how they should be handled, such as those configured by the user via the system Settings app.
+For example, if you want to know if the user clicked the message, you can add that code to the OnClickListener.
+General app notifications do not show up, which means you need to display any kind of notification within your own app UI and not with the regular NotificationManager and related APIs.
+Possible way to find out whether the user has seen/interacted with notification or not
+
+Since you'll have to display it in your own UI, you can use regular View methods.
+This should be handled within app UI.
+Your UI needs to be told if there's a relevant notification to display within the app, but the details of that depend on your app architecture.
+Builder setup?
+
+Notification must be assigned to Channels in Android 8.0 (API level 26).
+As a test can you add this code before the NotificationCompat.
+In your scenario, you'll need to use addNotificationReceivedListener, this listener will be triggered after the user clicks on the notification, inside that listener you can access the notification response data and navigate to another screen.
+The only approach I can think of is taking full control of the display of the messages in your own application code, by using data messages instead of notification messages.
+From within your application code, you can then use the Android notification API to build the exact display of the message that you want, and display it exactly when you want it (within the notification settings of the user of course).
+Notifications messages are automatically handled/displayed by the OS when your app is not active, while data messages are always delivered to your application code.
+Add the support library
+Although most projects created with Android Studio include the necessary dependencies to use NotificationCompat, you should verify that your module-level build.gradle file includes the following dependency:
+dependencies {
+implementation "com.android.support:support-c
+compat:28.0.0"
+}
+You can see more info here:
+These APIs allow you to add features available only on newer versions of Android while still providing compatibility back to Android 4.0 (API level 14).
+From Android 8.0 if you want to show a notification, you should associate it to a Notification Channel.
+First you should create a new notification Channel then show your notification.
+In this case you don't have to store any value on Preferences and you don't need a route activity.
+How can I create the foreground notification only once or at least how not to play notification sound on successive startForegroundService() calls?
+You need to have a reference to the notification PendingIntent and notificationId.
+how can I go back to my application when I click the foreground notification?
+Another way to do this is to update the notification PendingIntent if it's already visible with the last activity shown.
+You can check if the notification is already visible and show it only if it's not visible.
+In that worker, if you got new feeds you can show local notifications to the user.
+1- If your implementation can be handled in local, you can use Notification Manager for this, not remote push notifications.
+If you want to have more control over your notification system and dynamically manage your remote notifications, you can make it via Firebase Admin SDK.

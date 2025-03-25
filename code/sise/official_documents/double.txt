@@ -1,0 +1,163 @@
+Double
+CommonJSJVMNativeWasm-JSWasm-WASI
+
+
+class Double : Number, Comparable<Double> (source)
+Represents a double-precision 64-bit IEEE 754 floating point number. On the JVM, non-nullable values of this type are represented as values of the primitive type double.
+
+Since Kotlin
+1.0
+
+
+
+MembersMembers & Extensions
+Types
+Companion
+CommonJSJVMNativeWasm-JSWasm-WASI
+object Companion
+Since Kotlin 1.0
+Functions
+compareTo
+CommonJSJVMNativeWasm-JSWasm-WASI
+operator fun compareTo(other: Byte): Int
+open operator override fun compareTo(other: Double): Int
+operator fun compareTo(other: Float): Int
+operator fun compareTo(other: Int): Int
+operator fun compareTo(other: Long): Int
+operator fun compareTo(other: Short): Int
+Compares this value with the specified value for order. Returns zero if this value is equal to the specified other value, a negative number if it's less than other, or a positive number if it's greater than other.
+
+Since Kotlin 1.0
+dec
+CommonJSJVMNativeWasm-JSWasm-WASI
+operator fun dec(): Double
+Returns this value decremented by one.
+
+Since Kotlin 1.0
+div
+CommonJSJVMNativeWasm-JSWasm-WASI
+operator fun div(other: Byte): Double
+operator fun div(other: Double): Double
+operator fun div(other: Float): Double
+operator fun div(other: Int): Double
+operator fun div(other: Long): Double
+operator fun div(other: Short): Double
+Divides this value by the other value.
+
+Since Kotlin 1.0
+equals
+CommonJSJVMNativeWasm-JSWasm-WASI
+open operator override fun equals(other: Any?): Boolean
+Since Kotlin 1.0
+hashCode
+CommonJSNativeWasm-JSWasm-WASI
+expect open override fun hashCode(): Int
+Since Kotlin 1.0
+inc
+CommonJSJVMNativeWasm-JSWasm-WASI
+operator fun inc(): Double
+Returns this value incremented by one.
+
+Since Kotlin 1.0
+minus
+CommonJSJVMNativeWasm-JSWasm-WASI
+operator fun minus(other: Byte): Double
+operator fun minus(other: Double): Double
+operator fun minus(other: Float): Double
+operator fun minus(other: Int): Double
+operator fun minus(other: Long): Double
+operator fun minus(other: Short): Double
+Subtracts the other value from this value.
+
+Since Kotlin 1.0
+plus
+CommonJSJVMNativeWasm-JSWasm-WASI
+operator fun plus(other: Byte): Double
+operator fun plus(other: Double): Double
+operator fun plus(other: Float): Double
+operator fun plus(other: Int): Double
+operator fun plus(other: Long): Double
+operator fun plus(other: Short): Double
+Adds the other value to this value.
+
+Since Kotlin 1.0
+rem
+CommonJSJVMNativeWasm-JSWasm-WASI
+operator fun rem(other: Byte): Double
+operator fun rem(other: Double): Double
+operator fun rem(other: Float): Double
+operator fun rem(other: Int): Double
+operator fun rem(other: Long): Double
+operator fun rem(other: Short): Double
+Calculates the remainder of truncating division of this value (dividend) by the other value (divisor).
+
+Since Kotlin 1.1
+times
+CommonJSJVMNativeWasm-JSWasm-WASI
+operator fun times(other: Byte): Double
+operator fun times(other: Double): Double
+operator fun times(other: Float): Double
+operator fun times(other: Int): Double
+operator fun times(other: Long): Double
+operator fun times(other: Short): Double
+Multiplies this value by the other value.
+
+Since Kotlin 1.0
+toByte
+CommonJSJVMNativeWasm-JSWasm-WASI
+open override fun toByte(): Byte
+Converts this Double value to Byte.
+
+Since Kotlin 1.0
+toChar
+CommonJSJVMNativeWasm-JSWasm-WASI
+open override fun toChar(): Char
+Converts this Double value to Char.
+
+Since Kotlin 1.0
+toDouble
+CommonJSJVMNativeWasm-JSWasm-WASI
+open override fun toDouble(): Double
+Returns this value.
+
+Since Kotlin 1.0
+toFloat
+CommonJSJVMNativeWasm-JSWasm-WASI
+open override fun toFloat(): Float
+Converts this Double value to Float.
+
+Since Kotlin 1.0
+toInt
+CommonJSJVMNativeWasm-JSWasm-WASI
+open override fun toInt(): Int
+Converts this Double value to Int.
+
+Since Kotlin 1.0
+toLong
+CommonJSJVMNativeWasm-JSWasm-WASI
+open override fun toLong(): Long
+Converts this Double value to Long.
+
+Since Kotlin 1.0
+toShort
+CommonJSJVMNativeWasm-JSWasm-WASI
+open override fun toShort(): Short
+Converts this Double value to Short.
+
+Since Kotlin 1.0
+toString
+CommonJSJVMNativeWasm-JSWasm-WASI
+open override fun toString(): String
+Since Kotlin 1.0
+unaryMinus
+CommonJSJVMNativeWasm-JSWasm-WASI
+operator fun unaryMinus(): Double
+Returns the negative of this value.
+
+Since Kotlin 1.0
+unaryPlus
+CommonJSJVMNativeWasm-JSWasm-WASI
+operator fun unaryPlus(): Double
+Returns this value.
+
+Since Kotlin 1.0

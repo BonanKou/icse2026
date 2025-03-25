@@ -1,0 +1,115 @@
+Android Developers
+Develop
+API reference
+Was this helpful?
+
+
+
+Added in API level 1
+Deprecated in API level 29
+CheckBoxPreference
+
+bookmark_border
+Kotlin |Java
+public class CheckBoxPreference
+extends TwoStatePreference
+
+java.lang.Object
+   ↳	android.preference.Preference
+ 	   ↳	android.preference.TwoStatePreference
+ 	 	   ↳	android.preference.CheckBoxPreference
+
+
+This class was deprecated in API level 29.
+Use the AndroidX Preference Library for consistent behavior across all devices. For more information on using the AndroidX Preference Library see Settings.
+
+A Preference that provides checkbox widget functionality.
+
+This preference will store a boolean into the SharedPreferences.
+
+Summary
+XML attributes
+android:disableDependentsState	The state (true for on, or false for off) that causes dependents to be disabled. 
+android:summaryOff	The summary for the Preference in a PreferenceActivity screen when the CheckBoxPreference is unchecked. 
+android:summaryOn	The summary for the Preference in a PreferenceActivity screen when the CheckBoxPreference is checked. 
+Inherited XML attributes
+From class android.preference.Preference
+Inherited constants
+From class android.preference.Preference
+Public constructors
+CheckBoxPreference(Context context)
+CheckBoxPreference(Context context, AttributeSet attrs)
+CheckBoxPreference(Context context, AttributeSet attrs, int defStyleAttr)
+CheckBoxPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
+Protected methods
+void	onBindView(View view)
+Binds the created View to the data for this Preference.
+
+Inherited methods
+From class android.preference.TwoStatePreference
+From class android.preference.Preference
+From class java.lang.Object
+From interface java.lang.Comparable
+XML attributes
+android:disableDependentsState
+The state (true for on, or false for off) that causes dependents to be disabled. By default, dependents will be disabled when this is unchecked, so the value of this preference is false.
+
+May be a boolean value, such as "true" or "false".
+
+android:summaryOff
+The summary for the Preference in a PreferenceActivity screen when the CheckBoxPreference is unchecked. If separate on/off summaries are not needed, the summary attribute can be used instead.
+
+May be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character;
+
+android:summaryOn
+The summary for the Preference in a PreferenceActivity screen when the CheckBoxPreference is checked. If separate on/off summaries are not needed, the summary attribute can be used instead.
+
+May be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character;
+
+Public constructors
+CheckBoxPreference
+Added in API level 1
+public CheckBoxPreference (Context context)
+Parameters
+context	Context
+CheckBoxPreference
+Added in API level 1
+public CheckBoxPreference (Context context, 
+                AttributeSet attrs)
+Parameters
+context	Context
+attrs	AttributeSet
+CheckBoxPreference
+Added in API level 1
+public CheckBoxPreference (Context context, 
+                AttributeSet attrs, 
+                int defStyleAttr)
+Parameters
+context	Context
+attrs	AttributeSet
+defStyleAttr	int
+CheckBoxPreference
+Added in API level 21
+public CheckBoxPreference (Context context, 
+                AttributeSet attrs, 
+                int defStyleAttr, 
+                int defStyleRes)
+Parameters
+context	Context
+attrs	AttributeSet
+defStyleAttr	int
+defStyleRes	int
+Protected methods
+onBindView
+Added in API level 1
+
+protected void onBindView (View view)
+Binds the created View to the data for this Preference.
+
+This is a good place to grab references to custom Views in the layout and set properties on them.
+
+Make sure to call through to the superclass's implementation.
+If you override this method you must call through to the superclass implementation.
+
+Parameters
+view	View: The View that shows this Preference.

@@ -1,0 +1,18 @@
+Simplest way would be to use tf.data.
+= class1_dataset.skip(class1_test_samples_len)
+
+print('Train Class 0 = ', len(list(class0_train)), ' Class 1 = ', len(list(class1_train)))
+
+The best solution for your case is to use tf.data.
+print('Test Class 0 = ', len(list(class0_test)), ' Class 1 = ', len(list(class1_test)))
+
+
+print('Test dataset size = ', len(list(test_dataset)))
+
+# Gather datasets
+train_dataset = class0_train.concatenate(class1_train).shuffle(DATA_SIZE)
+test_dataset = class0_test.concatenate(class1_test).shuffle(DATA_SIZE)
+
+print('Train dataset size = ', len(list(train_dataset)))
+
+If you want to save intermediate results to speed up your data pipeline you can use tf.data.

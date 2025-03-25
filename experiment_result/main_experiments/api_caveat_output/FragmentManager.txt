@@ -1,0 +1,50 @@
+And if you can avoid passing something to Fragment's constructor while using FragmentStateAdapter, avoid it.
+But I have to admit that this is not a clear solution.
+So, it's better to use FragmentStateAdapter with ViewPager2.
+So in this case you don't need to pass something in to fragment's constructor but also can avoid creating Bundles.
+The only solution I found is to use FragmentManager.
+I couldn't find any proper solution in case if you need to pass something into  Fragment's constructor with ViewPager2 because it ignores FragmentFactory.
+You can set callbacks or whatever you want to your fragment after its (re)creation.
+If you could change your content of UI, it's a better way.
+Ultimately, if the FragmentManager desires to destroy your Fragment, it's probably because it found no reason to keep it around (you could, keep a hard reference and deal with all that memory wasted... which is why I suggest you keep the "state" outside of the Fragment instead, because creating a fragment is not that expensive, if the fragment doesn't contain 2000 lines of code in onCreate...) :)
+Now, I haven't also seen how you "navigate" and how you "go back", so you'll have to test this yourself.
+It's unclear why you need to retain an instance in memory of a Fragment that is no longer visible; presumably it's expensive to recreate it so you want to save it.
+You should check documentation to know more .
+Fragment lifecycle is dependent on Activity life cycle, if an Activity is dead so the fragments are.
+So what I want to know is that if we finish or kill the Activity in which the fragment exists, how will it effect the fragment?
+If you kill/finish an Activity fragments will also be destroyed
+NOTE:
+If base is destroyed then other stories are not supposed to be stable.
+Also from Fragment's documentation,
+
+
+Your activity must extend FragmentActivity
+You must call FragmentActivity.getSupportFragmentManager() to get the    FragmentManager
+Your activity must extend androidx.fragment.app.
+Do not touch the FragmentManager yourself when using the Navigation library.
+FragmentTransaction#commitAllowingStateLoss to ignore the warning , but this state will not be restored when the Activity is recreated.)
+Means should not be operated the fragmentManger after leaving the current Activity.
+It usually appears when the Activity goes into the onStop state.
+This is actually silently causing issues for you when you use the <fragment> tag as those lifecycle events don't actually occur as a transaction, but directly as part of inflation.
+You should always, always use childFragmentManager when nesting fragments - the childFragmentManager is never executing transactions when its parent is going through lifecycle changes (which I assume is when you're calling your transaction).
+When you inflate your row you pass false into the inflate function's attachToRoot, so as the FragmentContainerView is not attached to a parent when it is initialised, it has to use the highest level fragment manager - from the activity.
+If I had to take a guess of why this is, it would probably be in onCreateViewHolder.
+After some debugging in FragmentContainerView itself, I have hopefully found all the cases of the FragmentManager used whilst adding a fragment via the android:name attribute.
+But that you might need to do everytime.
+You need to have your xml file for activity and use setcontent view.
+Here your activity should extend FragmentActivity or any activity classes extending FragmentActivity.
+The most important thing is your composable's direct parent should be fragment instead of activity.
+If you have single activity app architecture and all other are compose UI.
+You might need to create layout resource folder and layout file if not present.
+If the signin/signup screen where you are using msal is separate activity and for core features you have other activity , you can integrate fragment only to activity where msal is being used.
+You might need to do little more work to adapt fragment in compose app.
+Because legacy apps using xml must have support to gradual migration from fragment architecture to compose ui.
+No need to inflate.
+Have to wait for update regarding that.
+If you still want to hide the activity toolbar on collapse of your fragments CoordinatorLayout you could look into the the solution provided here and using that access your activities toolbar programmatically and change it's visibility.
+As for the solution, consider setting arguments for your fragment before adding it to your transaction like here:
+
+Then in your onCreateView() or onViewCreated() methods of your fragment restore the arguments like here and set the image resource:
+The issue with your code is that you are accessing getView() of your fragment before the fragment has gone through the initialization of the view.
+The reason why you don't have the crash when you execute the transaction in your activity's onCreate() method is that by the time you click on a button your fragment has already gone through onCreateView() and initialized its view.
+Check out fragment lifecycle guide and bear in mind that you should not access your fragment view before it was created or after it was destroyed.

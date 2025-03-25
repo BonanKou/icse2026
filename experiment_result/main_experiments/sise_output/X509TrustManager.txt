@@ -1,0 +1,66 @@
+If it is already a valid cert, make sure to provide the &quot;certificate chain&quot; when configuring the server, not just the bare server certificate.
+If you didn't intend to use a typical &quot;browser-trusted CA,&quot; you can sign the certificate with your own CA and use that CA's certificate as a trust source:
+ChannelCredentials certs = TlsChannelCredentials.newBuilder()
+    // Could also be a server's self-signed cert
+    
+So a trust store contains the trust anchors for that to happen: if a valid trust path can be build to a trust anchor in the trust store then the certificate is deemed valid and - after some additional checks of e.g. the server name - the private key can be used by the server to indicate that it is the server named within the server certificate.
+Great, so what kind of security needs to be present on your trust store?
+Preferably, a private key should not be distributed that way.
+In simple terms, a party (client or server) will trust another party (server or client) if the other party’s certificate chain as provided on the wire can be traced back (recursively via signers) to the CACERTS stored in the original party’s JRE.
+Either you can add the certificates require to validate the server identity in the default java truststore i.e cacerts or you can set the application environment to use different truststore as mentioned below.
+@Configuration
+public class TrustStoreConfig {
+
+    @Value(&quot;${trust-store}&quot;)
+    private Resource trustStore;
+
+    @Value(&quot;${trust-store-password}&quot;)
+    private String trustStorePassword;
+
+    @PostConstruct
+    public void init() throws IOException {
+        System.setProperty(&quot;javax.net.ssl.trustStore&quot;, trustStore.getFile().getPath());
+        System.setProperty(&quot;javax.net.ssl.trustStorePassword&quot;, trustStorePassword);
+    }
+
+}
+
+application.properties
+trust-store=classpath:certificates.p12  
+trust-store-password=password
+
+
+In fact, the certificate is not actually trusted (unless you enter it &quot;manually&quot; in the trust store).
+
+sslContext = SSLContext.getInstance(&quot;TLS&quot;);
+        sslContext.init(null, trustManagers, null);
+
+
+This is default behavior when your make use of self signed certificate in server machine.
+&quot;I want to avoid adding the .p12 certificate to the truststore.&quot;
+That said, the stricter the security of the service that contains the trust store, the better.
+I was kind of afraid that the P12 would not just be a trust store but also a key store containing a private key.
+The error was: &quot;PKIX path building failed&quot;.
+
+It is likely that they are problems related to a misconfiguration.
+
+The sample app comes with a pre-configured list of trusted roots (EU LOTL).
+
+.trustManager(new File(&quot;path/to/ca.pem&quot;))
+    
+The other thing is that the trust store should not be altered in traffic.
+.build();
+NettyChannelBuilder.forTarget(&quot;host:443&quot;, certs)
+    
+{
+        X509Certificate certificate = (X509Certificate) certificateFactory.generateCertificate(certificateInputStream);
+
+        // Create a TrustManager that trusts only the specified certificate
+        trustManagers = new TrustManager
+If you want to specifically use Java SSLContext, you can use a custom TrustManager that directly trusts the specified certificate.
+public static TrustManager[] getTrustManagers(String certificateFilePath) throws Exception {
+    // Load the certificate
+    CertificateFactory certificateFactory = CertificateFactory.getInstance(&quot;X.509&quot;);
+    TrustManager[] trustManagers;
+    
+    try (InputStream certificateInputStream = new FileInputStream(certificateFilePath))

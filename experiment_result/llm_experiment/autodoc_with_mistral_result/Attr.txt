@@ -1,0 +1,34 @@
+ 1. Functionality:
+   - `ObtainStyledAttributes(attrs, R.styleable.CustomView);` is used to retrieve a TypedArray of attribute values from an AttributeSet in Android applications.
+   - Attributes can be retrieved using the `get*` methods like `getDimensionPixelSize`, `getColor`, `getString`, etc.
+   - The `setText` method is used to set the text of the custom view.
+   - The `measure` method is used to calculate the desired width and height of the custom view based on the text's dimensions.
+   - The `onDraw` method is used to draw the text on the canvas, using separate Paint objects for fill, white border, and brown border.
+   - The `onMeasure` method is used to instruct the layout manager how to measure the view.
+   - The `dpToPx` method is used to convert Density- Independent Pixel (dp) values to pixels based on the current device's display density.
+   - The post also demonstrates the use of various layout-related constants, such as `MeasureSpec.EXACTLY`, `MeasureSpec.AT_MOST`, and the `desiredWidth` and `desiredHeight` variables to manage the view's size.
+
+2. Concept:
+   - An Attribute Set (Attr) represents the attributes that a custom view accepts or the properties that can be configured for a custom view in an XML file.
+   - The `attrs.xml` file is used to define attributes for a custom view, and it's located in the `res/values` directory.
+   - Custom attributes are defined in the `declare-styleable` tag within the `attrs.xml` file, and they can have different data types, such as `boolean`, `dimension`, `string`, etc.
+   - When creating a custom view, it should extend the base view class and implement the required methods to handle the attributes.
+   - The `Theme` class is used to access the custom attributes, and the `obtainStyledAttributes()` method can be used to retrieve the attribute values.
+
+3. Performance:
+   - No specific performance information on the Attr API can be inferred from the post.
+
+4. Directive:
+   - Custom attributes should be defined in the `attrs.xml` file, not directly in the layout XML file.
+   - To use custom attributes in the custom view class, obtain a `TypedArray` object using `obtainStyledAttributes()` and retrieve the attribute values using appropriate `get*` methods.
+   - When defining attributes in the `attrs.xml` file, the data type of the attribute should be specified using the appropriate format, such as `integer`, `color`, `dimension`, ` boolean`, `string`, or `reference`.
+   - To change attributes programmatically, create setter methods for the attributes, and modify them as needed.
+
+5. Pattern:
+   - Creating custom views with configurable properties using the Attr API is a common pattern in Android development.
+
+6. Environment:
+   - The Attr API is part of the Android SDK and is used in the context of Android application development with Android Studio.
+
+7. Alternative:
+   - There are no mentioned alternatives to the Attr API in this post. However, in Android development, other mechanisms can be used to handle attributes, such as direct access to view properties in Java or using custom annotations.

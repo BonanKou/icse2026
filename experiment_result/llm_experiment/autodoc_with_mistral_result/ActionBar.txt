@@ -1,0 +1,35 @@
+ summary:
+
+**Functionality**
+
+1. ActionBar provides a callback object `ActionMode.Callback` and can start this callback object using `startActionMode(ActionMode.Callback)`.
+2. ActionBar provides a consistent navigation bar, making important actions accessible, supporting navigation and view switching within apps, reducing clutter, and providing a dedicated space for app identity.
+
+**Concept**
+
+1. A salient feature of a mobile application, ActionBar is present at the top of each activity screen and has a consistent presence across activities.
+2. Toolbar is a View that can be placed in any activity layout, making it easier to position, animate, and control compared to ActionBar. Multiple distinct Toolbar elements can be defined within a single activity.
+
+**Performance**
+
+1. No performance knowledge regarding ActionBar or Toolbar specifics was found.
+
+**Directive**
+
+1. Use `ActionMode.Callback` outside of a `ClickListener` and call the `startActionMode(ActionMode.Callback)` method within the ClickListener.
+2. For more information on using ActionBar, consult the official documentation: [Action Bar](https://developer.android.com/guide/topics/ui/menus.html#CAB)
+3. To display the ActionBar with no ActionBar or Toolbar theme, create a View in the activity layout, customize it to act as a notification icon, and position it at the top right corner of the screen.
+4. If using a custom Toolbar, remember to set the menu item and use `showAsAction="always"` to ensure the icon is always visible. (You can refer to this link for more information on creating a Toolbar: [CodingInFlow Toolbar Tutorial](https://codinginflow.com/tutorials/android/toolbar))
+5. When using the action bar theme, create a menu file with at least one item, inflate the menu in the `onCreateOptionsMenu` method when the ActionBar theme is in effect.
+
+**Pattern**
+
+1. Use cases of ActionBar may include making important actions accessible, supporting navigation and view switching, reducing clutter, and providing a dedicated space for app identity.
+
+**Environment**
+
+1. ActionBar requires an Android application context. There may be system requirements and specific configurations necessary, though these were not mentioned explicitly in the provided post.
+
+**Alternative**
+
+1. An alternative to ActionBar is Toolbar, which offers more flexibility in design and functionality, such as adding background images, animations, and custom views, while still preserving similar benefits of ActionBar like making important actions accessible, supporting navigation and view switching, and reducing clutter.

@@ -1,0 +1,33 @@
+- SAXParser can be used to count nested start and end tags.
+- SAXParser allows you to abort the parsing process when the final end tag is notified.
+- SAXParser can be implemented as a SAX filter to pass XML content to another process (e.g., JAXB) while suppressing errors from unwanted content following the XML.. Knowledge type: functionality
+SAXParser.getXMLReader().setContentHandler() is used to insert a custom ContentHandler.. Knowledge type: functionality
+- SAXParser allows you to count nested start and end tags.
+- You can abort parsing with SAXParser when the final end tag is notified.
+- Implementing an application as a SAX filter allows passing data to processes like JAXB while suppressing errors from unwanted content following the XML.. Knowledge type: concept
+1. SAX (Simple API for XML) is an event-driven online algorithm for parsing XML documents.
+2. SAXParser operates as an alternative to the Document Object Model (DOM).
+3. SAXParser provides a mechanism for reading data from an XML document by operating on each piece of the XML document sequentially.
+4. SAXParser issues parsing events while making a single pass through the input stream.
+5. SAXParser is useful when you want to avoid holding the whole XML file in memory, allowing you to hold only a small portion of the XML document in memory at a time.. Knowledge type: concept
+1. `SAXParser.parse()` only accepts a `DefaultHandler`.
+2. To use a custom `ContentHandler` with `SAXParser`, you need to use `SAXParser.getXMLReader().setContentHandler()`.
+3. The `SAXParserFactory` is used to create a `SAXParser` instance.
+4. `SAXParserFactory.setNamespaceAware(true)` allows the parser to support XML namespaces.
+5. `SAXParser.getXMLReader()` provides access to the `XMLReader` which is used to set a custom `ContentHandler`.
+6. Event-driven callbacks in SAX, such as `startElement`, `endElement`, and `characters`, handle different parts of the XML content.
+7. A `ValidatorHandler` can be used with a SAX parser to validate XML against a schema during parsing.
+8. Custom error handling for XML parsing errors can be implemented by overriding the `error` method in a `DefaultHandler` or `ContentHandler`.. Knowledge type: concept
+You can write a SAX `ContentHandler` that duplicates each event, sending it to two different `ContentHandler`s.. Knowledge type: concept
+- If the problem is related to holding the entire XML file in memory, use a SAX parser instead of a DOM parser, as SAX allows for processing XML without loading the entire document into memory, making it more memory efficient.. Knowledge type: performance
+- SAX is more memory efficient than DOM/XPath.
+- SAX can be complex to set up.. Knowledge type: performance
+- When using a SAXParser, you can count nested start and end tags and abort the parse when the final end tag is notified.
+- Implement your application as a SAX filter to pass everything to the JAXB process and suppress errors from unwanted content following the XML.. Knowledge type: directive
+Using a SAX parser, you can handle XML nested inside larger text by counting nested start and end tags and aborting the parse when the final end tag is reached. This approach allows you to manage unwanted content beyond the XML document effectively.. Knowledge type: pattern
+Using the SAXParser is commonly recommended when the problem is related to holding a large XML file in memory, as SAXParser allows processing the XML document sequentially without needing to load the entire file into memory, unlike DOM parsers.. Knowledge type: pattern
+
+- SAXParser's `parse()` method only accepts a `DefaultHandler`. To use a custom `ContentHandler`, you must obtain the `XMLReader` from the SAXParser using `saxParser.getXMLReader()` and then set the custom `ContentHandler` with `xmlReader.setContentHandler(customHandler)`. 
+- This pattern allows developers to implement custom parsing logic by extending `DefaultHandler` and overriding methods to handle specific XML parsing events, such as `startElement`, `endElement`, and `characters`.
+- The example demonstrates integrating a custom `ContentHandler` with a `ValidatorHandler` for XML schema validation, which allows handling validation errors and dynamically adjusting XML content based on validation constraints like `maxLength`.. Knowledge type: pattern
+Alternatives to SAXParser include XPath and StAX. XPath is simpler to use if the XML document fits in RAM, while StAX offers a combination of streaming-based parsing performance and pull parsing usability for large XML files.. Knowledge type: alternative

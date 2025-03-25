@@ -1,0 +1,31 @@
+
+
+Here is the comprehensive and accurate list of knowledge snippets regarding NotificationManager, categorized into seven types of knowledge:
+
+**Functionality**
+
+1. The NotificationManager API is used by Android apps to create and send notifications to the OS.
+2. NotificationManager cannot be used to display notifications to users in Android TV OS because it is limited to system-level notifications.
+3. The proper method to implement Android TV notifications is to handle them within the app UI.
+4. To find out whether the user has seen/interacted with a notification, regular View methods can be used, such as adding an OnClickListener to handle user clicks.
+5. Handling a list of notification messages can be done using a local database, such as SQLite with Room, along with a server endpoint that understands the state of notifications for a given user.
+6. The NotificationManager API allows the creation of NotificationChannels in Android 8.0 (API level 26) and assigning Notifications to these Channels.
+7. The `addNotificationReceivedListener` function is used to track when the user clicks on a notification.
+8. The NotificationManager API does not provide a direct way to open the notification settings.
+9. The NotificationManager API allows developers to display notifications to users in their Android applications.
+10. To show a notification in Android 8.0 and above, a Notification Channel needs to be associated with the notification.
+11. The creation of a new notification Channel is a prerequisite for showing notifications in Android.
+12. To check if a notification with a specific PendingIntent and notificationId is already visible, a custom function can be used.
+13. To open the app or a specific activity from a notification, a PendingIntent is required.
+14. To route the notification to a routing activity and start the right activity according to the preference value, a custom implementation can be used.
+
+**Concept**
+
+1. The NotificationManager API is used by Android developers to manage and display notifications within their applications, not to directly open the notification settings.
+2. Notification priority does not affect visibility of notifications on Android TV OS and should not be used.
+3. To implement Android TV notifications, they should be handled within the app UI.
+4. The NotificationManager API requires setting up a notification channel before adding a notification to it.
+5. The NotificationChannel is a class that represents a channel to which notifications can be assigned.
+6. The NotificationChannel's importance level determines how it is handled by the notification system.
+7. Firebase Cloud Messaging (FCM) has two message types: notification messages and data messages.
+8

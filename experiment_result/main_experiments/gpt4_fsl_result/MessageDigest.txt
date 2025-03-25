@@ -1,0 +1,56 @@
+# MessageDigest API Knowledge Document
+
+## Functionality
+- `MessageDigest` is used to provide the functionality of cryptographic hash functions such as MD5, SHA-1, or SHA-256.
+- The `getInstance(String algorithm)` method returns a `MessageDigest` object that implements the specified algorithm.
+- The `digest()` method computes the hash of the data and returns the result as a byte array.
+- The `update(byte[] input)` method updates the digest using the specified byte array input.
+- The `reset()` method resets the `MessageDigest` object for further use.
+- By calling `digest(byte[] input)`, you can update the digest using the specified byte array and then complete the hash computation.
+
+## Concept
+- A `MessageDigest` object starts with an initial state and processes data chunks to compute a hash value.
+- Hash functions are deterministic and produce a fixed-size hash value unique to the input data.
+- `MessageDigest` implementations are thread-safe; multiple threads can safely share a single `MessageDigest` instance if each thread operates on a unique instance.
+- Common algorithms supported by `MessageDigest` include MD5, SHA-1, and SHA-256, each with differing levels of security and output size.
+- An `AlgorithmParameterException` is thrown if an invalid hash algorithm is specified to the `getInstance` method.
+- The `digest()` method can be called without prior `update()`, providing the hash of zero bytes.
+
+## Performance
+- The complexity of hashing operations depends on the algorithm, with more secure algorithms like SHA-256 generally being slower than less secure ones like MD5.
+- The memory footprint of a `MessageDigest` instance is minimal; the most significant resource usage comes from the size of the input data being hashed.
+- Repeated use of `reset()` and `update()` on a single `MessageDigest` instance can be more efficient than creating new instances for multiple hashes.
+
+## Directive
+- Always ensure the algorithm name passed to `getInstance()` is spelled correctly to avoid `NoSuchAlgorithmException`.
+- Avoid using outdated algorithms like MD5 and SHA-1 for security-sensitive applications due to known vulnerabilities.
+- Use SHA-256 or stronger hashing functions for new applications requiring cryptographic security.
+- Do not reuse a single `MessageDigest` instance across threads without proper synchronization.
+- To hash a stream of data, repeatedly call `update()` with chunks of data and call `digest()` only once at the end.
+
+## Pattern
+- To compute a hash of simple data, use: 
+  ```java
+  MessageDigest md = MessageDigest.getInstance("SHA-256");
+  byte[] hash = md.digest(data);
+  ```
+- To hash streaming data, use:
+  ```java
+  MessageDigest md = MessageDigest.getInstance("SHA-256");
+  while ((bytesRead = inputStream.read(buffer)) != -1) {
+      md.update(buffer, 0, bytesRead);
+  }
+  byte[] hash = md.digest();
+  ```
+- To verify data integrity, compare the computed hash with a known hash value.
+- In applications like digital signatures, use `MessageDigest` in conjunction with other APIs like `Signature` for enhanced security.
+
+## Environment
+- The Java Cryptography Architecture (JCA) must be correctly configured in the Java runtime environment for `MessageDigest` to function.
+- The JRE version must support the desired hash algorithms; for strong cryptographic standards, Java 8 or higher is recommended.
+- If FIPS compliance is required, ensure that the Java runtime environment is configured to operate in FIPS mode.
+
+## Alternative
+- `javax.crypto.Mac` offers message authentication codes, which include a cryptographic hash combined with a secret key for integrity and authenticity.
+- For non-cryptographic checks, `java.util.zip.CRC32` or `Adler32` can be used for checksums, which are faster but less secure.
+- Consider third-party libraries like Bouncy Castle for additional algorithms and configurations not available in the default JDK.

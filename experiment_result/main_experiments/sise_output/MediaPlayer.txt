@@ -1,0 +1,26 @@
+The MediaPlayer class can play audio and video files, and it provides a rich set of features such as seeking, looping, and volume control.
+On iOS, you can use the AVFoundation framework to play sound.
+MediaPlayer has the Equalizer you can refer to Equalizer for MediaPlayer for more information.
+
+Well, Android has this library/class called MediaPlayer:
+https://developer.android.com/guide/topics/media/mediaplayer
+
+-&gt;
+        list?.forEach { mediaController -&gt;
+            val playbackState = mediaController.playbackState
+            if (playbackState?.state == PlaybackState.STATE_PLAYING || 
+                playbackState?.state == PlaybackState.STATE_BUFFERING) {
+                val mediaMetadata = mediaController.metadata
+                // Use the metadata to get information about the currently playing song
+                //
+            }
+        }
+    }
+
+
+On Android, you can use the MediaPlayer class to play sound.
+To determine which MediaController is currently playing when there are multiple active sessions, you can use the MediaController.getPlaybackState() method to get the current playback state of each MediaController.
+mSessionsChangedListener =
+    MediaSessionManager.OnActiveSessionsChangedListener { list: List&lt;MediaController&gt;?
+Try debugging your application by switching to other Media applications (then connect BT) and then check whether the System starts your service or not.
+Also, check https://developer.android.com/guide/topics/media-apps/mediabuttons for more information.

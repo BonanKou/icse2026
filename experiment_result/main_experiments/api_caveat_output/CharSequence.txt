@@ -1,0 +1,34 @@
+You'll have to convert your Char to a String in order to convert it to a Digit.
+UPDATE: If you are using Kotlin 1.5 or higher
+Kotlin 1.5 introduced Char.digitToInt(), which does this conversion for you.
+Before Kotlin 1.5
+
+And you could define an extension function to make this cleaner:
+Otherwise, you will get the integer used to represent the Char internally.
+I use the single quote in string iterator methods to keep it more simple and efficient, rather than having to create new strings each time
+Generally, manual manipulation of strings will be more difficult than the provided APIs
+Realistically, usage of RegEx would be your best friend, but I wanted to keep this code related rather than solving it in that manner.
+With Kotlin >= 1.6:
+
+With Kotlin >= 1.5 but < 1.6:
+
+With Kotlin < 1.5:
+
+The character is converted to a string using "$it" because Char.toInt() would return the ASCII code of the character instead of the value represented by the digit.
+So first of all both the foo calls have been made after concatenation of all the Strings likewise in the above manner, final String is sent as an argument to the println()
+If this value is in 0..9, the decimal digit Char with code '0'.code + this is returned.
+Throws an exception if this value is not in the range 0..9.
+Instead, you have to create a new String, like your second example (which, in fact, creates a new String for each time through the loop).
+So you can use the following method:
+
+Or if you want to have the pattern for a longer time you can use the following method:
+
+If you want to use only Kotlin, you can use the following code:
+
+I found also a nice tutorial with more information about Koltin Regex.
+If you *really keyOf() to be a top-level function in Kotlin, you can define functions for Kotlin-only and Java-only use separately.
+Maybe someone should open an issue on YouTrack for this...
+And perhaps later when the above issue was fixed, they missed unhiding the method.
+You could write an extension function so you can continue to use it:
+
+The error message if you choose an out-of-bounds index will be slightly less informative than the one in the original method.

@@ -1,0 +1,37 @@
+# FragmentTransaction API Knowledge
+
+## Functionality
+- FragmentTransaction is used to perform a set of fragment operations such as add, remove, replace, and attach fragments to a container.
+- FragmentTransaction allows for the execution of multiple fragment operations in a single atomic transaction.
+- FragmentTransaction can be used to add a fragment to a container with the `add()` method.
+- FragmentTransaction can be used to replace an existing fragment with another using the `replace()` method.
+- FragmentTransaction provides the `remove()` method to remove a fragment from the container.
+- FragmentTransaction allows the attachment of a fragment to its activity using the `attach()` method.
+- FragmentTransaction provides the `detach()` method to detach a fragment from its activity.
+- FragmentTransaction can be committed using the `commit()` method to apply all the operations.
+- FragmentTransaction allows for the addition of operations to the back stack using the `addToBackStack()` method, enabling users to navigate back to previous fragment states.
+
+## Concept
+- FragmentTransaction is a part of the Android framework used for managing fragments within an activity.
+- A fragment is a reusable portion of the UI within an Android activity that can be independently managed and has its own lifecycle.
+
+## Performance
+- Using FragmentTransaction to batch multiple fragment operations can enhance performance by reducing the number of redraws and state changes.
+- Committing fragment transactions asynchronously using `commitAllowingStateLoss()` can improve responsiveness but may lead to state inconsistencies if not handled carefully.
+
+## Directive
+- Always ensure that FragmentTransaction operations are committed before the activity state is saved to avoid IllegalStateExceptions.
+- Avoid committing FragmentTransaction in the `onSaveInstanceState()` method to prevent state loss.
+- Use `commitNow()` for immediate execution of FragmentTransaction if the order of execution is important and state loss is not a concern.
+
+## Pattern
+- A common pattern is to use FragmentTransaction to dynamically change the UI by replacing fragments in response to user interactions.
+- FragmentTransaction is often used in navigation patterns where different fragments represent different screens or sections of an application.
+
+## Environment
+- FragmentTransaction requires the Android framework and is typically used within an Android activity that hosts the fragments.
+- Ensure that the activity managing the fragments is properly initialized and running before executing FragmentTransaction.
+
+## Alternative
+- An alternative to using FragmentTransaction for managing UI components is using ViewPager or Navigation Component for more complex navigation patterns.
+- Activities can be used as an alternative to fragments for simpler applications where fragment-specific features are not required.

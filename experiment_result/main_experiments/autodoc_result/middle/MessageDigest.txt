@@ -1,0 +1,27 @@
+# MessageDigest API Knowledge Document
+
+## Functionality
+- `MessageDigest` is used for generating cryptographic hash functions to calculate a hash value (digest) of arbitrary binary data.
+- The `digest()` method computes the hash value for the data provided to the `MessageDigest` instance.
+- The `update()` method is used to supply data to the `MessageDigest` instance for hashing, which can be done in multiple calls.
+
+## Concept
+- `MessageDigest` represents a one-way hash function that is designed to take an input and generate a fixed-size string of bytes, typically a digest that is unique to each unique input.
+- A hash function is a mathematical algorithm that maps data of arbitrary size to a bit string of a fixed size (a hash). It is designed to be a one-way function, that is, a function which is infeasible to invert.
+
+## Performance
+- The performance of the `MessageDigest` can vary depending on the algorithm used (e.g., SHA-256 is generally slower but more secure compared to MD5).
+
+## Directive
+- It is recommended to use stronger hash functions like SHA-256 over weaker ones like MD5 for cryptographic purposes due to vulnerabilities in weaker algorithms.
+- Avoid using the same `MessageDigest` instance concurrently across multiple threads as it is not thread-safe.
+
+## Pattern
+- `MessageDigest` is commonly used in scenarios where data integrity verification is required, such as checksums for file verification.
+- It is often used in security applications and protocols that require unique identifiers, like digital signatures.
+
+## Environment
+- `MessageDigest` is available as part of the Java Standard Edition (SE) API and requires no additional libraries beyond the standard Java Development Kit (JDK).
+
+## Alternative
+- Alternatives to `MessageDigest` include libraries like Bouncy Castle, which provides a broader range of cryptographic algorithms and is often used when more advanced functionalities are required.

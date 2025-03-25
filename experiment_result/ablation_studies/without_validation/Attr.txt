@@ -1,0 +1,67 @@
+# Attr API Documentation
+
+## Functionality
+- Attr is used to define custom attributes for custom views in Android, allowing their usage in XML files.
+- `attrs.getValue(int index)` is used to get values directly from the attribute set at a specified index.
+
+## Concept
+- The `attrs.xml` file is used to define customizable attributes for a custom view in Android.
+- Attributes are declared within the `<declare-styleable>` tag in `attrs.xml`.
+- Each attribute is defined using the `<attr>` tag, specifying the attribute name and format.
+- The `AttributeSet` parameter in a custom view's constructor allows for access to the attributes defined in XML.
+- `TypedArray` is used to obtain the attribute values from the `AttributeSet`.
+- The `obtainStyledAttributes` method is used in the context of a custom view to retrieve styled attribute information.
+- The `recycle` method should be called on `TypedArray` when done with it to free up resources.
+- Custom views can expose setter methods to modify attributes programmatically.
+- Custom views are inflated using `LayoutInflater` within the custom view class.
+- Custom attributes can be defined in an `attrs.xml` file using the `<attr>` tag, specifying the attribute name and its format, such as `reference`.
+- In an Android app theme, custom attributes can be assigned values using the `<item>` tag within a `<style>` tag.
+- The theme overlay parameter in `ContextThemeWrapper` is a way to apply a custom theme or attributes at runtime.
+- When creating views like `TextInputLayout`, a custom attribute defined in `attrs.xml` can be used by passing it as the third parameter in the constructor.
+- To ensure that child views like `TextInputEditText` use the correct theme, use the context obtained from the parent view (e.g., `til.getContext()` from `TextInputLayout`).
+- Attr represents an attribute in an element and defines allowable quantities in a schema associated with a document.
+- In custom views, Attr is used to specify which values can be accepted by the view, allowing for constraints on possible values.
+- Attributes for custom views are defined using `declare-styleable`, which enables setting attributes like `showText` (a boolean) and `labelPosition` (an enum with values like `left` and `right`).
+- In themes, Attr is used to define certain attributes such as colors that can be used within the theme, enabling different themes to use different values for the same attribute.
+- Attr elements have two attributes: `name`, which is used to refer to them in code, and `format`, which specifies the type of value (e.g., `color`, `boolean`, `dimension`, `float`).
+- Enum attributes can be defined with `attr` using the `enum` tag, which assigns specific integer values to named options.
+- The `TypedArray` can be obtained by using `getContext().obtainStyledAttributes(attrs, R.styleable.customView)`.
+- If the `TypedArray` fails, attribute values can be accessed directly from `attrs` using `attrs.getValue(int index)`.
+- The index of an attribute in the attribute set (`attrs`) is different from the index in the `TypedArray`, as the attribute set includes standard Android attributes.
+- The indices of attributes in the attribute set can be checked using a loop with `attrs.getAttributeCount()` and `attrs.getAttributeName(i)`.
+- You can define custom attributes for your custom views in Android using the `attrs.xml` file.
+- The `declare-styleable` tag is used to declare a set of attributes that can be used with a custom view.
+
+## Performance
+No performance-related knowledge was provided.
+
+## Directive
+- When adding custom attributes, define them in `attrs.xml`; you cannot create them directly in the layout XML.
+- When creating a custom view with Attr, define specific attributes using `declare-styleable` to restrict the view to only accept specified values.
+- Use Attr to define attributes in themes, allowing different themes to have unique attribute values such as colors.
+- The format of an Attr attribute can be color, boolean, dimension, float, etc., and it can also define enums with specific values.
+- In layout files, use `?attr/attribute_name` to reference an attribute value defined in themes or styles.
+- When using custom attributes in an Android custom view, ensure you declare them in the `attrs.xml` file and apply them using a custom namespace in the XML layout.
+- When using `TypedArray`, ensure to pass the attribute set `attrs` along with the styleable resource to `getContext().obtainStyledAttributes(attrs, R.styleable.customView)`.
+- If `TypedArray` fails to retrieve values, it is possible to get values directly from `attrs` using `attrs.getValue(int index)`.
+- Be aware that the index of an attribute in the attribute set (`attrs`) differs from its index in the `TypedArray`, as it includes standard Android attributes.
+- You can check the indices of attributes in the attribute set by iterating over them using `attrs.getAttributeCount()` and logging each attribute's name with its index.
+
+## Pattern
+- The post illustrates a common use case for the Attr API in Android applications, specifically in the context of creating custom views with attributes defined in XML. The example provided shows how to define custom attributes (`textColor`, `textSize`, `text`) for a `StrokedTextView` and how to retrieve these attributes using `TypedArray` within the custom view's constructor. This allows for dynamic customization of the view's appearance through XML, enhancing flexibility and reusability in Android UI design.
+- The Attr API is commonly used to define custom attributes for custom views in Android.
+- Custom attributes can be defined in `attrs.xml` and referenced in themes to apply specific styles or themes to UI components.
+- In an Android app theme, an attribute can be used to set a custom style for components. For instance, defining a custom attribute in `attrs.xml` and assigning it in the app theme allows for thematic customization of UI elements.
+- The `Attr` API is used to apply custom styles to components like `TextInputLayout` by passing the custom attribute as a parameter when constructing the component.
+- It is important to retrieve the themed context from the component, such as using `til.getContext()` from `TextInputLayout`, to ensure the component is styled according to the custom theme or attribute.
+- Attr is commonly used in Android applications to define and manage attributes for custom views and themes. By declaring attributes in the `declare-styleable` resource, developers can specify which values are acceptable for custom views, limiting the input to predefined options. For example, in a custom view like `PieChart`, attributes such as `showText` (a boolean) and `labelPosition` (an enum with options like "left" and "right") can be defined.
+- In the context of themes, Attr is used to define theme-specific attributes, such as `color_primary`, which can then be customized for different themes within the application. This allows for a flexible design where the same attribute can have different values depending on the theme applied, as demonstrated with different color values for two themes.
+- Attr elements themselves have two main properties: `name`, to refer to the attribute in other parts of the code, and `format`, which specifies the type of value the attribute can hold (e.g., `color`, `boolean`, `dimension`, `float`). Enums can also be defined for attributes to restrict values to a specific set of options.
+- Using `Attr` in Android applications is common for defining custom attributes in XML resource files. These attributes can then be used in styles and themes to allow for more flexible UI design. In this post, the custom attribute `searchBarBgColor` is defined in an `attrs.xml` file, which can then be referenced in different themes to provide different background colors for a search bar depending on the theme applied, such as `DarkModeTheme` or `AppTheme`. The attribute is used in a `LinearLayout` element, utilizing `?attr/searchBarBgColor` to apply the theme-specific color. This pattern demonstrates how `Attr` can be leveraged to create theme-dependent UI elements in Android.
+- Attr is commonly used when creating custom views with custom attributes in Android applications.
+
+## Environment
+- The Attr API requires the use of an `attrs.xml` file to define custom attributes in Android applications. These attributes can then be used in themes and applied to UI components, as demonstrated by setting a custom attribute `searchBarBgColor` in different styles like `DarkModeTheme` and `AppTheme`. The custom attribute is referenced in the layout using `?attr/searchBarBgColor` and applied dynamically based on conditions like `darkMode`. Additionally, the application needs to override the `getTheme()` method to apply the desired theme at runtime based on specific conditions.
+
+## Alternative
+No alternative-related knowledge was provided.

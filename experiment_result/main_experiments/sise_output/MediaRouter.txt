@@ -1,0 +1,51 @@
+Boolean = false) {
+        val sp = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val src = sp.getString(&quot;music_src_folder&quot;, &quot;&quot;) ?: &quot;&quot;
+
+        serviceIOScope.launch {
+            scanMusic(applicationContext, uri = if (src == &quot;&quot;) null else src.toUri())
+.setMediaType(MediaMetadata.MEDIA_TYPE_FOLDER_MIXED)
+                .setTitle(&quot;Tracklist&quot;)
+                .setArtworkUri(
+                    Uri.parse(&quot;android.resource://mpappc/drawable/ic_tracklist&quot;)
+                )
+                .build()
+        )
+        .build()
+
+    val subroot_PlaylistItem = MediaItem.
+You can register a MediaSessionCompat.Callback to receive media button events &amp; handle them accordingly.
+Here's an example of how you can set up a media session &amp; handle media button events:
+// Create a MediaSessionCompat instance
+MediaSessionCompat mediaSession = new MediaSessionCompat(context, &quot;YourMediaSessionTag&quot;);
+
+//
+We use setMediaId as a unique identifier for the media (which is needed for mediasession and we do NOT use setUri because we're gonna do
+       something like setUri(mediaItem.mediaId) when we need to load the media like we did above in the MusicPlayerService and more precisely when we were building the session */
+    val newItem = MediaItem.
+The media session can be set up &amp; controlled using the MediaSessionCompat class from the Android Support Library.
+
+It's called MediaLibraryService, we're gonna be experimenting with this one today (but the process of implementation is almost the same).
+
+.setMediaType(MediaMetadata.MEDIA_TYPE_FOLDER_MIXED)
+                .setTitle(&quot;MyMusicAppRootWhichIsNotVisibleToControllers&quot;)
+                .build()
+        )
+        .build()
+
+    val subroot_TracklistItem = MediaItem.
+There is a special version of media session which controls also the media items (playlist and its info) and exposes it to other clients (such Android Auto, WearOS, etc).
+When the controller tries to add an item to the playlist */
+                    if (customCommand == CUSTOM_COM_PLAY_ITEM) {
+                        args.getString(&quot;id&quot;)?.let { mediaid -&gt;
+                            if (args.getBoolean(&quot;playlist&quot;, false))
+Builder()
+        .setMediaId(&quot;$uri&quot;) /* setMediaId and NOT setUri */
+        .build()
+    
+    /
+Try debugging your application by switching to other Media applications (then connect BT) and then check whether the System starts your service or not.
+Also, check https://developer.android.com/guide/topics/media-apps/mediabuttons for more information.
+
+It is necessary to have a parent item otherwise there is no &quot;library&quot; */
+    val rootItem = MediaItem.

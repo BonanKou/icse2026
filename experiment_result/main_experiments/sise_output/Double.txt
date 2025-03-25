@@ -1,0 +1,33 @@
+The best solution is to avoid floating-point binary numbers entirely, and use the BigDecimal(String)
+What?
+System.out.println(e); // prints &quot;0.8&quot;
+System.out.println(d); // prints &quot;0.7999999999999999&quot;
+
+
+There is no exact double-precision floating point representation for 8875.87 so the rounding has already occurred before you call toBigDecimal.
+To keep the precision, you need to pass the values to the BigDecimal constructor as a string:
+val a = BigDecimal(&quot;8875.87&quot;)
+val b = BigDecimal(&quot;778.55&quot;)
+println(&quot;${a*b}&quot;)
+
+
+In practice, this is usually hidden from you, because when you print out a Double, the formatting routine will round it off, and in many cases that gives back the original number.  
+Store it as int price = 150; - in other words, find the atomary (smallest hard/impossible to divide unit) for whatever it is you are attempting to store perfectly and store that.
+Because this is a very strange thing to do and I can't think of a reason why you would need to do this in any application.
+
+Track in each account a residual charge of 0.33333333333333333333333 cents (tossing the remainder away as a rounding error that truly nobody is ever going to care about), even though generally in financial systems, you cannot convey the notion of fractional cents?
+
+Thus, when talking about 'formatting' a double in the sense of 'I want x digits', this is completely misleading, because the thing that is in that variable has digits written out in binary and not in decimal, and is rounded to something that doesn't even make sense in decimal.
+
+You're constructing the BigDecimal
+As a note, Double is limited to 16 significant digits for precision
+
+You can use the editor suggestion for larger based numbers
+
+So, where in decimal you can write '1/10' on a piece of paper perfectly, but you cannot write '1/3' on a piece of paper perfectly, computers can only write X/Y where Y is a factor of 2 perfectly.
+Documentation around Float: Kotlin Float
+Kotlin, like many languages uses IEEE-754 (Wiki) as the standard for Floating point math and representation.
+The difference of 64 bit width of a Double, and the 32 bit width of a Float means that when converting from Double to Float, we lose precision.
+
+
+we see that the max decimal digits of a floating point, 32 bit number is 7 digits.

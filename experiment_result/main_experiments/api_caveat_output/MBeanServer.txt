@@ -1,0 +1,67 @@
+According to the comment from @LMC, I made a sample project to get the size of HttpSession with JMX: https://github.com/satob/SessionSize
+Note that because you cannot access org.apache.catalina.session.
+By use of this annotation, you will tell Spring to use this configuration class to manage your transaction instead of default one.
+See if this helps.
+You have to configure datasource on the WebSphere (I guess you already did) and inject it via @Resource and set that datasource in the LocalContainerEntityManagerFactoryBean bean.
+You will need to create a custom transaction manager.
+After Studio starts with JDK 8 it can execute Mule applications with Java 7 or Java 8, depending of the version of Mule runtime.
+That page actually says it supports only the AdoptOpenJDK 8 distribution.
+Then when you desire to forward a message from your websocket client to your manager, you can simply call the notifyObservers method to forward the request out to any registered observers.
+When upgrading Spring Boot up to version 3, the Persistence API artifact must be also migrated.
+Reading the documentation we realize the Spring Boot JPA module part of the Spring Boot 3 release turned to work with Jakarta Persistence API (JPA) rather than with javax.persistence.api.
+When I used 2.7.2 instead of 3.0.0(SnapShot) which I originally used
+it started working.
+This way as a
+consumer (you as a spring boot developer) need not switch between
+URLs in case of system failures and the LB will handle it
+
+If the above is not feasible, or if your Azure APIs are getting migrated and the plan is to use Mule as a fallback, then you have to handle this in your code.
+Most components in Mule 4 now how to use the stream implementation transparently, so usually a user doesn't need to care if their JSON payload is in a stream or in a Java string.
+You will need to change classes if you do some other permutations of inputs and Java code.
+Mule 4 implements streaming in most components, unlike Mule 3 which implemented it only for some.
+The exception is when you do actual Java code you need to know the actual classes.
+In a real world scenario, you may need to store the offsets your consumer has processed so that you can start from the right position if your application is restarted.
+Please adjust the implementation according to your needs.
+EDIT based on Gary Russell's suggestions:
+
+Extending AbstractConsumerSeekAware: Instead of directly implementing ConsumerSeekAware, consider extending AbstractConsumerSeekAware.
+If you want to start reading from a specific offset every time your application starts, you would use the ConsumerSeekAware interface as follows:
+You can set the ENABLE_AUTO_COMMIT_CONFIG property to false to prevent this:
+
+You'll also need to ensure that the AckMode of the listener container is set to MANUAL_IMMEDIATE or MANUAL, so that your listener code has to manually acknowledge that it has processed a message:
+Finally, I'd like to note that the example above is quite basic.
+This setup
+
+should not include any spark dependencies in the uber jar when you want to build and submit to an existing spark
+but will add all Provided dependencies to the classpath when you run it with sbt run
+
+I found the idea here https://xebia.com/blog/using-scala-3-with-spark/
+I have experienced the same issue until I have marked all spark related dependencies as Provided and redefined the run task as follows
+
+Try these changes in your .sbt file and let me know if it fixes the problem.
+I am tring the next
+
+Install SDK man https://sdkman.io/
+
+In the terminal, I installed the next version 8.332.08.1-amzn
+
+
+
+sdk install java 8.332.08.1-amzn
+
+
+Executed the next command when you will finish the step 2.
+
+
+sdk use java 8.332.08.1-amzn
+
+
+Execut mvn test
+I could only figure this out once I used absolute path to debug the issue.
+The solution is to inform Maven to point to src/test/java instead of defaulting to src/test/resources as outlined here: https://github.com/karatelabs/karate#folder-structure
+
+And then Karate.run("classpath:<path_to_feature_directory_or_file>") will work properly.
+Disabling the logging will not fix this error, but hide it.
+If you don´t need to access the callback from your Repository you can simply Inject the bean entityManager and detatch from your Hibernate Context.
+This might also be useful ;)
+Why is JPA / Hibernate slowing down when loading a large amount of data in a Spring Boot application?

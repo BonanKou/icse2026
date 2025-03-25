@@ -1,0 +1,47 @@
+# UUID API Knowledge Summary
+
+## Functionality
+1. `UUID.randomUUID()` is used to create a new random UUID.
+2. UUIDs can be used to uniquely identify a resource.
+3. `UUID.randomUUID` is used to generate a new universally unique identifier.
+4. UUIDs are used to ensure identifiers are unique and randomly generated, making it difficult for hackers to guess valid identifiers, thus protecting against unauthorized actions like deletion.
+
+## Concept
+1. UUIDs can be generated randomly using `UUID.randomUUID()`.
+2. UUIDs can be used to uniquely identify a resource and are universally unique.
+3. UUIDs use 128 bits to store information and are represented in a format similar to: `cc26d321-58fc-4cc1-978a-03f2bbdb2a55`.
+4. A UUID can be used as a unique identifier in a document entity by adding a column of type UUID.
+5. UUIDs are difficult to guess compared to integer numbers, enhancing security.
+6. UUIDs enhance security as they do not follow a sequential pattern, making it difficult for malicious users to predict valid UUIDs and block attempts to interact with non-existent identifiers.
+7. UUID can be generated using `UUID.randomUUID()` and converted to a string using `.toString()`.
+8. UUID strings may contain hyphens, which can be removed using `.replace("-", "")`.
+9. Using UUIDs prevents exposing the total count of records or entities.
+
+## Performance
+No such knowledge.
+
+## Directive
+1. To fix the randomness of the identifier when using UUID, consider adding the UUID as a parameter in the constructor instead of generating it within the constructor for better control.
+2. Consider authenticating requests to prevent unauthorized access to resources when using UUIDs.
+3. When using UUIDs as identifiers, randomly generate them to ensure uniqueness and security, making it difficult for malicious users to predict valid UUIDs and attempt unauthorized actions.
+
+## Pattern
+1. UUID is commonly used in constructors to ensure unique identification.
+2. UUIDs are commonly used to uniquely identify a resource.
+3. `UUID.randomUUID().toString().replace("-", "")` is a common practice to generate unique string identifiers by removing hyphens from the standard UUID format.
+4. Using UUIDs in databases is common for assigning unique identifiers to users, along with storing them in user tables, using UUIDs as criteria in queries, and managing multitenancy.
+5. UUID is commonly used in enhanced security scenarios, database scaling, merging, and preventing the exposure of total entity counts.
+6. UUIDs are commonly used to enhance security by preventing predictable patterns in primary keys.
+7. In distributed systems, UUIDs help to generate unique identifiers across multiple nodes without the need for coordination between them.
+8. UUIDs are useful in session management where unique session identifiers are required across different devices or services.
+9. They are also employed in logging systems to track requests or errors in distributed architectures, making it easier to trace logs back to specific events.
+10. UUIDs are often used in APIs to uniquely identify resources across different clients and servers, ensuring that identifiers remain globally unique.
+
+## Environment
+1. Some databases such as Postgres and H2 support UUID as a built-in data type.
+2. Postgres provides features like the uuid-ossp plugin to generate UUID values.
+3. In Jakarta Servlet-based web applications, UUIDs can be stored and retrieved using HttpSession attributes.
+
+## Alternative
+1. Some databases provide plugins, like the uuid-ossp plugin for Postgres, to generate UUID values.
+2. If a database does not support UUID generation, UUIDs can be generated in Java using the `java.util.UUID` class.

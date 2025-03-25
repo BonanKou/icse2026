@@ -1,0 +1,31 @@
+# CheckpointManager API Documentation
+
+## Functionality
+1. **Checkpoint Management**: CheckpointManager manages multiple checkpoints by storing them at a specified location and handles the number of checkpoints to keep by deleting unneeded ones.
+2. **Usage in Training Loops**: CheckpointManager is used by calling the `save()` method at the end of each training epoch to save the current state of the model.
+
+## Concept
+1. **CheckpointManager Purpose**: The `CheckpointManager` API facilitates the management of model checkpoints during training, allowing for easy saving, restoring, and monitoring of model states.
+2. **Loading Models with tf.train.Checkpoint**: `tf.train.Checkpoint` can be used to load a model by associating it with a specific model object and restoring the checkpointed values to that model object.
+3. **Handling Extra Variables**: If a checkpoint contains other variables, `checkpoint.restore(path).expect_partial()` might be needed to handle the restoration process.
+4. **Inspecting Checkpoint Contents**: It is possible to inspect checkpoint contents manually using `tf.train.load_checkpoint`, which allows users to check the shape and data type of variables saved in the checkpoint through methods like `get_variable_to_shape_map()` and `get_variable_to_dtype_map()`.
+
+## Performance
+(No specific performance knowledge was provided in the snippets.)
+
+## Directive
+1. **Manual Training Loop Management**: When managing the training loops yourself, use Checkpoint and CheckpointManager.
+2. **Initializing Checkpoint**: Initialize Checkpoint with key-value pairs representing custom function calls or objects (e.g., generator, discriminator, loss function, optimizer) you want to track.
+
+## Pattern
+1. **Manual Training Loop Use**: CheckpointManager is commonly used when managing training loops manually. It is initialized with a Checkpoint object, a directory to save checkpoint files, and a specification for the number of checkpoints to keep.
+2. **Validation Process**: The CheckpointManager API is used to save checkpoints during training, allowing a validation process to immediately load the new checkpoint and start validating.
+3. **Restoration and Inspection**: Use `checkpoint.restore(save_path)` to restore checkpointed values, handle extra variables with `checkpoint.restore(path).expect_partial()`, and inspect variables with `tf.train.load_checkpoint`.
+4. **Final Save**: The checkpoint function will save the best model, and after you finish training, the model will save one final time, regardless of the result.
+5. **Resuming Training**: Creating checkpoints during model training using the CheckpointManager API allows for resuming training from the last saved state.
+
+## Environment
+(No specific environment knowledge was provided in the snippets.)
+
+## Alternative
+1. **ModelCheckpoint Callback**: Alternatives to CheckpointManager include the ModelCheckpoint callback for scenarios where you are not managing epoch iterations yourself, such as when using the `model.fit()` method in Keras.

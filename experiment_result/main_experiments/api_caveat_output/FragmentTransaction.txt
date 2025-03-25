@@ -1,0 +1,35 @@
+If you could change your content of UI, it's a better way.
+Also from Fragment's documentation,
+
+
+Your activity must extend FragmentActivity
+You must call FragmentActivity.getSupportFragmentManager() to get the    FragmentManager
+Your activity must extend androidx.fragment.app.
+If you still want to hide the activity toolbar on collapse of your fragments CoordinatorLayout you could look into the the solution provided here and using that access your activities toolbar programmatically and change it's visibility.
+Intent is only for opening the Activity, not Fragment (!)
+You should create an activity that holds your second Fragment, or you should replace current fragment with the second (in case if you have container for holding the fragment inside your current activity).
+And if you can avoid passing something to Fragment's constructor while using FragmentStateAdapter, avoid it.
+But I have to admit that this is not a clear solution.
+So, it's better to use FragmentStateAdapter with ViewPager2.
+So in this case you don't need to pass something in to fragment's constructor but also can avoid creating Bundles.
+The only solution I found is to use FragmentManager.
+I couldn't find any proper solution in case if you need to pass something into  Fragment's constructor with ViewPager2 because it ignores FragmentFactory.
+You can set callbacks or whatever you want to your fragment after its (re)creation.
+Do not touch the FragmentManager yourself when using the Navigation library.
+FragmentTransaction#commitAllowingStateLoss to ignore the warning , but this state will not be restored when the Activity is recreated.)
+Means should not be operated the fragmentManger after leaving the current Activity.
+It usually appears when the Activity goes into the onStop state.
+Probably you need to create a fragment container view in activity and proceed with fragment transaction.
+You should check documentation to know more .
+Fragment lifecycle is dependent on Activity life cycle, if an Activity is dead so the fragments are.
+So what I want to know is that if we finish or kill the Activity in which the fragment exists, how will it effect the fragment?
+If you kill/finish an Activity fragments will also be destroyed
+NOTE:
+If base is destroyed then other stories are not supposed to be stable.
+Ultimately, if the FragmentManager desires to destroy your Fragment, it's probably because it found no reason to keep it around (you could, keep a hard reference and deal with all that memory wasted... which is why I suggest you keep the "state" outside of the Fragment instead, because creating a fragment is not that expensive, if the fragment doesn't contain 2000 lines of code in onCreate...) :)
+Now, I haven't also seen how you "navigate" and how you "go back", so you'll have to test this yourself.
+It's unclear why you need to retain an instance in memory of a Fragment that is no longer visible; presumably it's expensive to recreate it so you want to save it.
+From the Android Docs:
+
+To manage the fragments in your activity, you need to use
+FragmentManager.

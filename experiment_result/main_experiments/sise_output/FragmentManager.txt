@@ -1,0 +1,62 @@
+Because the most proper solution is to use a FragmentFactory.
+Also, as an option, your fragment knows about the parent Activity.
+Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = &quot;param1&quot;;
+    private static final String ARG_PARAM2 = &quot;param2&quot;;
+
+    // TODO:
+For more information about why your fragment view is not initialized instantly check out this guide.
+
+so I would expect there's something else going on that we can't find from the code you've shown, in theory it works.
+
+The message:
+
+I/FragmentNavigator: Ignoring navigate() call: FragmentManager has
+already saved its state
+
+is defined in the androidx.navigation.fragment.
+If I had to take a guess of why this is, it would probably be in onCreateViewHolder.When you inflate your row you pass false into the inflate function's attachToRoot, so as the FragmentContainerView is not attached to a parent when it is initialised, it has to use the highest level fragment manager - from the activity.
+I managed to find my fragment in the RecyclerView
+So, you can do callbacks directly to the parent Activity.
+Link to documentation: <a href="https://developer.android.com/reference/androidx/fragment/app/FragmentManager#registerFragmentLifecycleCallbacks(androidx.fragment.app.
+Better way is to use CompositionLocalProvider.
+
+You can add staticCompositionLocalOf outside of your fragment class in.
+ val MyFragmentProvider = staticCompositionLocalOf&lt;MyFragment&gt; {
+   error(&quot;No Fragment Instance Provided&quot;)
+ }
+
+
+
+
+The only solution I found is to use FragmentManager.
+FragmentTransaction#commitAllowingStateLoss to ignore the warning , but this state will not be restored when the Activity is recreated.)
+In your scenes, I recommend jumping to the next activity for editing, returning and refreshing the list
+
+val myFragment =  MyFragmentProvider.current
+        Text(text = &quot;Signin $name!&quot;)
+        Button(onClick = {
+            val parameters = AcquireTokenParameters.
+I would not suggest you put any toolbar in your fragment as Fragments are not usually meant for holding toolbars.
+You can set callbacks or whatever you want to your fragment after its (re)creation.
+If base is destroyed then other stories are not supposed to be stable.
+Using the wrong FragmentManager means that the fragment and its views will not properly save and restore their state.
+
+FragmentActivity.
+
+From the documentation,
+
+
+  Base class for activities that want to use the support-based
+  Fragments.
+
+
+Also from Fragment's documentation,
+
+
+  
+  Your activity must extend FragmentActivity
+  You must call FragmentActivity.getSupportFragmentManager() to get the    FragmentManager
+  
+

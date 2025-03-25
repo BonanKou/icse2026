@@ -1,0 +1,27 @@
+# X509TrustManager API Document
+
+## Functionality
+No specific functionality knowledge was provided for X509TrustManager.
+
+## Concept
+- A custom X509TrustManager can be implemented to directly trust a specific X.509 certificate.
+- A party (client or server) will trust another party (server or client) if the certificate chain provided by the other party can be traced back to the CACERTS stored in the original party’s JRE or is in the original party’s truststore.
+- Mutually authenticated TLS is unusual, and client-side certificates are rare; client authentication is typically done with user credentials or API keys.
+
+## Performance
+No specific performance knowledge was provided for X509TrustManager.
+
+## Directive
+- When implementing a custom X509TrustManager, ensure that the `checkServerTrusted` method verifies if the server certificate matches the specified certificate. If it does not, throw a `CertificateException` to indicate the server certificate is not trusted.
+- The `checkClientTrusted` method can be overridden to allow any client certificates, which may be suitable for scenarios where client authentication is not a concern.
+
+## Pattern
+No specific pattern knowledge was provided for X509TrustManager.
+
+## Environment
+- The functioning of X509TrustManager relies on the ability to trace a certificate chain back to the CACERTS stored in the original party’s JRE or the original party’s truststore.
+- The Intermediate CA's signing certificate must be registered in the official Java CACERTS in the client’s JRE for proper trust validation; otherwise, it must be manually added.
+- In a typical corporate environment, adding untrusted Intermediate CA certificates to CACERTS is preferable for managing trust with multiple servers.
+
+## Alternative
+No specific alternative knowledge was provided for X509TrustManager.

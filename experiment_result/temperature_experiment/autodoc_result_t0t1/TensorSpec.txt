@@ -1,0 +1,25 @@
+# TensorSpec API Document
+
+## Functionality
+- `tf.TensorSpec` is used to define the shape and dtype of a TensorFlow tensor.
+- `tf.TensorSpec` is used to describe the properties of a tensor, including its shape and data type.
+
+## Concept
+- `tf.TensorSpec` has a `shape` argument that defines the shape of the tensor.
+- `tf.TensorSpec` has a `dtype` argument that specifies the data type of the tensor.
+- A `TensorSpec` with `shape=[2]` and `dtype=tf.int64` describes a tensor with two values of data type `tf.int64`.
+
+## Performance
+- No performance-related knowledge snippets were provided.
+
+## Directive
+- No directive-related knowledge snippets were provided.
+
+## Pattern
+- No pattern-related knowledge snippets were provided.
+
+## Environment
+- No environment-related knowledge snippets were provided.
+
+## Alternative
+- No alternative-related knowledge snippets were provided.

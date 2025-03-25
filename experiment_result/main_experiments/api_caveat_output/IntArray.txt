@@ -1,0 +1,24 @@
+To create an array in Kotlin, you must use a function such as arrayOf or intArrayOf.
+and we know the size of each row is e.g. 3, we can get averages using the following:
+
+If you often perform such operations then you can look at Multik which is a multi-dimensional array implementation for Kotlin.
+When doing Kotlin -> Java interrop, Kotlin has specific Array types to help deal with this kind of ambiguous Type.
+It should return that because Int value dedicates highest bit for sign.
+Kotlin Int should work well.
+So Kotlin Int with value -eeddcd when you pass it to setColor should look same as 0xff112233.
+Also note that the spread operator can only be applied to arrays, so if you have a list of Int you need to convert it to an IntArray first an then apply the spread operator, like this:
+
+
+EDIT
+Following the update to your question, you can call that method from your Kotlin code like this:
+In order to call that method with an IntArray you need to do:
+
+In that snippet of code, * is the spread operator and is briefly described here.
+If that's the case, than the bytecode that gets generated is the following:
+
+This means the method takes an array of int, which is an IntArray in Kotlin world.
+Try this in your function:
+
+If you need an index of max value then try this:
+There is also a cool series of exercises from kotlin team, which can help a lot, when you are trying to learn how to work with collections:
+https://play.kotlinlang.org/koans/Collections/Introduction/Task.kt

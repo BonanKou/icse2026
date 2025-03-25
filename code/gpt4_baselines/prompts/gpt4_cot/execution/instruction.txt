@@ -1,0 +1,13 @@
+Generate a comprehensive API document for {api} from {language} library. The document needs to be in seven sections. The seven sections are described below.
+Each section can have multiple knowledge snippets.
+
+functionality : describes the actions or operations an API can perform. For example, an functionality knowledge for tf.gather could be: 'tf.gather is used to select tensor elements at specific indices.'
+concept : covers the foundational ideas and terminologies for understanding and effectively utilizing an API. For example, a concept knowledge for tf.gather could be: 'Tensor is essentially a high-dimensional array.'
+performance : refers to the time and memory efficiency of an API. For example, a performance knowledge for tf.gather could be: 'tf.gather has overhead when used on large tensors.'
+directive : is an essential type of knowledge that provides guidelines on the proper use of an API, including best practices to follow and actions to avoid. For example, a directive knowledge for tf.gather could be: 'When using tf.gather, ensure indices are within the shape of the input tensor.'
+pattern : illustrates common use cases for applying the API to solve specific problems or achieve certain outcomes. For example, a pattern knowledge for tf.gather could be: 'tf.gather is commonly used in embedding lookup operations.'
+environment : specifies the necessary conditions, system requirements, or configurations under which an API can function correctly. For example, an environment knowledge for tf.gather could be: 'tf.gather requires TensorFlow installed and supports both CPU and GPU execution.'
+alternative : suggests other APIs offering similar functionality, which can be considered as replacements or complementary options. For example, an alternative knowledge for tf.gather could be: 'Alternatives to tf.gather include tf.scatter_nd and tf.index_select.'
+
+You should follow this plan to write the actual document:
+{plan}

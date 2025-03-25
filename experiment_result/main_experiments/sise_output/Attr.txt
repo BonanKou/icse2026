@@ -1,0 +1,26 @@
+Now I had full control from the &quot;host&quot; xml.
+Please note that custom attributes must be defined in attrs.xml, you can't just make one up in the layout xml.
+
+I now do not &quot;include&quot; a layout file but just use the custom view in the &quot;host&quot; xml like an i.e. TextView.
+If you are receiving this error, check that the values provided in
+&lt;AndroidAapt2LinkExtraArgs/&gt;
+&lt;AndroidAapt2CompileExtraArgs&gt;
+
+are valid for aapt2.
+OutlinedBox&lt;/item&gt;
+&lt;/style&gt;
+
+and finally:
+    TextInputLayout til = new TextInputLayout(this,null,R.attr.customTextInputStyle);
+    til.setHint(&quot;Label&quot;);
+    TextInputEditText
+You can use sharedpreferences to store data and later you can get data from this sharedpreferences in order to check on which level user should be.
+Check this: https://developer.android.com/training/data-storage/shared-preferences
+
+= null) {
+        @SuppressLint(&quot;CustomViewStyleable&quot;)
+For additional features I added binding adapters.
+
+You can use aapt2 compile and aapt2 link to view the list of valid arguments.
+
+As stated in the comments above it is up to your implementation.

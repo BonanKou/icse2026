@@ -1,0 +1,48 @@
+# GradientTape API Documentation
+
+## Functionality
+- `tf.GradientTape` is used to record operations for automatic differentiation, allowing for the computation of gradients with respect to some inputs, usually `tf.Variables`.
+- It records relevant operations executed inside its context onto a "tape," which is then used to compute gradients using reverse mode differentiation.
+- To compute a gradient or a Jacobian, the tape must record the operations executed within its context.
+- The `gradient` method of `tf.GradientTape` computes the gradient of a loss with respect to model trainable variables.
+- The computed gradients can be applied to update the model using an optimizer, such as `tf.keras.optimizers.Adam`.
+- GradientTape can compute multiple gradients over the same computation when created as a persistent gradient tape, allowing multiple calls to the `gradient()` method.
+- To compute higher-order derivatives, nested GradientTape objects need to be created.
+- GradientTape automatically tracks variables in its context. To track tensors, `tape.watch(<my_tensor>)` must be called.
+
+## Concept
+- `tf.GradientTape` is a TensorFlow API for automatic differentiation, computing gradients of computations with respect to inputs, typically `tf.Variables`.
+- Operations executed within the `tf.GradientTape` context are recorded onto a "tape," used to compute gradients using reverse mode differentiation.
+- After executing the forward pass outside the tape's context, the tape can be used to compute gradients or a Jacobian.
+- By default, resources held by a GradientTape are released when the `gradient()` method is called.
+- To compute multiple gradients, a persistent gradient tape allows multiple calls to the `gradient()` method, with resources released upon garbage collection.
+- `tape.watch(x)` is used to observe operations on a tensor `x`, necessary for computing gradients with respect to non-variable tensors.
+- The computation of gradients using `tape.gradient(loss, x)` must be done outside the `GradientTape` context block.
+
+## Performance
+- No specific performance-related knowledge snippets were provided.
+
+## Directive
+- Ensure operations to be differentiated are executed within the `tf.GradientTape` context.
+- After the forward pass within the `tf.GradientTape` context, compute gradients or a Jacobian outside of it.
+- Use the `call` method instead of `model.predict` when training a model to track gradients properly.
+- When computing higher-order derivatives, create nested GradientTape objects.
+- Perform gradient clipping, normalization, or transformation after computing gradients and before applying them with an optimizer.
+- To compute multiple gradients over the same computation, create a persistent gradient tape.
+
+## Pattern
+- A common use case for `tf.GradientTape` is computing the Jacobian of a model's output with respect to its weights during specific epochs.
+- When creating a custom training step, use `tf.GradientTape` to track model gradients.
+- Train a model by performing the forward pass inside the `tf.GradientTape` context and computing the loss to ensure computations are recorded.
+- Example: Use `tf.GradientTape` to compute gradients for a simple linear regression model and apply these gradients with an optimizer like `tf.keras.optimizers.Adam` to update model weights.
+- `tf.GradientTape` can also be used to compute higher-order gradients by nesting `GradientTape` contexts.
+
+## Environment
+- When working with TensorFlow 2.x, invoke the model under the `tf.GradientTape` context manager to track model gradients.
+- `GradientTape` automatically tracks variables in its context. To track tensors, `tape.watch(<my_tensor>)` must be called.
+- In eager execution, gradients can be monitored using `GradientTape`.
+- The `GradientTape` context allows you to compute the gradients of the loss with respect to model variables.
+- After performing forward and backward passes, you can use `tape.gradient()` to compute the gradients and apply them using an optimizer.
+
+## Alternative
+- No specific alternatives were provided.

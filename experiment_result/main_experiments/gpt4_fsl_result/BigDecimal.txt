@@ -1,0 +1,85 @@
+# BigDecimal API Knowledge Document
+
+## Functionality
+- `BigDecimal` in Kotlin provides arbitrary-precision decimal arithmetic, allowing for precise calculations in financial and scientific applications.
+- The `add()` function adds two `BigDecimal` instances, returning a new `BigDecimal` sum.
+- The `subtract()` method performs subtraction between two `BigDecimal` values.
+- `multiply()` multiplies two `BigDecimal` numbers, offering precision in multiplication operations.
+- `divide()` divides one `BigDecimal` by another, with options to specify rounding modes.
+- `BigDecimal` provides methods like `setScale()` to adjust the number of decimal places with rounding.
+- The `remainder()` method calculates the remainder of division between two `BigDecimal` instances.
+- `BigDecimal` offers comparison methods such as `compareTo()` for numerical comparisons.
+
+## Concept
+- `BigDecimal` is a class in Kotlin for handling large or precise decimal numbers, often used when floating-point precision is inadequate.
+- Unlike primitive floating-point types, `BigDecimal` maintains exact precision for decimal values, avoiding rounding errors.
+- `BigDecimal` is immutable, meaning each operation creates a new instance rather than modifying the existing one.
+- `BigDecimal` can represent both very large and very small numbers accurately, making it ideal for financial calculations.
+- You can create a `BigDecimal` from strings, integers, or floating-point numbers, though string initialization is preferred for precision.
+- `BigDecimal` in Kotlin is interoperable with Java's `BigDecimal`, making it compatible in a Java-Kotlin mixed codebase.
+- The `scale` of a `BigDecimal` represents the number of digits to the right of the decimal point.
+
+## Performance
+- `BigDecimal` operations are computationally heavier than primitive operations due to its precise and immutable nature.
+- Using `BigDecimal` can lead to increased memory consumption, particularly with large-scale calculations or frequent operations.
+- Despite its overhead, `BigDecimal` is optimized for accuracy and precision rather than speed.
+
+## Directive
+- Prefer string initialization of `BigDecimal` to avoid precision errors intrinsic to floating-point literals.
+- Use `BigDecimal` when monetary values or other calculations require exact precision over performance.
+- Always specify a rounding mode when using `divide()` to prevent `ArithmeticException` from non-terminating decimals.
+- When performing many operations, consider caching `BigDecimal` constants to reduce object creation overhead.
+- Use `compareTo()` instead of `equals()` for numerical comparison as `equals()` also considers scale.
+  
+## Pattern
+- Commonly used in financial applications where precision is critical, such as currency calculations and interest computations.
+- `BigDecimal` is often used in scientific applications that require high precision and exact results.
+- Create `BigDecimal` values from strings when initializing from user input or external settings.
+- Utilize `setScale()` to format `BigDecimal` values for consistent decimal places in reporting.
+- Use a loop with `add()` or `multiply()` for repeated calculations such as compound interest or amortization schedules.
+
+## Environment
+- `BigDecimal` requires Java Standard Library, making it available in any JVM environment where Kotlin runs.
+- Supports integration with Kotlin/JS and Kotlin/Native, though primary use cases are within JVM due to Java interoperability.
+
+## Alternative
+- Alternatives to `BigDecimal` include using `Double` or `Float` for less precise calculations where performance is more critical.
+- Consider `Long` or `Int` for fixed-point arithmetic when dealing with integer representations of currency to avoid `BigDecimal` overhead.
+- `Apache Commons Math` or `math` libraries can offer additional numerical methods if needed alongside `BigDecimal`.
+
+### Example Code Snippets
+
+```kotlin
+// Creating a BigDecimal from a string
+val amount = BigDecimal("123.45")
+
+// Adding two BigDecimal values
+val sum = amount.add(BigDecimal("100.55"))
+
+// Subtracting two BigDecimal values
+val difference = amount.subtract(BigDecimal("23.45"))
+
+// Multiplying two BigDecimal values
+val product = amount.multiply(BigDecimal("2"))
+
+// Dividing two BigDecimal values with rounding mode
+val quotient = amount.divide(BigDecimal("2"), RoundingMode.HALF_UP)
+
+// Setting scale with rounding
+val scaledValue = amount.setScale(2, RoundingMode.HALF_UP)
+
+// Comparing two BigDecimal values
+val isEqual = amount.compareTo(BigDecimal("123.45")) == 0
+
+// Calculating remainder
+val remainder = amount.remainder(BigDecimal("50.00"))
+
+// Using BigDecimal in compound interest calculation
+fun calculateCompoundInterest(principal: BigDecimal, rate: BigDecimal, time: Int): BigDecimal {
+    val one = BigDecimal.ONE
+    val compoundFactor = one.add(rate).pow(time)
+    return principal.multiply(compoundFactor)
+}
+```
+
+These snippets demonstrate typical operations and use cases for the `BigDecimal` class in Kotlin, emphasizing precision and robustness in numerical computations.

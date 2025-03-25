@@ -1,0 +1,12 @@
+If you change your key, all existing data will get corrupted.
+But in case the key gets compromised, you would be in a mess.
+It can't be set from client-side application code, as that would be a security risk.
+If you want to determine the UID of your users, you can implement your own provider.
+If you had used the usual auto-incrementing IDs, you would have to re-index every blog post of the databases and update every foreign key that might point to them.
+They look something like:
+cc26d321-58fc-4cc1-978a-03f2bbdb2a55
+
+Just add a column of type UUID in your document entity and use it as the unique identifier.
+It will solve your problem as well because it will be difficult to guess the next uuid in comparison to the integer numbers.
+
+The reason for the criticism is that usually the id is the primary key and it's a sequential number.

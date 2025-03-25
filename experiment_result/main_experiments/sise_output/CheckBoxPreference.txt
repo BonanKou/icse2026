@@ -1,0 +1,28 @@
+You might consider setting itemView.checkBox.isClickable = false right after setting the listener so your whole list item will show the ripple effect even if you tap over the CheckBox.
+
+Side note: Don't forget to set the initial state of the CheckBox in onBindView:
+
+itemView.checkBox.isChecked = item.isChecked
+
+
+
+Your problem is probably because the recyclerview recycled the views of its items.
+With each item (in your case is 100 item), you will need a variable to check the checkbox inside item has clicked or not.
+This code just fine when you click one checkbox, if you clickmore, you will need a list clickedPosition, or a object with check field
+
+Checkboxes allow you to specify a method in the XML, which is called whenever its state changes with &quot;android:onClick=&quot;.
+You can change your code like this:
+
+For that:
+android:button=&quot;@null&quot;
+
+Right after that, you need to call android:drawableStart to use the drawable you just created, and set the padding as you would like.
+android:drawableStart=&quot;@drawable/checkbox_selector&quot;
+android:drawablePadding=&quot;10dp&quot;
+android:paddingStart=&quot;20dp&quot;
+
+
+Disclaimer: I have never used Android Studio or the Android SDK.
+I searched &quot;android checkbox listener&quot; on Google and this is the first result: https://developer.android.com/guide/topics/ui/controls/checkbox.
+
+To define the click event handler for a checkbox, add the android:onClick attribute to the  element in your XML layout.

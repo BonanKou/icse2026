@@ -1,0 +1,112 @@
+Kotlin is a lot more expressive than a lot of cascading if...
+Also, Kollin handles nullity at compile time so IDE should notify you if is null or not.
+I honestly don't know if it works and if it does the same things (it should but as i saidall those if are difficult to understand)
+=null you can use ?.
+Remember that in order to remove all if !
+You can use the function: isInitialized docs
+Code example:
+
+Note: check will throw an IllegalStateException if the variable is not initialized.
+It's because kotlin Null-Safety is kick in when reading the following code:
+
+if you visit the SharedPreferences code, you can see the following code:
+
+which is give us a probability to use null as defValue parameter.
+So, Kotlin try to guard it and give you the matching error:
+Required String, found String?"
+
+You can fix the problem by enabling nullable for your String variable with:
+
+though this against Kotlin type system purpose:
+
+Kotlin's type system is aimed at eliminating the danger of null references from code, also known as the The Billion Dollar Mistake.
+More idiomatic way to apply constrains in Kotlin is to use require function:
+
+It throws an IllegalArgumentException if the value is false.
+calls are allowed on a nullable reciever"
+
+Means that whatever variable you are using, might be null.
+after MainActivity
+(more on .?
+So if you tried running
+
+this might end up as:
+
+which (you may already know) will cause a crash
+All kotlin is asking for is an alternative (when the variable is in fact null) or a "promise" that the variable is not null (!!)
+Well, it is kinda suggesting what you have to do:
+
+"Only safe (?.) or non-null asserted (!!.)
+However I have the case where I just want to return if the value is null.
+If you want to throw an exception, go with require or check as @hotkey suggested.
+The question is, what do you want to do if your variable is null?
+instead of Either<UserNotFound, User> and use ensureNotNull inside either to achieve the same behavior.
+ensureNotNull also applies smart-casting on the value passed to it, similar to kotlin.requireNotNull of if(value !
+Since I try to always follow DDD.
+EntityNotFound is often not more descriptive than null but UserNotFound or ArticleNotFound is much more precise about what went wrong.
+So if you DDD then I would recommend modelling your errors precisely like that.
+Let's take an example, if you're already working with Either, or typed errors, than I personally prefer to use domain specific errors.
+There are a number of approaches you can take here, but nullable is certainly a fair option and there are idiomatic ways to deal with null in Kotlin and Arrow.
+= null)
+As I have understood, your errors are generating from this code block:
+
+Here one of the variables from document is coming as null which cannot be cast to non-nullable String type in kotlin.
+If you are not sure of the fields which can come null, write code like this:
+
+For more clarity please check Safe(nullable)-Cast operator in kotlin docs
+Now you can use this function like this
+
+But its not seems so useful if your using this function just to check nullability.
+You may use your function simply like this:
+
+Otherwise  you can check for null by following inline function and then perform any functions directly on the variable.
+The error was because I forgot to add ?
+Ideally, we should use simply println(c.length), but make sure it never executes before initializing c.
+Update
+If your concerns are not at all related to object initialization, but only about the if versus ?..
+In Java we often have to write code like this (let's ignore Law of Demeter):
+None of them.
+Object initialization is one of the very few cases where null safety in Kotlin is partially disabled.
+First code sample always invokes print(), potentially passing null to it.
+Data inconsistency with regard to initialization
+
+Possible explanations are: technical limitations imposed by the underlying Java; or intentional decision, because guaranteed null-safety during the initialization might be pretty annoying for the developer.
+Second code sample doesn't invoke print() in the case of null.
+I'm not sure if I fully understand your question.
+This is mentioned in the documentation about the null safety:
+
+The only possible causes of an NPE in Kotlin are: (...)
+No matter the reason, developers are expected to be careful when implementing the initialization logic or better, at all avoid complex logic there.
+Unfortunately, Intrinsics.checkNotNullExpressionValue throws a NullPointerExeption, as ArgumentMatchers.any() returnes null.
+The matchers stack is checked upon MockedStaticImpl.when call, and the InvalidUseOfMatchersException is reported.
+The difference stems from the fact that Kotlin adds null-checking code.
+If any assertions inside the block failed, the test will continue to run.
+In KotlinTest, I believe you can use assertSoftly for the behavior you want:
+
+Normally, assertions like shouldBe throw an exception when they fail.
+All failures will be reported in a single exception at the end of the block.
+And then, we can convert your test to use assertSoftly:
+
+It's necessary to wrap verify in shouldNotThrowAny to make assertSoftly aware of it when it throws an exception
+The only conclusion I can reach is that the compiler is doing guess work;
+
+From the above snippet from your question,
+
+The tricky part is that it is not sure whether the value returned by BarKt.bar($completion); will be COROUTINE_SUSPENDED | kotlin.
+Unit, it seems that compiler some how not sure for the right part will always kotlin.
+If value is non null it performs the defined operation otherwise skips it.
+it refers to the copy of that non-null value.
+It works with all mutable types or member var, It check for the null once and then provides the result.
+= null) {
+This too will only work if variable curfrag is immutable (that means a local variable which is not modified between the check and the usage or a member val which has a backing field and is not overridable), because otherwise it might happen that curfrag changes to null after the check from some other thread.
+with let always gives us non nullable result, what Safe calls operator ?.
+You can perform a nullability check on the variable and then can use it like this
+if(curfrag !
+So when you do this
+curFrag?.let { transaction.hide(curFrag) }
+curFrag can be null as you are directly passing a nullable value.
+But in this case
+curFrag?.let { transaction.hide(it) }
+it only passes value if it's a non-null value.
+Kotlin is a null safe language, it tries to eliminate every possible null references from the code.
+does is, it only performs any operation following it, only if the variable is not-null otherwise it returns null.

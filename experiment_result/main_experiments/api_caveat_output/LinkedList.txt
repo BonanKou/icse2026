@@ -1,0 +1,67 @@
+You wont be able to have a separate linked list if they remain static.
+and i is 1
+From this we can see few problems
+
+On the next iteration of loop it will skip element at current i position which should be checked
+
+The same process happens again and again every time element greater than 25 is found the next element is not going to be validated and will intern remain in the LinkedList even if it is greater than 25
+To solve the problem as state by @tricot you can either loop over the LinkedList starting from the end
+
+which leads to time complexity of O(𝑛²).
+when element greater than 25 is found on position 1 let see what happens
+
+As we can see from the visualisation size is now 10
+The problem is you are modifying LinkedList while looping over its original size which get changed after element removal which intern causes the index inside loop pointing to incorrect values
+if we look it with visualisation it will be more clear
+
+when loop started the size and i position in LinkedList is shown.
+You don't need to use the LinkedList class built-in in the JDK.
+If you choose the language level Java 8, then almost ready to go implementation will be provided for you.
+You only need to implement a single method that does precisely what required according to the challenge description, and nothing more:
+Instead, you have to utilize a very basic custom implementation of the Singly linked list data structure.
+And we even get to 'save' on trackers - we don't need em (fields themselves within a single object are guaranteed contiguous, though note that all non-primitive fields are, of course, pointers, and the thing they're pointing at might not be).
+This algorithm works even if the list has a few bazillion entries in it.
+Of course, if you do that, you may eventually run into that whole padLeft debacle thing, but then you're kinda signing up for that the moment you decide to use javascript in the first place.
+You can use the ListIterator to iterate your way to the right position (this will be O(n), if you want to add in the middle), but from there you can add as much as you like, and each .add operation is indeed O(1), though the trackers you're making are likely in a different cache page, so you're negatively impacting any future performance of this list.
+So what should I use instead?
+For arraylists, this means the system has to 'move' 25 elements up a slot so that there's 'room', and it gets a little worse if the backing array is exactly at capacity (in which case we have to create a new array, copy the original to this newly created one in two chunks and then set the new value at the right index).
+You should write some code to test your preconceptions.
+It's null for the first element.
+The only operation that the CPU can send to the memory controller is 'flush this ENTIRE page to main memory' (it cannot flush half of a page; a page size depends on your CPU, but think 64k or so), and 'replace this on-die cache by loading in this ENTIRE page from main memory'.
+Javascript can be - objects really are just hashmaps and you're free to introduce a prev and next pointer if you want.
+next: The tracker object for the item after us in this list - it's null for the last.
+With an empty linkedlist having null values.
+The only way is to use .listIterator(), or .iterator().remove().
+The only way to get O(1) performance out of a LinkedList where ArrayList has O(n), is via those!
+And to test my theories while you're at it!
+Make code that e.g. inserts in the middle using list.set(list.size() / 2, newElem) and time it for both when list is an instance of ArrayList as well as for an instance of LinkedList.
+This should then segue into why an actual useful LinkedList is a bit tricky to implement, API-wise.
+The tracker object for the item before us in this list (because LinkedList is two-way traversable; if you don't need two-way, you can leave this one out).
+They can only access an on-die cache which comes in an entire page.
+If you leave O(n) land behind and get to pragmatics one might say that LinkedList has excellent performance when you add near the 'start' of the list, whereas ArrayList would be at its worst there (LinkedList needs to iterate only a few trackers to get to the right one, whereas ArrayList needs to move a gigantic chunk), but you don't want to do that - when we leave theoretic performance models (that is, O(n) notation) behind and get to actual performance, LinkedList's is truly deplorable - just about everything that isn't algorithmic that could go wrong, does go wrong with LinkedList.
+Most of which do not have javascript equivalents either, but all of which have third party libraries in the node ecosystem that do.
+Even in cases where basic big-O notation would suggest otherwise.
+Hence, when you are talking about a smallish arraylist, given that the JVM guarantees that arrays are 'contiguous in memory', as long as the entire list fits in a single page, then effectively all operations on it are instantaneous, and that whole O(n) thing sounds nice but, it's just entirely pointless, really.
+You are creating an instance of List here instead of creating an instance of  LinkedList.
+So better to use :
+Only  LinkedList implements both List and the Queue interface.
+If this is the case, you can try something like this:
+If I understood correctly from the comments, you need the list to be
+
+grouped by profession,
+sorted by age
+collected into a LinkedHashMap
+"... I can only create lists with a single data type, in this instance being BufferedImages, but I want to be able to create one LinkedList for a BufferedImage and another for an int.
+According to your description, this is actually a small program that counts specific strings, and doesn't even need LinkedList
+I modified your code and now it should satisfy the two conditions you proposed
+it would help if you elaborate what type of list u are comparing,
+linkedlist or arrays.
+But actually you put the linked list after the less and great so that the cycle appeared.
+The exception is you have not deal the node as a simple node ,you think you just put a node after less and great.
+Add to Singer.java:
+
+I am facing the same issue and I think that you explicitely have to set the "mappedBy" property value on the linked entity (Album)
+If you want a button instead of a link style the link accordingly.
+If you click on the Java link at the top of any CDK documentation page, you will get the Java documentation for that construct.
+And yes, this construct will only create the instance.
+If you want a cluster, create multiple instances and connect them, or use DatabaseCluster.

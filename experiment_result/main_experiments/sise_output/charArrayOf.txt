@@ -1,0 +1,43 @@
+Therefore, in decimal, 97 + 25 = 122.
+Looking up 122 in the Unicode table reveals that this is the decimal representation of z.
+Each number is assigned to a character, which we can look up in a unicode table.
+There shouldn't be a need to do any conversions to Strings, CharArrays, or anything else.
+If you have a specific set of characters (here I made it a constant), I found this to be an easy way:
+val CHARS = &quot;abcdefghijklmnopqrstuvwxyz&quot;.toCharArray()
+
+
+This might change in the future but currently you cannot make use of array literals in your actual code.
+
+Read about annotations here.
+
+
+  For other arguments that have an array type, you need to use the array
+  literal syntax (since Kotlin 1.2) or arrayOf(...):
+  
+  // Java
+
+public @interface AnnWithArrayMethod {
+
+    String[] names();
+
+}
+
+  
+  // Kotlin 1.2+:
+
+@AnnWithArrayMethod(names =
+You can again use Char.code to get the decimal representation.
+fun main() {
+  println(('a'
+To convert Char back to Int use code property:
+49.toChar() // =&gt; '1' (Char)
+
+49.toChar().code // =&gt; 49 (Int)
+
+49.toChar().code.toString() // =&gt; &quot;49&quot; (String)
+
+Char type in Kotlin represents a 16-bit Unicode character.
+If I understand correctly, you want this for loop to result in a true or false based on whether any inner array has the same sequence and number of chars as the key String.
+
+In this we can see that the letter a has a decimal representation of 97.
+
