@@ -5,4 +5,4 @@ This repository contains code and data for ICSE 2026 first-cycle submission: Aut
 For code to run AutoDoc and five baselines, please check `code` folder.
 
 ## Data
-For experiment data, please check `data` folder.
+For experiment data, please check `experiment_result` folder.
